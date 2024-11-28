@@ -28,10 +28,10 @@ Check out the live version of the project here:
 
 ## 📸 Screenshots
 
-### Homepage
+### ☀️ Homepage
 ![Homepage](images/screenshot.png)
 
-### Dark Mode
+### 🌑 Dark Mode
 ![Dark Mode](images/screenshot_darkmode.png)
 
 ---
