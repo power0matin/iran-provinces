@@ -8,6 +8,7 @@
 </head>
 <body>
 
+    <!-- هدر -->
     <header>
         <div class="container">
             <h1>استان فارس</h1>
@@ -19,21 +20,48 @@
                 </ul>
             </nav>
         </div>
+        <div id="darkModeToggleContainer">
+            <label class="switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider round"></span>
+            </label>
+        </div>
     </header>
 
+    <!-- محتوا -->
     <main class="container">
         <section class="province-info">
-            <img src="../images/fars.jpg" alt="تصویر استان فارس">
-            <h2>استان فارس</h2>
-            <p>فارس یکی از استان‌های تاریخی ایران است و شهر شیراز در آن قرار دارد.</p>
+            <div class="province-content">
+                <!-- توضیحات استان -->
+                <div class="province-text">
+                    <h2>درباره استان فارس</h2>
+                    <p>استان فارس در جنوب ایران واقع شده است و مرکز آن شیراز است. فارس یکی از استان‌های تاریخی و فرهنگی کشور است که جاذبه‌های گردشگری فراوانی دارد. این استان به‌عنوان محل تولد بزرگان فرهنگی و علمی ایران از جمله حافظ و سعدی شناخته می‌شود.</p>
+                    <p>شیراز، پایتخت استان فارس، شهری با تاریخ و فرهنگ غنی است که جاذبه‌هایی نظیر حافظیه، سعدیه، مسجد نصیرالملک و باغ ارم را در خود جای داده است. همچنین تخت جمشید، پایتخت باستانی ایران که توسط داریوش بزرگ ساخته شده، یکی از معروف‌ترین جاذبه‌های گردشگری این استان است.</p>
+                    <p>جاذبه‌های گردشگری فارس عبارتند از:
+                        <ul>
+                            <li>تخت جمشید</li>
+                            <li>حافظیه</li>
+                            <li>سعدیه</li>
+                            <li>مسجد نصیرالملک</li>
+                            <li>باغ ارم</li>
+                            <li>باغ پاسارگاد</li>
+                        </ul>
+                    </p>
+                </div>
+                <img src="../images/fars_1.jpg" alt="استان فارس" class="province-image">
+                <img src="../images/fars_2.jpg" alt="استان فارس" class="province-image">
+            </div>
         </section>
     </main>
 
+    <!-- فوتر -->
     <footer>
         <div class="container">
             <p>&copy; 2024 تمامی حقوق محفوظ است.</p>
+            <p>طراحی توسط <a href="https://github.com/power0matin" target="_blank">powermatin</a></p>
         </div>
     </footer>
+    <script src="../js/darkMode.js" defer></script>
 
 </body>
 </html>

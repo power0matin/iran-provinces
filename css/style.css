@@ -73,6 +73,7 @@ header nav ul li a:hover {
     margin: 20px;
 }
 
+/* استایل برای لیست و دکمه‌ها */
 .list-section {
     flex: 1; /* فضای باقی‌مانده را پر می‌کند */
 }
@@ -95,6 +96,42 @@ header nav ul li a:hover {
     margin-bottom: 10px;
 }
 
+/* استایل لینک‌ها */
+.list-section ul li a {
+    text-decoration: none; /* از بین بردن خط زیر لینک */
+    color: #e6d9d9; /* رنگ اولیه */
+    font-size: 1rem;
+    transition: color 0.3s ease; /* افکت تغییر رنگ */
+}
+
+.list-section ul li a:hover {
+    color: #ff0000; /* رنگ تغییر یافته وقتی موس روی لینک باشد */
+}
+
+/* استایل برای دکمه‌ها */
+.list-section button {
+    background-color: #004c8c; /* رنگ پس‌زمینه اولیه */
+    color: white; /* رنگ متن */
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* افکت تغییر رنگ پس‌زمینه */
+}
+
+.list-section button:hover {
+    background-color: #ff4500; /* رنگ پس‌زمینه تغییر یافته زمانی که موس روی دکمه است */
+}
+
+/* بهینه‌سازی برای نمایش بهتر دکمه‌ها */
+.list-section button:focus, 
+.list-section ul li a:focus {
+    outline: none; /* از بین بردن outline پیش‌فرض مرورگر */
+    box-shadow: 0 0 5px rgba(0, 76, 140, 0.5); /* اضافه کردن افکت سایه برای فشردن دکمه یا لینک */
+}
+
+
+
 .province {
     background-color: #004c8c;
     color: white;
@@ -106,34 +143,35 @@ header nav ul li a:hover {
     text-align: center;
 }
 
-.province:hover {
-    background-color: #0059ff;
-}
-
 /* استایل محتوا */
 .province-info {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 30px 0;
+    margin: 35px;
 }
 
 .province-info .province-content {
+    text-align: right; /* قرار دادن متن در راست */
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
 }
 
 .province-info .province-image {
-    max-width: 50%;
-    border-radius: 10px;
-    margin-left: 20px;
+    max-width: 300px;
+    max-height: auto;  /* ارتفاع خودکار برای حفظ تناسب */
+    margin-bottom: 50px; /* فاصله بین تصاویر */
+    margin-right: 20px; /* فاصله بین تصاویر */
+    object-fit: cover; /* این ویژگی باعث می‌شود تصویر به صورت مناسب داخل کادر جا شود */
+    border-radius: 15px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #000547;
+    text-align: left;
 }
 
+
 .province-info .province-text {
-    width: 50%;
-    padding-left: 20px;
+    text-align: right;
+    width: 100%;
+    padding: 20px;
 }
 
 .province-info .province-text h2 {
@@ -166,6 +204,7 @@ footer {
 footer p {
     font-size: 1rem;
 }
+
 /* استایل فرم تماس */
 .contact-section {
     margin: 40px auto;
@@ -234,5 +273,113 @@ footer p {
 
 .contact-section form button:active {
     background-color: #003d66;
+}
+/* دکمه کشویی */
+#darkModeToggleContainer {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000; /* قرار دادن دکمه بالاتر از بقیه محتوای صفحه */
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+}
+
+/* وقتی که وضعیت چک‌باکس تغییر کرده باشد */
+input:checked + .slider {
+    background-color: #061725; /* رنگ پس‌زمینه حالت تاریک */
+}
+
+input:checked + .slider:before {
+    transform: translateX(30px); /* حرکت دکمه به سمت راست */
+}
+
+/* استایل برای تغییر حالت تاریک */
+body.dark-mode {
+    background-color: #121212;
+    color: #f1f1f1;
+    font-family: Vazir, sans-serif; /* انتخاب فونت خواناتر */
+}
+
+body.dark-mode header {
+    background-color: #1a1a1a; /* رنگ تیره‌تر برای هدر */
+}
+
+body.dark-mode footer {
+    background-color: #1a1a1a; /* رنگ تیره‌تر برای فوتر */
+}
+
+body.dark-mode .province-info {
+    background-color: #1f1f1f; /* پس‌زمینه تیره‌تر برای بخش استان */
+}
+
+body.dark-mode .province-text {
+    color: #f1f1f1; /* رنگ متن روشن‌تر */
+}
+
+body.dark-mode .province-text h2 {
+    color: #ffd700; /* رنگ طلایی برای تیترها */
+}
+
+body.dark-mode .province-text p, .body.dark-mode .province-text ul li {
+    color: #e0e0e0; /* رنگ روشن‌تر برای متن‌ها و لیست‌ها */
+}
+
+body.dark-mode .list-section ul li a {
+    color: #ddd;
+    transition: color 0.3s ease; /* انتقال رنگ لینک‌ها */
+}
+
+body.dark-mode .list-section ul li a:hover {
+    color: #ff6600; /* رنگ روشن‌تر برای لینک‌های هاور */
+}
+
+body.dark-mode .list-section button {
+    background-color: #333;
+    color: white;
+    border: 1px solid #444;
+}
+
+body.dark-mode .list-section button:hover {
+    background-color: #444;
+    border: 1px solid #555;
+}
+
+body.dark-mode .list-section button:active {
+    background-color: #555; /* رنگ فعال برای دکمه */
 }
 

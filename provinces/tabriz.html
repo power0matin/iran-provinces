@@ -7,19 +7,61 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+
+    <!-- هدر -->
     <header>
-        <h1>استان تبریز</h1>
-    </header>
-    <main>
-        <p>تبریز، مرکز آذربایجان، به خاطر بازار تاریخی، ائل گلی، و فرهنگ غنی خود شناخته می‌شود.</p>
-        <div class="images">
-            <img src="../images/tabriz1.jpg" alt="تصویر تبریز">
-            <img src="../images/tabriz2.jpg" alt="تصویر تبریز">
+        <div class="container">
+            <h1>استان آذربایجان شرقی</h1>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">خانه</a></li>
+                    <li><a href="../about.html">درباره ما</a></li>
+                    <li><a href="../contact.html">تماس</a></li>
+                </ul>
+            </nav>
         </div>
-        <button onclick="history.back()">بازگشت</button>
+        <div id="darkModeToggleContainer">
+            <label class="switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </header>
+
+    <!-- محتوا -->
+    <main class="container">
+        <section class="province-info">
+            <div class="province-content">
+                <!-- توضیحات استان -->
+                <div class="province-text">
+                    <h2>استان آذربایجان شرقی</h2>
+                    <p>استان تبریز در شمال‌غربی ایران و مرکز آن، شهر تبریز، یکی از مهم‌ترین و تاریخی‌ترین شهرهای کشور است. تبریز با قدمتی چند هزار ساله، به‌عنوان مرکز فرهنگی و اقتصادی این منطقه شناخته می‌شود. این استان دارای جاذبه‌های تاریخی، فرهنگی، طبیعی و هنری بسیاری است.</p>
+                    <p>تبریز به‌عنوان یکی از قدیمی‌ترین شهرهای ایران، دارای آثار تاریخی بسیاری از جمله بازار تبریز، ارگ علیشاه، و مسجد کبود است. این استان همچنین به‌خاطر صنایع دستی همچون قالی‌بافی و سرامیک‌های زیبای خود شناخته می‌شود.</p>
+                    <p>جاذبه‌های گردشگری استان تبریز عبارتند از:
+                        <ul>
+                            <li>بازار تبریز</li>
+                            <li>ارگ علیشاه</li>
+                            <li>مسجد کبود</li>
+                            <li>پارک ائل گلی</li>
+                            <li>موزه آذربایجان</li>
+                            <li>کلیسای سنت استپانوس</li>
+                        </ul>
+                    </p>
+                </div>
+                <img src="../images/tabriz_1.jpg" alt="استان تبریز" class="province-image">
+                <img src="../images/tabriz_2.jpg" alt="استان تبریز" class="province-image">
+            </div>
+        </section>
     </main>
+
+    <!-- فوتر -->
     <footer>
-        <p>© 2024 استان تبریز</p>
+        <div class="container">
+            <p>&copy; 2024 تمامی حقوق محفوظ است.</p>
+            <p>طراحی توسط <a href="https://github.com/power0matin" target="_blank">powermatin</a></p>
+        </div>
     </footer>
+    <script src="../js/darkMode.js" defer></script>
+
 </body>
 </html>

@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <!-- هدر سایت -->
+    <!-- هدر -->
     <header>
         <div class="container">
             <h1>استان اهواز</h1>
@@ -20,22 +20,36 @@
                 </ul>
             </nav>
         </div>
+        <div id="darkModeToggleContainer">
+            <label class="switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider round"></span>
+            </label>
+        </div>
     </header>
 
-    <!-- توضیحات استان اهواز -->
+    <!-- محتوا -->
     <main class="container">
         <section class="province-info">
-            <img src="../images/ahvaz.jpg" alt="تصویر استان اهواز">
-            <h2>استان اهواز</h2>
-            <p>
-                اهواز، مرکز استان خوزستان و یکی از مهم‌ترین و پرجمعیت‌ترین شهرهای ایران است. این شهر به‌خاطر موقعیت جغرافیایی و صنعتی‌اش اهمیت زیادی دارد. اهواز در کنار رودخانه کارون واقع شده و یکی از مراکز اصلی نفت و گاز کشور است.
-            </p>
-            <h3>مکان‌های دیدنی اهواز</h3>
-            <ul>
-                <li>پل کارون</li>
-                <li>موزه آبادان</li>
-                <li>دریاچه بختیاری</li>
-            </ul>
+            <div class="province-content">
+                <!-- توضیحات استان -->
+                <div class="province-text">
+                    <h2>درباره استان اهواز</h2>
+                    <p>استان اهواز یکی از استان‌های مهم در جنوب غربی ایران است که مرکز آن، شهر اهواز، است. اهواز یکی از شهرهای بزرگ و صنعتی کشور می‌باشد که از نظر اقتصادی و اجتماعی اهمیت بالایی دارد. این استان در منطقه خوزستان قرار دارد و به عنوان یکی از قطب‌های نفت و گاز کشور شناخته می‌شود.</p>
+                    <p>استان اهواز از نظر جاذبه‌های گردشگری نیز حائز اهمیت است. جاذبه‌هایی چون رودخانه کارون، پل کارون، و باغ‌های نخل اهواز از دیدنی‌ترین مکان‌های این استان به شمار می‌روند.</p>
+                    <p>جاذبه‌های گردشگری اهواز عبارتند از:
+                        <ul>
+                            <li>رودخانه کارون</li>
+                            <li>پل کارون</li>
+                            <li>باغ‌های نخل اهواز</li>
+                            <li>موزه مردم‌شناسی اهواز</li>
+                            <li>آبشارهای شوشتر</li>
+                        </ul>
+                    </p>
+                </div>
+                <img src="../images/ahvaz_1.jpg" alt="استان اهواز" class="province-image">
+                <img src="../images/ahvaz_2.jpg" alt="استان اهواز" class="province-image">
+            </div>
         </section>
     </main>
 
@@ -43,9 +57,9 @@
     <footer>
         <div class="container">
             <p>&copy; 2024 تمامی حقوق محفوظ است.</p>
-            <p>طراحی توسط شما</p>
+            <p>طراحی توسط <a href="https://github.com/power0matin" target="_blank">powermatin</a></p>
         </div>
     </footer>
-
+    <script src="../js/darkMode.js" defer></script>
 </body>
 </html>
