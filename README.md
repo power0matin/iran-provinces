@@ -54,4 +54,4 @@ See the [LICENSE](LICENSE) file for more details.
 If you have any questions or suggestions, feel free to contact me via:
 [Telegram](https://t.me/powermatin)
 
-© 2024 All rights reserved. Designed and developed by power0matin.
+© 2024 All rights reserved. Designed and developed by [power0matin](https://github.com/power0matin).
