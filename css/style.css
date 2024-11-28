@@ -7,7 +7,7 @@
 }
 
 body {
-    font-family: 'Vazir', sans-serif;
+    font-family: "Vazir", sans-serif;
     background-color: #f7f7f7;
     color: #333;
     line-height: 1.6;
@@ -15,9 +15,12 @@ body {
 
 .container {
     direction: rtl;
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
+    width: 100%;
+    max-width: 1500px;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0 0px 20px 3px rgba(22, 22, 13, 0.788);
+    /* سایه ضعیف‌تر در حالت فشرده */
 }
 
 /* هدر سایت */
@@ -51,7 +54,7 @@ header nav ul li a {
 }
 
 header nav ul li a:hover {
-    color: #ffd700;
+    color: #ffd900;
 }
 
 /* بخش نقشه و لیست */
@@ -61,76 +64,122 @@ header nav ul li a:hover {
     align-items: flex-start;
     justify-content: space-between;
     gap: 20px;
-    margin: 30px 0; /* فاصله از هدر و فوتر */
+    margin: 30px 0;
+    /* فاصله از هدر و فوتر */
 }
 
 .image-section img {
-    width: 100%;
-    max-width: 520px;
-    height: auto;
     border: 1px solid #242121;
     border-radius: 20px;
-    margin: 20px;
+    margin-left: 80px;
+    margin-right: 20px;
+    margin-top: 60px;
+    margin-bottom: 50px;
 }
 
 /* استایل برای لیست و دکمه‌ها */
 .list-section {
     flex: 1; /* فضای باقی‌مانده را پر می‌کند */
+    margin: 20px auto;
+    display: flex;
+    flex-wrap: wrap;
+    /* اجزای لیست به خط جدید منتقل می‌شوند */
+    gap: 10px;
+    /* فاصله بین دکمه‌ها */
 }
 
 .list-section h2 {
+    margin-right: 70px;
     color: #004c8c;
     margin-bottom: 20px;
     text-align: center;
+    width: 100%;
+    /* متن عنوان تمام عرض را می‌گیرد */
+
+
 }
 
 .list-section ul {
     list-style: none;
     padding: 0;
-    margin: 0;
-    direction: rtl;
-    text-align: right;
+    margin-right: 70px;
+    display: flex;
+    flex-wrap: wrap;
+    /* لیست‌ها به خط بعدی منتقل می‌شوند */
+    justify-content: space-between;
+    /* فاصله مساوی بین دکمه‌ها */
+    width: 100%;
+    /* تمام عرض بخش لیست را می‌گیرد */
+    gap: 20px;
+    /* فاصله بین دکمه‌ها */
 }
 
 .list-section ul li {
-    margin-bottom: 10px;
+    flex: 1 1 calc(30% - 50px);
+    /* دکمه‌ها عرض 50% از والد را می‌گیرند */
+    display: flex;
+    justify-content: center;
+    /* دکمه‌ها در وسط قرار می‌گیرند */
+    align-items: center;
 }
 
-/* استایل لینک‌ها */
 .list-section ul li a {
-    text-decoration: none; /* از بین بردن خط زیر لینک */
-    color: #e6d9d9; /* رنگ اولیه */
+    text-decoration: none;
+    /* حذف خط زیر لینک */
+    color: #e6d9d9;
+    /* رنگ اولیه متن لینک */
+    background-color: #004c8c;
     font-size: 1rem;
-    transition: color 0.3s ease; /* افکت تغییر رنگ */
+    padding: 13px 10px;
+    /* فاصله داخلی لینک */
+    text-align: center;
+    width: 100%;
+    /* دکمه‌ها تمام عرض سلول را پر می‌کنند */
+    border-radius: 8px;
+    /* گوشه‌های گرد */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* افکت تغییر رنگ */
 }
 
 .list-section ul li a:hover {
-    color: #ff0000; /* رنگ تغییر یافته وقتی موس روی لینک باشد */
+    background-color: #005fa3;
+    /* رنگ تغییر یافته هنگام هاور */
+    color: #ffffff;
+    /* تغییر رنگ متن هنگام هاور */
 }
 
 /* استایل برای دکمه‌ها */
 .list-section button {
-    background-color: #004c8c; /* رنگ پس‌زمینه اولیه */
-    color: white; /* رنگ متن */
+    background-color: #728c00;
+    /* رنگ پس‌زمینه اولیه */
+    color: white;
+    /* رنگ متن */
     border: none;
-    padding: 10px 20px;
+    padding: 15px 20px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease; /* افکت تغییر رنگ پس‌زمینه */
+    width: 100%;
+    /* دکمه‌ها تمام عرض سلول را پر می‌کنند */
+    text-align: center;
+    border-radius: 8px;
+    /* گوشه‌های گرد */
+    transition: background-color 0.3s ease;
+    /* افکت تغییر رنگ پس‌زمینه */
 }
 
 .list-section button:hover {
-    background-color: #ff4500; /* رنگ پس‌زمینه تغییر یافته زمانی که موس روی دکمه است */
+    background-color: #ff4500;
+    /* رنگ پس‌زمینه تغییر یافته هنگام هاور */
 }
 
 /* بهینه‌سازی برای نمایش بهتر دکمه‌ها */
-.list-section button:focus, 
+.list-section button:focus,
 .list-section ul li a:focus {
-    outline: none; /* از بین بردن outline پیش‌فرض مرورگر */
-    box-shadow: 0 0 5px rgba(0, 76, 140, 0.5); /* اضافه کردن افکت سایه برای فشردن دکمه یا لینک */
+    outline: none;
+    /* حذف outline پیش‌فرض مرورگر */
+    box-shadow: 0 0 5px rgba(0, 102, 185, 0.5);
+    /* افکت سایه هنگام انتخاب */
 }
-
-
 
 .province {
     background-color: #004c8c;
@@ -150,23 +199,29 @@ header nav ul li a:hover {
 }
 
 .province-info .province-content {
-    text-align: right; /* قرار دادن متن در راست */
+    text-align: right;
+    /* قرار دادن متن در راست */
     display: flex;
 }
 
 .province-info .province-image {
     max-width: 300px;
-    max-height: auto;  /* ارتفاع خودکار برای حفظ تناسب */
-    margin-bottom: 50px; /* فاصله بین تصاویر */
-    margin-right: 20px; /* فاصله بین تصاویر */
-    object-fit: cover; /* این ویژگی باعث می‌شود تصویر به صورت مناسب داخل کادر جا شود */
+    max-height: auto;
+    /* ارتفاع خودکار برای حفظ تناسب */
+    margin: 50px;
+    /* فاصله بین تصاویر */
+    margin-right: 20px;
+    /* فاصله بین تصاویر */
+    object-fit: cover;
+    /* این ویژگی باعث می‌شود تصویر به صورت مناسب داخل کادر جا شود */
+    margin-left: 30px;
+    margin-top: 45px;
     border-radius: 15px;
     border-width: 2px;
-    border-style: solid;
-    border-color: #000547;
+    box-shadow: 0 0px 10px 2px #003366;
+    /* سایه ضعیف‌تر در حالت فشرده */
     text-align: left;
 }
-
 
 .province-info .province-text {
     text-align: right;
@@ -197,6 +252,7 @@ footer {
     background-color: #333;
     color: #fff;
     text-align: center;
+    direction: rtl;
     padding: 20px;
     margin-top: 30px;
 }
@@ -215,6 +271,8 @@ footer p {
     border-radius: 10px;
     direction: rtl;
     text-align: right;
+    font-family: sans-serif;
+    font-size: 20px;
 }
 
 .contact-section h2 {
@@ -260,7 +318,8 @@ footer p {
     padding: 10px 15px;
     background-color: #004c8c;
     color: #fff;
-    font-size: 1rem;
+    font-family: sans-serif;
+    font-size: 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -274,12 +333,14 @@ footer p {
 .contact-section form button:active {
     background-color: #003d66;
 }
+
 /* دکمه کشویی */
 #darkModeToggleContainer {
     position: fixed;
     top: 20px;
     left: 20px;
-    z-index: 1000; /* قرار دادن دکمه بالاتر از بقیه محتوای صفحه */
+    z-index: 1000;
+    /* قرار دادن دکمه بالاتر از بقیه محتوای صفحه */
 }
 
 .switch {
@@ -315,71 +376,119 @@ footer p {
     border-radius: 50%;
     left: 4px;
     bottom: 4px;
-    background-color: white;
-    transition: 0.4s;
+    background-color: rgb(58, 58, 58);
+    transition: 0.5s;
 }
 
 /* وقتی که وضعیت چک‌باکس تغییر کرده باشد */
-input:checked + .slider {
-    background-color: #061725; /* رنگ پس‌زمینه حالت تاریک */
+input:checked+.slider {
+    background-color: rgb(184, 184, 0);
+    /* رنگ پس‌زمینه حالت تاریک */
 }
 
-input:checked + .slider:before {
-    transform: translateX(30px); /* حرکت دکمه به سمت راست */
+input:checked+.slider:before {
+    transform: translateX(30px);
+    /* حرکت دکمه به سمت راست */
 }
 
 /* استایل برای تغییر حالت تاریک */
 body.dark-mode {
     background-color: #121212;
     color: #f1f1f1;
-    font-family: Vazir, sans-serif; /* انتخاب فونت خواناتر */
+    font-family: Vazir, sans-serif;
+    /* انتخاب فونت خواناتر */
 }
 
 body.dark-mode header {
-    background-color: #1a1a1a; /* رنگ تیره‌تر برای هدر */
+    background-color: #1a1a1a;
+    /* رنگ تیره‌تر برای هدر */
+}
+
+body.dark-mode .container {
+    border-radius: 10px;
+    background-color: #1b1b1b;
+    box-shadow: 0 0px 10px 0.1px rgba(255, 255, 0, 0.788);
+    /* سایه ضعیف‌تر در حالت فشرده */
 }
 
 body.dark-mode footer {
-    background-color: #1a1a1a; /* رنگ تیره‌تر برای فوتر */
+    background-color: #1a1a1a;
+    /* رنگ تیره‌تر برای فوتر */
 }
 
 body.dark-mode .province-info {
-    background-color: #1f1f1f; /* پس‌زمینه تیره‌تر برای بخش استان */
+    background-color: #1f1f1f;
+    /* پس‌زمینه تیره‌تر برای بخش استان */
+}
+
+body.dark-mode .province-image {
+    box-shadow: 0 0px 10px 1px rgba(255, 255, 0, 0.788);
+    /* سایه ضعیف‌تر در حالت فشرده */
 }
 
 body.dark-mode .province-text {
-    color: #f1f1f1; /* رنگ متن روشن‌تر */
+    color: #f1f1f1;
+    /* رنگ متن روشن‌تر */
 }
 
 body.dark-mode .province-text h2 {
-    color: #ffd700; /* رنگ طلایی برای تیترها */
+    color: #ffd700;
+    /* رنگ متن روشن‌تر */
 }
 
-body.dark-mode .province-text p, .body.dark-mode .province-text ul li {
-    color: #e0e0e0; /* رنگ روشن‌تر برای متن‌ها و لیست‌ها */
+body.dark-mode h1 {
+    color: #ffd700;
+    /* رنگ طلایی برای تیترها */
+}
+
+body.dark-mode h2 {
+    color: #ffd700;
+    /* رنگ طلایی برای تیترها */
+}
+
+body.dark-mode .province-text p,
+.body.dark-mode .province-text ul li {
+    color: #e0e0e0;
+    /* رنگ روشن‌تر برای متن‌ها و لیست‌ها */
 }
 
 body.dark-mode .list-section ul li a {
     color: #ddd;
-    transition: color 0.3s ease; /* انتقال رنگ لینک‌ها */
-}
-
-body.dark-mode .list-section ul li a:hover {
-    color: #ff6600; /* رنگ روشن‌تر برای لینک‌های هاور */
-}
-
-body.dark-mode .list-section button {
-    background-color: #333;
-    color: white;
-    border: 1px solid #444;
-}
-
-body.dark-mode .list-section button:hover {
-    background-color: #444;
-    border: 1px solid #555;
+    transition: color 0.3s ease;
+    /* انتقال رنگ لینک‌ها */
 }
 
 body.dark-mode .list-section button:active {
-    background-color: #555; /* رنگ فعال برای دکمه */
+    background-color: #555;
+    /* رنگ فعال برای دکمه */
 }
 
+body.dark-mode .contact-section {
+    margin: 40px auto;
+    max-width: 600px;
+    background: rgb(27, 27, 27);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    direction: rtl;
+    text-align: right;
+}
+
+body.dark-mode .contact-section form button {
+    background-color: rgb(255, 255, 0);
+    color: #000000;
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode .contact-section form label {
+    color: #e6e6e6;
+}
+
+body.dark-mode .list-section ul li a {
+    color: #000000;
+    /* رنگ اولیه */
+    font-style: initial;
+    background-color: #c8ff00;
+    transition: color 1s ease;
+    /* افکت تغییر رنگ */
+}
