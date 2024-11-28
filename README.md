@@ -31,6 +31,9 @@ Check out the live version of the project here:
 ### Homepage
 ![Homepage](images/screenshot.png)
 
+### Dark Mode
+![Dark Mode](images/screenshot_darkmode.png)
+
 ---
 
 ## 🛠️ Tools and Technologies
