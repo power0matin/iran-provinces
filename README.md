@@ -39,8 +39,10 @@ Check out the live version of the project here:
 ---
 
 
-🌐 Licens
-This project is licensed under the MIT License. See the LICENSE file for details.
+🌐 License
+This project is licensed under the [MIT License](LICENSE).  
+See the [LICENSE](LICENSE) file for more details.
+
 
 📧 Contact
 If you have any questions or suggestions, feel free to contact me via:
