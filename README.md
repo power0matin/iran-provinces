@@ -1,0 +1,58 @@
+# 🌍 Iran Provinces Interactive Map
+
+A modern, interactive web project showcasing Iran's provinces with detailed information about each region, accompanied by a dynamic and responsive map.
+
+---
+
+## 📌 Project Overview
+
+This project allows users to explore the provinces of Iran through an interactive map. Each province is clickable, leading to a dedicated page with detailed descriptions and relevant images. The design is fully responsive and optimized for modern browsers.
+
+### ✨ Features
+- **Interactive Map**: Clickable regions for each province.
+- **Detailed Information**: Each province has its own page with a comprehensive description and an image.
+- **Modern Design**: A visually appealing and responsive user interface.
+- **Easy Navigation**: Simplified structure for seamless exploration of provinces.
+
+---
+
+## 🚀 Live Demo
+
+Check out the live version of the project here:  
+[**Live Demo**](https://power0matin.github.io/iran-provinces/)
+
+---
+
+## 🖥️ Project Structure
+
+The project is organized as follows:
+
+iran-provinces/ │ ├── css/ │ ├── style.css # Styling for the entire project ├── images/ │ ├── iran-map.png # Map of Iran │ ├── screenshot.png # Screenshot for README │ ├── tehran.jpg # Image for Tehran province │ ├── ahvaz.jpg # Image for Ahvaz province │ ├── ... # Other province images ├── provinces/ │ ├── tehran.html # Details page for Tehran │ ├── ahvaz.html # Details page for Ahvaz │ ├── ... # Other provinces ├── index.html # Homepage with the interactive map ├── README.md # Project documentation └── LICENSE # License file
+
+---
+
+## 📸 Screenshots
+
+### Homepage
+![Homepage](images/screenshot.png)
+
+---
+
+## 🛠️ Tools and Technologies
+
+- **HTML5**: For structuring the content.
+- **CSS3**: For styling and layout.
+- **GitHub Pages**: For hosting the live demo.
+
+---
+
+
+🌐 Licens
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+📧 Contact
+If you have any questions or suggestions, feel free to contact me via:
+![Telegram](https://t.me/powermatin)
+
+© 2024 All rights reserved. Designed and developed by power0matin.
+این فایل به گونه‌ای طراحی شده که پروژه شما حرفه‌ای به نظر برسد و اطلاعات کافی برای بازدیدکنندگان ارائه دهد.
