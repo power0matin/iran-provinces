@@ -24,9 +24,12 @@
 ---
 
 ## 📸 تصاویر
-
-### صفحه اصلی
+ 
+### ☀️ صفحه اصلی
 ![Homepage](images/screenshot.png)
+
+### 🌑 حالت تاریک
+![Dark Mode](images/screenshot_darkmode.png)
 
 ---
 
