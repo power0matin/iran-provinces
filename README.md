@@ -44,7 +44,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 📧 Contact
 If you have any questions or suggestions, feel free to contact me via:
-![Telegram](https://t.me/powermatin)
+[Telegram](https://t.me/powermatin)
 
 © 2024 All rights reserved. Designed and developed by power0matin.
 این فایل به گونه‌ای طراحی شده که پروژه شما حرفه‌ای به نظر برسد و اطلاعات کافی برای بازدیدکنندگان ارائه دهد.
