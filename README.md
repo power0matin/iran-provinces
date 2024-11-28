@@ -23,14 +23,6 @@ Check out the live version of the project here:
 
 ---
 
-## 🖥️ Project Structure
-
-The project is organized as follows:
-
-iran-provinces/ │ ├── css/ │ ├── style.css # Styling for the entire project ├── images/ │ ├── iran-map.png # Map of Iran │ ├── screenshot.png # Screenshot for README │ ├── tehran.jpg # Image for Tehran province │ ├── ahvaz.jpg # Image for Ahvaz province │ ├── ... # Other province images ├── provinces/ │ ├── tehran.html # Details page for Tehran │ ├── ahvaz.html # Details page for Ahvaz │ ├── ... # Other provinces ├── index.html # Homepage with the interactive map ├── README.md # Project documentation └── LICENSE # License file
-
----
-
 ## 📸 Screenshots
 
 ### Homepage
