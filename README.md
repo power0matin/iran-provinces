@@ -1,3 +1,6 @@
+[**فارسی**](README_FA)
+
+
 # 🌍 Iran Provinces Interactive Map
 
 A modern, interactive web project showcasing Iran's provinces with detailed information about each region, accompanied by a dynamic and responsive map.
