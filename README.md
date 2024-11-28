@@ -1,4 +1,4 @@
-## [فارسی | Persian](README_FA.md)
+# [فارسی | Persian](README_FA.md)
 
 
 # 🌍 Iran Provinces Interactive Map
