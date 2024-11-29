@@ -247,6 +247,17 @@ footer p {
     font-size: 1rem;
 }
 
+footer a {
+    color: #4dc2ff; /* یک رنگ روشن‌تر برای خوانایی بیشتر */
+    text-decoration: underline; /* افزودن خط زیر برای تأکید */
+    font-weight: bold; /* بولد کردن متن */
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #87ceeb; /* رنگ متفاوت هنگام هاور */
+}
+
 /* استایل فرم تماس */
 .contact-section {
     margin: 40px auto;
