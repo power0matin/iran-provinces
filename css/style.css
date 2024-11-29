@@ -159,26 +159,19 @@ header nav ul li a:hover {
     font-size: 1rem;
     cursor: pointer;
     width: 100%;
-    /* دکمه‌ها تمام عرض سلول را پر می‌کنند */
     text-align: center;
     border-radius: 8px;
-    /* گوشه‌های گرد */
     transition: background-color 0.3s ease;
-    /* افکت تغییر رنگ پس‌زمینه */
 }
 
 .list-section button:hover {
     background-color: #ff4500;
-    /* رنگ پس‌زمینه تغییر یافته هنگام هاور */
 }
 
-/* بهینه‌سازی برای نمایش بهتر دکمه‌ها */
 .list-section button:focus,
 .list-section ul li a:focus {
     outline: none;
-    /* حذف outline پیش‌فرض مرورگر */
     box-shadow: 0 0 5px rgba(0, 102, 185, 0.5);
-    /* افکت سایه هنگام انتخاب */
 }
 
 .province {
@@ -192,7 +185,6 @@ header nav ul li a:hover {
     text-align: center;
 }
 
-/* استایل محتوا */
 .province-info {
     display: flex;
     margin: 35px;
@@ -200,26 +192,20 @@ header nav ul li a:hover {
 
 .province-info .province-content {
     text-align: right;
-    /* قرار دادن متن در راست */
     display: flex;
 }
 
 .province-info .province-image {
     max-width: 300px;
     max-height: auto;
-    /* ارتفاع خودکار برای حفظ تناسب */
     margin: 50px;
-    /* فاصله بین تصاویر */
     margin-right: 20px;
-    /* فاصله بین تصاویر */
     object-fit: cover;
-    /* این ویژگی باعث می‌شود تصویر به صورت مناسب داخل کادر جا شود */
     margin-left: 30px;
     margin-top: 45px;
     border-radius: 15px;
     border-width: 2px;
     box-shadow: 0 0px 10px 2px #003366;
-    /* سایه ضعیف‌تر در حالت فشرده */
     text-align: left;
 }
 
