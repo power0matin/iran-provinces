@@ -229,7 +229,8 @@ header nav ul li a:hover {
 }
 
 .province-info .province-text ul {
-    list-style-type: disc;
+    list-style-type: disc; /* یا هر نوع دیگری که بخواهید */
+    list-style-position: inside; /* تغییر موقعیت نقاط */
     padding-left: 20px;
 }
 
@@ -260,11 +261,11 @@ footer a:hover {
 
 /* استایل فرم تماس */
 .contact-section {
-    margin: 40px auto;
-    max-width: 600px;
+    margin: 50px auto;
+    max-width: 500px;
     background: #ffffff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 50px;
     border-radius: 10px;
     direction: rtl;
     text-align: right;
@@ -470,14 +471,8 @@ body.dark-mode .list-section button:active {
 }
 
 body.dark-mode .contact-section {
-    margin: 40px auto;
-    max-width: 600px;
     background: rgb(27, 27, 27);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    border-radius: 10px;
-    direction: rtl;
-    text-align: right;
 }
 
 body.dark-mode .contact-section form button {
