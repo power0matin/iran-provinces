@@ -21,7 +21,7 @@ This project allows users to explore the provinces of Iran through an interactiv
 
 ## 🚀 Live Demo
 
-Check out the live version of the project here:  
+Check out the live version of the project here :  
 [**Live Demo**](https://power0matin.github.io/iran-provinces/)
 
 ---
