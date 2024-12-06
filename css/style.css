@@ -332,6 +332,30 @@ footer a:hover {
     background-color: #003d66;
 }
 
+.social-icons a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    background-color: transparent;
+    border: 0.2rem solid #39c5a7;
+    font-size: 1rem;
+    border-radius: 50%;
+    margin: 10px auto;
+    transition: 0.3s ease;
+    color: #39c5a7;
+    text-decoration: none; /* حذف خط زیر لینک */
+}
+
+.social-icons a:hover {
+    color: black;
+    transform: scale(1.0) translateY(-3px);
+    background-color: #39c5a7;
+    box-shadow: 0 0 10px #39c5a7;
+}
+
+
 /* استایل فرم درباره */
 .about-section {
     margin: 40px auto;
@@ -389,7 +413,7 @@ footer a:hover {
 
 /* وقتی که وضعیت چک‌باکس تغییر کرده باشد */
 input:checked+.slider {
-    background-color: rgb(184, 184, 0);
+    background-color: #39c5a7;
     /* رنگ پس‌زمینه حالت تاریک */
 }
 
@@ -414,7 +438,7 @@ body.dark-mode header {
 body.dark-mode .container {
     border-radius: 10px;
     background-color: #1b1b1b;
-    box-shadow: 0 0px 10px 0.1px rgba(255, 255, 0, 0.788);
+    box-shadow: 0 0px 10px 0.1px #39c5a7;
     /* سایه ضعیف‌تر در حالت فشرده */
 }
 
@@ -429,7 +453,7 @@ body.dark-mode .province-info {
 }
 
 body.dark-mode .province-image {
-    box-shadow: 0 0px 10px 1px rgba(255, 255, 0, 0.788);
+    box-shadow: 0 0px 10px 1px #39c5a7;
     /* سایه ضعیف‌تر در حالت فشرده */
 }
 
@@ -439,17 +463,17 @@ body.dark-mode .province-text {
 }
 
 body.dark-mode .province-text h2 {
-    color: #ffd700;
+    color: #39c5a7;
     /* رنگ متن روشن‌تر */
 }
 
 body.dark-mode h1 {
-    color: #ffd700;
+    color: #39c5a7;
     /* رنگ طلایی برای تیترها */
 }
 
 body.dark-mode h2 {
-    color: #ffd700;
+    color: #39c5a7;
     /* رنگ طلایی برای تیترها */
 }
 
@@ -476,7 +500,7 @@ body.dark-mode .contact-section {
 }
 
 body.dark-mode .contact-section form button {
-    background-color: rgb(255, 255, 0);
+    background-color: #39c5a7;
     color: #000000;
     transition: background-color 0.3s ease;
 }
@@ -489,7 +513,7 @@ body.dark-mode .list-section ul li a {
     color: #000000;
     /* رنگ اولیه */
     font-style: initial;
-    background-color: #c8ff00;
+    background-color: #39c5a7;
     transition: color 1s ease;
     /* افکت تغییر رنگ */
 }
