@@ -517,3 +517,7 @@ body.dark-mode .list-section ul li a {
     transition: color 1s ease;
     /* افکت تغییر رنگ */
 }
+
+body.dark-mode header nav ul li a:hover{
+    color: #39c5a7;
+}
