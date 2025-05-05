@@ -1,523 +1,435 @@
 /* استایل کلی سایت */
 * {
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: "Vazir", sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
-    line-height: 1.6;
+  font-family: "Vazir", sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+  line-height: 1.6;
 }
 
 .container {
-    direction: rtl;
-    width: 100%;
-    max-width: 1500px;
-    margin: 50px auto;
-    border-radius: 10px;
-    box-shadow: 0 0px 20px 3px rgba(22, 22, 13, 0.788);
-    /* سایه ضعیف‌تر در حالت فشرده */
+  direction: rtl;
+  width: 90%;
+  max-width: 1500px;
+  margin: 50px auto;
+  border-radius: 10px;
+  box-shadow: 0 0px 20px 3px rgba(22, 22, 13, 0.788);
 }
 
 /* هدر سایت */
 header {
-    background-color: #004c8c;
-    color: #fff;
-    padding: 20px 0;
+  background-color: #004c8c;
+  color: #fff;
+  padding: 20px 0;
 }
 
 header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
 }
 
 header nav ul {
-    direction: rtl;
-    list-style: none;
-    display: flex;
-    justify-content: center;
+  direction: rtl;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 header nav ul li {
-    margin: 0 15px;
+  margin: 0 15px;
 }
 
 header nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: color 0.3s;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.3s;
 }
 
 header nav ul li a:hover {
-    color: #ffd900;
+  color: #ffd900;
 }
 
 /* بخش نقشه و لیست */
 .content {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 20px;
-    margin: 30px 0;
-    /* فاصله از هدر و فوتر */
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 30px 0;
 }
 
 .image-section img {
-    border: 1px solid #242121;
-    border-radius: 20px;
-    margin-left: 80px;
-    margin-right: 20px;
-    margin-top: 60px;
-    margin-bottom: 50px;
+  border: 1px solid #242121;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
 }
 
 /* استایل برای لیست و دکمه‌ها */
 .list-section {
-    flex: 1; /* فضای باقی‌مانده را پر می‌کند */
-    margin: 20px auto;
-    display: flex;
-    flex-wrap: wrap;
-    /* اجزای لیست به خط جدید منتقل می‌شوند */
-    gap: 10px;
-    /* فاصله بین دکمه‌ها */
+  flex: 1;
+  margin: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .list-section h2 {
-    margin-right: 70px;
-    color: #004c8c;
-    margin-bottom: 20px;
-    text-align: center;
-    width: 100%;
-    /* متن عنوان تمام عرض را می‌گیرد */
-
-
+  color: #004c8c;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 100%;
 }
 
 .list-section ul {
-    list-style: none;
-    padding: 0;
-    margin-right: 70px;
-    display: flex;
-    flex-wrap: wrap;
-    /* لیست‌ها به خط بعدی منتقل می‌شوند */
-    justify-content: space-between;
-    /* فاصله مساوی بین دکمه‌ها */
-    width: 100%;
-    /* تمام عرض بخش لیست را می‌گیرد */
-    gap: 20px;
-    /* فاصله بین دکمه‌ها */
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
 }
 
 .list-section ul li {
-    flex: 1 1 calc(30% - 50px);
-    /* دکمه‌ها عرض 50% از والد را می‌گیرند */
-    display: flex;
-    justify-content: center;
-    /* دکمه‌ها در وسط قرار می‌گیرند */
-    align-items: center;
+  flex: 1 1 calc(30% - 20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .list-section ul li a {
-    text-decoration: none;
-    /* حذف خط زیر لینک */
-    color: #e6d9d9;
-    /* رنگ اولیه متن لینک */
-    background-color: #004c8c;
-    font-size: 1rem;
-    padding: 13px 10px;
-    /* فاصله داخلی لینک */
-    text-align: center;
-    width: 100%;
-    /* دکمه‌ها تمام عرض سلول را پر می‌کنند */
-    border-radius: 8px;
-    /* گوشه‌های گرد */
-    transition: background-color 0.3s ease, color 0.3s ease;
-    /* افکت تغییر رنگ */
+  text-decoration: none;
+  color: #e6d9d9;
+  background-color: #004c8c;
+  font-size: 1rem;
+  padding: 13px 10px;
+  text-align: center;
+  width: 100%;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .list-section ul li a:hover {
-    background-color: #005fa3;
-    /* رنگ تغییر یافته هنگام هاور */
-    color: #ffffff;
-    /* تغییر رنگ متن هنگام هاور */
-}
-
-/* استایل برای دکمه‌ها */
-.list-section button {
-    background-color: #728c00;
-    /* رنگ پس‌زمینه اولیه */
-    color: white;
-    /* رنگ متن */
-    border: none;
-    padding: 15px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-    width: 100%;
-    text-align: center;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-}
-
-.list-section button:hover {
-    background-color: #ff4500;
-}
-
-.list-section button:focus,
-.list-section ul li a:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 102, 185, 0.5);
+  background-color: #005fa3;
+  color: #ffffff;
 }
 
 .province {
-    background-color: #004c8c;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    display: inline-block;
-    text-align: center;
+  background-color: #004c8c;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  text-align: center;
 }
 
 .province-info {
-    display: flex;
-    margin: 35px;
+  display: flex;
+  margin: 35px;
 }
 
 .province-info .province-content {
-    text-align: right;
-    display: flex;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
 }
 
 .province-info .province-image {
-    max-width: 300px;
-    max-height: auto;
-    margin: 50px;
-    margin-right: 20px;
-    object-fit: cover;
-    margin-left: 30px;
-    margin-top: 45px;
-    border-radius: 15px;
-    border-width: 2px;
-    box-shadow: 0 0px 10px 2px #003366;
-    text-align: left;
+  max-width: 300px;
+  height: auto;
+  margin: 20px;
+  object-fit: cover;
+  border-radius: 15px;
+  border-width: 2px;
+  box-shadow: 0 0px 10px 2px #003366;
 }
 
 .province-info .province-text {
-    text-align: right;
-    width: 100%;
-    padding: 20px;
+  text-align: right;
+  width: 100%;
+  padding: 20px;
 }
 
 .province-info .province-text h2 {
-    font-size: 24px;
-    color: #003366;
+  font-size: 24px;
+  color: #003366;
 }
 
 .province-info .province-text p {
-    direction: rtl;
-    text-align: justify;
-    font-size: 18px;
-    line-height: 1.6;
-    color: #333;
+  direction: rtl;
+  text-align: justify;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
 }
 
 .province-info .province-text ul {
-    list-style-type: disc; /* یا هر نوع دیگری که بخواهید */
-    list-style-position: inside; /* تغییر موقعیت نقاط */
-    padding-left: 20px;
+  list-style-type: disc;
+  list-style-position: inside;
+  padding-left: 20px;
 }
 
 /* فوتر سایت */
 footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    direction: rtl;
-    padding: 20px;
-    margin-top: 30px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  direction: rtl;
+  padding: 20px;
+  margin-top: 30px;
 }
 
 footer p {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 footer a {
-    color: #4dc2ff; /* یک رنگ روشن‌تر برای خوانایی بیشتر */
-    text-decoration: underline; /* افزودن خط زیر برای تأکید */
-    font-weight: bold; /* بولد کردن متن */
-    transition: color 0.3s ease;
+  color: #4dc2ff;
+  text-decoration: underline;
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 footer a:hover {
-    color: #87ceeb; /* رنگ متفاوت هنگام هاور */
+  color: #87ceeb;
 }
 
 /* استایل فرم تماس */
 .contact-section {
-    margin: 50px auto;
-    max-width: 500px;
-    background: #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 50px;
-    border-radius: 10px;
-    direction: rtl;
-    text-align: right;
-    font-family: sans-serif;
-    font-size: 20px;
+  margin: 50px auto;
+  max-width: 500px;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  border-radius: 10px;
+  direction: rtl;
+  text-align: right;
+  font-family: sans-serif;
+  font-size: 20px;
 }
 
 .contact-section h2 {
-    text-align: center;
-    color: #004c8c;
-    margin-bottom: 20px;
-    font-size: 1.8rem;
+  text-align: center;
+  color: #004c8c;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
 }
 
 .contact-section form label {
-    display: block;
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 5px;
+  display: block;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 5px;
 }
 
 .contact-section form input,
 .contact-section form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .contact-section form input:focus,
 .contact-section form textarea:focus {
-    border-color: #004c8c;
-    box-shadow: 0 0 5px rgba(0, 76, 140, 0.5);
-    outline: none;
+  border-color: #004c8c;
+  box-shadow: 0 0 5px rgba(0, 76, 140, 0.5);
+  outline: none;
 }
 
 .contact-section form textarea {
-    resize: vertical;
-    height: 120px;
+  resize: vertical;
+  height: 120px;
 }
 
 .contact-section form button {
-    display: inline-block;
-    width: 100%;
-    padding: 10px 15px;
-    background-color: #004c8c;
-    color: #fff;
-    font-family: sans-serif;
-    font-size: 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  display: inline-block;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: #004c8c;
+  color: #fff;
+  font-family: sans-serif;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .contact-section form button:hover {
-    background-color: #0059ff;
+  background-color: #0059ff;
 }
 
 .contact-section form button:active {
-    background-color: #003d66;
+  background-color: #003d66;
 }
 
 .social-icons a {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 3rem;
-    height: 3rem;
-    background-color: transparent;
-    border: 0.2rem solid #39c5a7;
-    font-size: 1rem;
-    border-radius: 50%;
-    margin: 10px auto;
-    transition: 0.3s ease;
-    color: #39c5a7;
-    text-decoration: none; /* حذف خط زیر لینک */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  background-color: transparent;
+  border: 0.2rem solid #39c5a7;
+  font-size: 1rem;
+  border-radius: 50%;
+  margin: 10px;
+  transition: 0.3s ease;
+  color: #39c5a7;
+  text-decoration: none;
 }
 
 .social-icons a:hover {
-    color: black;
-    transform: scale(1.0) translateY(-3px);
-    background-color: #39c5a7;
-    box-shadow: 0 0 10px #39c5a7;
+  color: black;
+  transform: scale(1) translateY(-3px);
+  background-color: #39c5a7;
+  box-shadow: 0 0 10px #39c5a7;
 }
-
 
 /* استایل فرم درباره */
 .about-section {
-    margin: 40px auto;
-    max-width: 900px;
-    padding: 20px;
-    font-family: sans-serif;
-    direction: rtl;
+  margin: 40px auto;
+  max-width: 900px;
+  padding: 20px;
+  font-family: sans-serif;
+  direction: rtl;
 }
 
 /* دکمه کشویی */
 #darkModeToggleContainer {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1000;
-    /* قرار دادن دکمه بالاتر از بقیه محتوای صفحه */
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
 }
 
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 30px;
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
 }
 
 .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: 0.4s;
-    border-radius: 34px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
 }
 
 .slider:before {
-    position: absolute;
-    content: "";
-    height: 22px;
-    width: 22px;
-    border-radius: 50%;
-    left: 4px;
-    bottom: 4px;
-    background-color: rgb(58, 58, 58);
-    transition: 0.5s;
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
+  left: 4px;
+  bottom: 4px;
+  background-color: rgb(58, 58, 58);
+  transition: 0.5s;
 }
 
-/* وقتی که وضعیت چک‌باکس تغییر کرده باشد */
-input:checked+.slider {
-    background-color: #39c5a7;
-    /* رنگ پس‌زمینه حالت تاریک */
+input:checked + .slider {
+  background-color: #39c5a7;
 }
 
-input:checked+.slider:before {
-    transform: translateX(30px);
-    /* حرکت دکمه به سمت راست */
+input:checked + .slider:before {
+  transform: translateX(30px);
 }
 
 /* استایل برای تغییر حالت تاریک */
 body.dark-mode {
-    background-color: #121212;
-    color: #f1f1f1;
-    font-family: Vazir, sans-serif;
-    /* انتخاب فونت خواناتر */
+  background-color: #121212;
+  color: #f1f1f1;
 }
 
 body.dark-mode header {
-    background-color: #1a1a1a;
-    /* رنگ تیره‌تر برای هدر */
+  background-color: #1a1a1a;
 }
 
 body.dark-mode .container {
-    border-radius: 10px;
-    background-color: #1b1b1b;
-    box-shadow: 0 0px 10px 0.1px #39c5a7;
-    /* سایه ضعیف‌تر در حالت فشرده */
+  background-color: #1b1b1b;
+  box-shadow: 0 0px 10px 0.1px #39c5a7;
 }
 
 body.dark-mode footer {
-    background-color: #1a1a1a;
-    /* رنگ تیره‌تر برای فوتر */
+  background-color: #1a1a1a;
 }
 
 body.dark-mode .province-info {
-    background-color: #1f1f1f;
-    /* پس‌زمینه تیره‌تر برای بخش استان */
+  background-color: #1f1f1f;
 }
 
 body.dark-mode .province-image {
-    box-shadow: 0 0px 10px 1px #39c5a7;
-    /* سایه ضعیف‌تر در حالت فشرده */
+  box-shadow: 0 0px 10px 1px #39c5a7;
 }
 
 body.dark-mode .province-text {
-    color: #f1f1f1;
-    /* رنگ متن روشن‌تر */
+  color: #f1f1f1;
 }
 
 body.dark-mode .province-text h2 {
-    color: #39c5a7;
-    /* رنگ متن روشن‌تر */
+  color: #39c5a7;
 }
 
-body.dark-mode h1 {
-    color: #39c5a7;
-    /* رنگ طلایی برای تیترها */
-}
-
+body.dark-mode h1,
 body.dark-mode h2 {
-    color: #39c5a7;
-    /* رنگ طلایی برای تیترها */
+  color: #39c5a7;
 }
 
 body.dark-mode .province-text p,
-.body.dark-mode .province-text ul li {
-    color: #e0e0e0;
-    /* رنگ روشن‌تر برای متن‌ها و لیست‌ها */
+body.dark-mode .province-text ul li {
+  color: #e0e0e0;
 }
 
 body.dark-mode .list-section ul li a {
-    color: #ddd;
-    transition: color 0.3s ease;
-    /* انتقال رنگ لینک‌ها */
-}
-
-body.dark-mode .list-section button:active {
-    background-color: #555;
-    /* رنگ فعال برای دکمه */
+  color: #000000;
+  background-color: #39c5a7;
+  transition: color 1s ease;
 }
 
 body.dark-mode .contact-section {
-    background: rgb(27, 27, 27);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background: rgb(27, 27, 27);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 body.dark-mode .contact-section form button {
-    background-color: #39c5a7;
-    color: #000000;
-    transition: background-color 0.3s ease;
+  background-color: #39c5a7;
+  color: #000000;
 }
 
 body.dark-mode .contact-section form label {
-    color: #e6e6e6;
+  color: #e6e6e6;
 }
 
-body.dark-mode .list-section ul li a {
-    color: #000000;
-    /* رنگ اولیه */
-    font-style: initial;
-    background-color: #39c5a7;
-    transition: color 1s ease;
-    /* افکت تغییر رنگ */
-}
-
-body.dark-mode header nav ul li a:hover{
-    color: #39c5a7;
+body.dark-mode header nav ul li a:hover {
+  color: #39c5a7;
 }

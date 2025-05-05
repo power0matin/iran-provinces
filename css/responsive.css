@@ -1,0 +1,153 @@
+/* استایل‌های ریسپانسیو */
+
+/* موبایل (کمتر از 768px) */
+@media screen and (max-width: 768px) {
+  /* هدر */
+  header h1 {
+    font-size: 1.8rem;
+  }
+
+  header nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  header nav ul li {
+    margin: 5px 0;
+  }
+
+  header nav ul li a {
+    font-size: 1rem;
+  }
+
+  /* دکمه حالت تاریک */
+  #darkModeToggleContainer {
+    top: 10px;
+    left: 10px;
+  }
+
+  /* بخش اصلی */
+  .container {
+    margin: 20px auto;
+    padding: 10px;
+  }
+
+  .content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image-section img {
+    max-width: 100%;
+    margin: 10px 0;
+  }
+
+  .list-section ul li {
+    flex: 1 1 100%;
+  }
+
+  .list-section h2 {
+    font-size: 1.5rem;
+    margin-right: 0;
+  }
+
+  /* فرم تماس */
+  .contact-section {
+    padding: 20px;
+    margin: 20px auto;
+  }
+
+  .contact-section h2 {
+    font-size: 1.5rem;
+  }
+
+  /* اطلاعات استان */
+  .province-info {
+    flex-direction: column;
+    margin: 20px;
+  }
+
+  .province-info .province-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .province-info .province-image {
+    max-width: 100%;
+    margin: 10px 0;
+  }
+
+  .province-info .province-text h2 {
+    font-size: 1.8rem;
+  }
+
+  .province-info .province-text p {
+    font-size: 16px;
+  }
+
+  /* فوتر */
+  footer {
+    padding: 15px;
+  }
+
+  .social-icons a {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* تبلت (768px تا 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  /* هدر */
+  header h1 {
+    font-size: 2rem;
+  }
+
+  header nav ul li {
+    margin: 0 10px;
+  }
+
+  /* بخش اصلی */
+  .container {
+    width: 95%;
+    margin: 30px auto;
+  }
+
+  .content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image-section img {
+    max-width: 80%;
+  }
+
+  .list-section ul li {
+    flex: 1 1 calc(45% - 20px);
+  }
+
+  /* اطلاعات استان */
+  .province-info .province-image {
+    max-width: 250px;
+  }
+
+  .province-info .province-text h2 {
+    font-size: 2rem;
+  }
+}
+
+/* دسکتاپ بزرگ (بیشتر از 1024px) */
+@media screen and (min-width: 1025px) {
+  .content {
+    flex-direction: row-reverse;
+  }
+
+  .list-section ul li {
+    flex: 1 1 calc(30% - 20px);
+  }
+
+  .image-section img {
+    max-width: 600px;
+  }
+}
