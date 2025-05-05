@@ -6,18 +6,19 @@
   header .header {
     flex-direction: column;
     align-items: flex-start;
+    padding: 0.5rem;
   }
 
   header h1 {
-    font-size: 1.8rem;
-    margin: 0.5rem 0;
+    font-size: 1.5rem;
+    margin: 0.25rem 0;
   }
 
   header .menu-toggle {
     display: block;
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 0.5rem;
+    right: 0.5rem;
   }
 
   header nav {
@@ -32,112 +33,127 @@
   header nav ul {
     flex-direction: column;
     background-color: #004c8c;
-    padding: 1rem;
-  }
-
-  header nav ul li {
-    margin: 0.5rem 0;
-  }
-
-  header nav ul li a {
-    font-size: 1rem;
-    display: block;
     padding: 0.5rem;
   }
 
+  header nav ul li {
+    margin: 0.25rem 0;
+  }
+
+  header nav ul li a {
+    font-size: 0.9rem;
+    padding: 0.25rem;
+  }
+
   #darkModeToggleContainer {
-    top: 0.5rem;
-    left: 0.5rem;
+    top: 0.25rem;
+    left: 0.25rem;
   }
 
   /* بخش اصلی */
   .container {
-    margin: 1rem auto;
-    padding: 0.5rem;
+    margin: 0.5rem auto;
+    padding: 0.25rem;
   }
 
   .content {
     flex-direction: column;
     align-items: center;
+    gap: 0.5rem;
   }
 
   .image-section img {
     max-width: 100%;
-    margin: 0.5rem 0;
+    margin: 0;
   }
 
   .list-section h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
   }
 
   .list-section ul {
     grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .list-section ul li a {
+    font-size: 0.85rem;
+    padding: 0.4rem;
   }
 
   /* اطلاعات استان */
   .province-info {
-    margin: 1rem;
+    margin: 0.5rem;
+    padding: 0.5rem;
   }
 
   .province-info .province-content {
     flex-direction: column;
     align-items: center;
+    gap: 0.5rem;
   }
 
   .province-info .province-image {
     max-width: 100%;
-    margin: 0.5rem 0;
+    margin: 0;
   }
 
   .province-info .province-text h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
   }
 
   .province-info .province-text p {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
   }
 
   /* فرم تماس */
   .contact-section {
-    padding: 1rem;
-    margin: 1rem auto;
+    margin: 0.5rem auto;
+    padding: 0.75rem;
+    max-width: 90%;
   }
 
   .contact-section h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .contact-section form input,
   .contact-section form textarea {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    padding: 0.4rem;
   }
 
   .contact-section form button {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    padding: 0.4rem;
   }
 
   /* درباره */
   .about-section {
-    margin: 1rem;
+    margin: 0.5rem;
+    padding: 0.5rem;
   }
 
   .about-section h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .about-section p {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   /* فوتر */
   footer {
-    padding: 1rem;
+    padding: 0.75rem;
   }
 
   .social-icons a {
-    width: 2.5rem;
-    height: 2.5rem;
-    font-size: 1.2rem;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
   }
 }
 
@@ -145,7 +161,7 @@
 @media screen and (min-width: 769px) and (max-width: 1024px) {
   /* هدر */
   header h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   header nav ul li {
@@ -153,13 +169,13 @@
   }
 
   header nav ul li a {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   /* بخش اصلی */
   .container {
     width: 95%;
-    margin: 1.5rem auto;
+    margin: 0.75rem auto;
   }
 
   .content {
@@ -173,10 +189,11 @@
 
   .list-section ul {
     grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
   }
 
   .list-section h2 {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 
   /* اطلاعات استان */
@@ -186,25 +203,25 @@
   }
 
   .province-info .province-image {
-    max-width: 80%;
+    max-width: 70%;
   }
 
   .province-info .province-text h2 {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 
   .province-info .province-text p {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   /* فرم تماس */
   .contact-section {
-    padding: 1.5rem;
+    padding: 1rem;
   }
 
   /* درباره */
   .about-section {
-    margin: 1.5rem;
+    margin: 0.75rem;
   }
 }
 
@@ -212,7 +229,7 @@
 @media screen and (min-width: 1025px) {
   .content {
     flex-direction: row-reverse;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .image-section img {
@@ -221,6 +238,7 @@
 
   .list-section ul {
     grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
   }
 
   .province-info .province-content {
