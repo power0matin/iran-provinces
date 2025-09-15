@@ -56,6 +56,7 @@ A modern, responsive, bilingual (FA/EN) web app to **explore Iran’s provinces*
 
 ## 🗂 Project Structure
 
+```
 iran-provinces/
 ├─ index.html # Home (map + province list)
 ├─ province.html # Province detail (intro, counties, cities, attractions)
@@ -78,6 +79,7 @@ iran-provinces/
 ├─ README.md # (this file)
 ├─ README_FA.md # Persian docs
 └─ LICENSE
+```
 
 ## 🧠 How It Works
 
