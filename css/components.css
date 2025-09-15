@@ -1,0 +1,31 @@
+/* برچسب‌های کوچک بالای کارت‌ها/تب‌ها */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  background: var(--bg-soft);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.tabbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tab {
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+}
+.tab.is-active {
+  color: #fff;
+  background: var(--primary);
+  border-color: var(--primary);
+}

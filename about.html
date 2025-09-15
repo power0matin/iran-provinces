@@ -1,58 +1,148 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>درباره سایت</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="nav.about">درباره</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/responsive.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
   </head>
-  <body>
-    <!-- هدر سایت -->
-    <header>
-      <div class="header">
-        <h1>درباره سایت</h1>
-        <nav>
-          <ul>
-            <li><a href="index.html">خانه</a></li>
-            <li><a href="about.html">درباره ما</a></li>
-            <li><a href="contact.html">تماس</a></li>
-          </ul>
-        </nav>
+  <body class="theme-auto">
+    <header class="site-header" data-sticky>
+      <div class="topbar container">
+        <!-- برند -->
+        <a class="brand" href="index.html" aria-label="خانه">
+          <span class="brand-icon">
+            <i class="fa-solid fa-map-location-dot"></i>
+          </span>
+          <span class="brand-text">استان‌های ایران</span>
+        </a>
+
+        <!-- سرچ -->
+        <form class="searchbox" role="search" onsubmit="return false;">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="جستجوی استان…"
+            aria-label="جستجو"
+          />
+          <kbd class="kbd">/</kbd>
+        </form>
+
+        <!-- اکشن‌ها -->
+        <div class="actions">
+          <div class="capsule">
+            <button
+              id="langToggle"
+              class="capsule-btn"
+              title="تغییر زبان"
+              aria-label="Language"
+            >
+              <i class="fa-solid fa-language"></i>
+              <span class="hide-sm">زبان</span>
+            </button>
+
+            <label class="switch capsule-switch" title="تیره/روشن">
+              <input
+                type="checkbox"
+                id="darkModeToggle"
+                aria-label="Dark mode"
+              />
+              <span class="slider"
+                ><i class="sun fa-solid fa-sun"></i
+                ><i class="moon fa-solid fa-moon"></i
+              ></span>
+            </label>
+          </div>
+
+          <button
+            id="navToggle"
+            class="icon-btn only-sm"
+            aria-controls="mainNav"
+            aria-expanded="false"
+            aria-label="باز کردن منو"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
       </div>
-      <div id="darkModeToggleContainer">
-        <label class="switch">
-          <input type="checkbox" id="darkModeToggle" />
-          <span class="slider round"></span>
-        </label>
-      </div>
+
+      <!-- ناوبری -->
+      <nav id="mainNav" class="main-nav" aria-label="ناوبری اصلی">
+        <a href="index.html" class="nav-link"
+          ><i class="fa-solid fa-house"></i><span>خانه</span></a
+        >
+        <a href="about.html" class="nav-link is-active"
+          ><i class="fa-solid fa-circle-info"></i><span>درباره</span></a
+        >
+        <a href="contact.html" class="nav-link"
+          ><i class="fa-solid fa-envelope"></i><span>تماس</span></a
+        >
+      </nav>
+      <div class="nav-backdrop" id="navBackdrop"></div>
     </header>
 
-    <!-- بخش توضیحات درباره سایت -->
     <main class="container">
-      <section class="about-section">
-        <h2>این سایت برای معرفی استان‌های ایران ساخته شده است.</h2>
-        <p>
-          در این سایت شما می‌توانید با نقشه‌ی ایران و استان‌های مختلف آن آشنا
-          شوید. با کلیک بر روی هر استان، به صفحه‌ای با توضیحات کامل درباره آن
-          استان هدایت می‌شوید. این سایت برای کسانی که علاقه‌مند به گردشگری،
-          فرهنگ و تاریخ ایران هستند بسیار مفید است.
-        </p>
+      <section class="card fade-in-up">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fa-regular fa-circle-question"></i
+            ><span data-i18n="nav.about">درباره</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h2>این سایت برای معرفی استان‌های ایران ساخته شده است.</h2>
+          <p class="muted">
+            داده‌ها قابل به‌روزرسانی‌اند و رابط کاربری از حالت تیره/روشن، جستجو
+            و چندزبانه پشتیبانی می‌کند.
+          </p>
+        </div>
       </section>
     </main>
 
-    <!-- فوتر -->
-    <footer>
-      <div class="footer">
-        <p>&copy; 2024 تمامی حقوق محفوظ است.</p>
+    <footer class="site-footer">
+      <div class="footer-inner">
         <p>
-          طراحی توسط
-          <a href="https://github.com/power0matin" target="_blank"
-            >powermatin</a
-          >
+          © <span id="year"></span>
+          <span data-i18n="footer.rights">تمامی حقوق محفوظ است.</span>
         </p>
       </div>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/image-map-resizer/1.0.10/js/imageMapResizer.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        window.imageMapResize?.();
+      });
+    </script>
     <script src="js/darkMode.js"></script>
+    <script src="js/i18n.js"></script>
+    <!-- اگر داری -->
+    <script src="js/app.js"></script>
+
+    <script>
+      (function () {
+        const y = document.getElementById("year");
+        if (y) y.textContent = new Date().getFullYear();
+        document
+          .getElementById("langToggle")
+          ?.addEventListener("click", () => I18N.toggle());
+        document
+          .getElementById("navToggle")
+          ?.addEventListener("click", () =>
+            document.getElementById("mainNav")?.classList.toggle("open")
+          );
+      })();
+    </script>
   </body>
 </html>

@@ -1,78 +1,170 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>تماس با ما</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="nav.contact">تماس</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/responsive.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
   </head>
-  <body>
-    <!-- هدر سایت -->
-    <header>
-      <div class="header">
-        <h1>تماس با ما</h1>
-        <nav>
-          <ul>
-            <li><a href="index.html">خانه</a></li>
-            <li><a href="about.html">درباره ما</a></li>
-            <li><a href="contact.html">تماس</a></li>
-          </ul>
-        </nav>
+  <body class="theme-auto">
+    <header class="site-header" data-sticky>
+      <div class="topbar container">
+        <!-- برند -->
+        <a class="brand" href="index.html" aria-label="خانه">
+          <span class="brand-icon">
+            <i class="fa-solid fa-map-location-dot"></i>
+          </span>
+          <span class="brand-text">استان‌های ایران</span>
+        </a>
+
+        <!-- سرچ -->
+        <form class="searchbox" role="search" onsubmit="return false;">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="جستجوی استان…"
+            aria-label="جستجو"
+          />
+          <kbd class="kbd">/</kbd>
+        </form>
+
+        <!-- اکشن‌ها -->
+        <div class="actions">
+          <div class="capsule">
+            <button
+              id="langToggle"
+              class="capsule-btn"
+              title="تغییر زبان"
+              aria-label="Language"
+            >
+              <i class="fa-solid fa-language"></i>
+              <span class="hide-sm">زبان</span>
+            </button>
+
+            <label class="switch capsule-switch" title="تیره/روشن">
+              <input
+                type="checkbox"
+                id="darkModeToggle"
+                aria-label="Dark mode"
+              />
+              <span class="slider"
+                ><i class="sun fa-solid fa-sun"></i
+                ><i class="moon fa-solid fa-moon"></i
+              ></span>
+            </label>
+          </div>
+
+          <button
+            id="navToggle"
+            class="icon-btn only-sm"
+            aria-controls="mainNav"
+            aria-expanded="false"
+            aria-label="باز کردن منو"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
       </div>
-      <div id="darkModeToggleContainer">
-        <label class="switch">
-          <input type="checkbox" id="darkModeToggle" />
-          <span class="slider round"></span>
-        </label>
-      </div>
+
+      <!-- ناوبری -->
+      <nav id="mainNav" class="main-nav" aria-label="ناوبری اصلی">
+        <a href="index.html" class="nav-link"
+          ><i class="fa-solid fa-house"></i><span>خانه</span></a
+        >
+        <a href="about.html" class="nav-link"
+          ><i class="fa-solid fa-circle-info"></i><span>درباره</span></a
+        >
+        <a href="contact.html" class="nav-link is-active"
+          ><i class="fa-solid fa-envelope"></i><span>تماس</span></a
+        >
+      </nav>
+      <div class="nav-backdrop" id="navBackdrop"></div>
     </header>
 
-    <!-- بخش فرم تماس -->
     <main class="container">
-      <section class="contact-section">
-        <h2>با ما در تماس باشید</h2>
-        <form action="#" method="post">
-          <label for="name">نام شما:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="نام خود را وارد کنید..."
-            required
-          />
-          <label for="email">ایمیل شما:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="ایمیل خود را وارد کنید..."
-            required
-          />
-          <label for="message">پیام شما:</label>
-          <textarea
-            id="message"
-            name="message"
-            placeholder="پیام خود را بنویسید..."
-            required
-          ></textarea>
-          <button type="submit">ارسال پیام</button>
-        </form>
+      <section class="card fade-in-up">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fa-regular fa-envelope"></i
+            ><span data-i18n="nav.contact">تماس</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <form data-contact novalidate>
+            <div
+              style="display: grid; gap: 10px; grid-template-columns: 1fr 1fr"
+            >
+              <div>
+                <label for="name">نام</label>
+                <input type="text" id="name" placeholder="نام شما" />
+              </div>
+              <div>
+                <label for="email">ایمیل</label>
+                <input type="email" id="email" placeholder="you@example.com" />
+              </div>
+              <div style="grid-column: 1/-1">
+                <label for="message">پیام</label>
+                <textarea
+                  id="message"
+                  rows="5"
+                  placeholder="پیام خود را بنویسید…"
+                ></textarea>
+              </div>
+            </div>
+            <div
+              style="
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                margin-top: 10px;
+              "
+            >
+              <button type="submit" class="btn">
+                <i class="fa-regular fa-paper-plane"></i> <span>ارسال</span>
+              </button>
+              <span class="muted">پاسخ معمولاً کمتر از ۲۴ ساعت.</span>
+            </div>
+          </form>
+        </div>
       </section>
     </main>
 
-    <!-- فوتر -->
-    <footer>
-      <div class="footer">
-        <p>&copy; 2024 تمامی حقوق محفوظ است.</p>
+    <footer class="site-footer">
+      <div class="footer-inner">
         <p>
-          طراحی توسط
-          <a href="https://github.com/power0matin" target="_blank"
-            >powermatin</a
-          >
+          © <span id="year"></span>
+          <span data-i18n="footer.rights">تمامی حقوق محفوظ است.</span>
         </p>
       </div>
     </footer>
+
     <script src="js/darkMode.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/contact.js"></script>
+    <script>
+      (function () {
+        const y = document.getElementById("year");
+        if (y) y.textContent = new Date().getFullYear();
+        document
+          .getElementById("langToggle")
+          ?.addEventListener("click", () => I18N.toggle());
+        document
+          .getElementById("navToggle")
+          ?.addEventListener("click", () =>
+            document.getElementById("mainNav")?.classList.toggle("open")
+          );
+      })();
+    </script>
   </body>
 </html>

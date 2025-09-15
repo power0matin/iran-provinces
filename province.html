@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>استان</title>
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body class="theme-auto">
+    <!-- Header -->
+    <header class="site-header" data-sticky>
+      <div class="topbar container">
+        <!-- برند -->
+        <a class="brand" href="index.html" aria-label="خانه">
+          <span class="brand-icon">
+            <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
+          </span>
+          <span class="brand-text" data-i18n="brand.title"
+            >استان‌های ایران</span
+          >
+        </a>
+
+        <!-- جعبه جستجو (لوکال برای تب‌ها/لیست‌ها) -->
+        <form class="searchbox" role="search" onsubmit="return false;">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="جستجوی استان…"
+            aria-label="جستجو"
+          />
+          <kbd class="kbd">/</kbd>
+        </form>
+
+        <!-- اکشن‌ها -->
+        <div class="actions">
+          <div class="capsule">
+            <button
+              id="langToggle"
+              class="capsule-btn"
+              title="تغییر زبان"
+              aria-label="Language"
+            >
+              <i class="fa-solid fa-language" aria-hidden="true"></i>
+              <span class="hide-sm" data-i18n="header.lang">زبان</span>
+            </button>
+
+            <label class="switch capsule-switch" title="تیره/روشن">
+              <input
+                type="checkbox"
+                id="darkModeToggle"
+                aria-label="Dark mode"
+              />
+              <span class="slider">
+                <i class="sun fa-solid fa-sun" aria-hidden="true"></i>
+                <i class="moon fa-solid fa-moon" aria-hidden="true"></i>
+              </span>
+            </label>
+          </div>
+
+          <button
+            id="navToggle"
+            class="icon-btn only-sm"
+            aria-controls="mainNav"
+            aria-expanded="false"
+            aria-label="باز کردن منو"
+          >
+            <i class="fa-solid fa-bars" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- ناوبری -->
+      <nav id="mainNav" class="main-nav" aria-label="ناوبری اصلی">
+        <a href="index.html" class="nav-link is-active" aria-current="page">
+          <i class="fa-solid fa-house" aria-hidden="true"></i>
+          <span data-i18n="nav.home">خانه</span>
+        </a>
+        <a href="about.html" class="nav-link">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          <span data-i18n="nav.about">درباره</span>
+        </a>
+        <a href="contact.html" class="nav-link">
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          <span data-i18n="nav.contact">تماس</span>
+        </a>
+      </nav>
+      <div class="nav-backdrop" id="navBackdrop"></div>
+    </header>
+
+    <!-- Main -->
+    <main class="container">
+      <section class="card fade-in-up">
+        <div class="card-header">
+          <div class="chips">
+            <span id="chipCapital" class="chip"></span>
+            <span id="chipPopulation" class="chip"></span>
+            <span id="chipArea" class="chip"></span>
+          </div>
+
+          <div class="tabs" role="tablist" aria-label="Tabs">
+            <button
+              class="tab active"
+              data-tab="intro"
+              data-i18n="province.intro"
+              role="tab"
+              aria-selected="true"
+            >
+              معرفی
+            </button>
+            <button
+              class="tab"
+              data-tab="counties"
+              data-i18n="province.counties"
+              role="tab"
+              aria-selected="false"
+            >
+              شهرستان‌ها
+            </button>
+            <button
+              class="tab"
+              data-tab="cities"
+              data-i18n="province.cities"
+              role="tab"
+              aria-selected="false"
+            >
+              شهرها
+            </button>
+            <button
+              class="tab"
+              data-tab="attractions"
+              data-i18n="province.attractions"
+              role="tab"
+              aria-selected="false"
+            >
+              دیدنی‌ها
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <!-- معرفی -->
+          <div id="panel-intro" class="tab-panel active" role="tabpanel">
+            <h2 id="introTitle" data-i18n="province.aboutTitle">
+              درباره استان
+            </h2>
+            <p id="introText" class="muted"></p>
+            <figure class="hero-wrap">
+              <img id="heroImage" src="" alt="" class="hero" />
+            </figure>
+          </div>
+
+          <!-- شهرستان‌ها -->
+          <div id="panel-counties" class="tab-panel" role="tabpanel">
+            <div id="countiesAccordion" class="accordion"></div>
+          </div>
+
+          <!-- شهرها -->
+          <div id="panel-cities" class="tab-panel" role="tabpanel">
+            <ul id="citiesList" class="tiles"></ul>
+          </div>
+
+          <!-- دیدنی‌ها -->
+          <div id="panel-attractions" class="tab-panel" role="tabpanel">
+            <ul id="attractionsList" class="tiles"></ul>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <span id="resultCount" class="muted"></span>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>
+          © <span id="year"></span>
+          <span data-i18n="footer.rights">تمامی حقوق محفوظ است.</span>
+        </p>
+      </div>
+    </footer>
+
+    <!-- Scripts: i18n & theme must load BEFORE province.js -->
+    <script src="js/i18n.js" defer></script>
+    <script src="js/darkMode.js" defer></script>
+    <script src="js/province.js" defer></script>
+
+    <!-- header glue (همبرگری/بک‌دراپ) -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const navToggle = document.getElementById("navToggle");
+        const mainNav = document.getElementById("mainNav");
+        const backdrop = document.getElementById("navBackdrop");
+
+        function closeNav() {
+          mainNav.classList.remove("open");
+          backdrop.classList.remove("show");
+          navToggle?.setAttribute("aria-expanded", "false");
+        }
+        function toggleNav() {
+          const isOpen = mainNav.classList.toggle("open");
+          backdrop.classList.toggle("show", isOpen);
+          navToggle?.setAttribute("aria-expanded", String(isOpen));
+        }
+
+        navToggle?.addEventListener("click", toggleNav);
+        backdrop?.addEventListener("click", closeNav);
+        window.addEventListener("resize", () => {
+          if (window.innerWidth > 900) closeNav();
+        });
+      });
+    </script>
+  </body>
+</html>
