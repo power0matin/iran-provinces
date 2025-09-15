@@ -10,6 +10,9 @@
   --primary-700: #6b4cff;
   --border: #1b2231;
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --font: "Vazirmatn", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
 }
 :root[data-theme="light"] {
   --bg: #f7f8fb;
@@ -23,6 +26,57 @@
   --shadow: 0 10px 30px rgba(22, 30, 50, 0.08);
 }
 
+html { font-family: var(--font); }
+body, input, button, select, textarea { font: inherit; }
+button, input, select, textarea { letter-spacing: normal; }
+::placeholder { font: inherit; color: var(--muted); opacity: .8; }
+
+/* برای اطمینان از خوانایی در همه اعداد */
+body, input, button, select, textarea {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "kern", "liga";
+}
+
+/* تب‌ها/چیپس/بدج‌ها حتماً از فونت ارث ببرند */
+.tab, .chip, .badge, .nav-link, .capsule-btn, .switch, .kbd { font-family: inherit; }
+
+/* جهت متن placeholder انگلیسی در حالت RTL */
+html[dir="rtl"] input::placeholder,
+html[dir="rtl"] textarea::placeholder { direction: rtl; }
+
+/* فرم‌ها – یکدست و خوانا */
+input[type="text"],
+input[type="email"],
+input[type="search"],
+select,
+textarea {
+  width: 100%;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 12px;
+  padding: .7rem .9rem;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+  appearance: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 18%, transparent);
+  outline: none;
+}
+
+/* Select – فلش شخصی */
+select {
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position:
+    calc(1rem) 1.05rem,
+    calc(1.35rem) 1.05rem;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-inline-start: 2rem;
+  }
 /* ==================== BASE / RESETS ==================== */
 * {
   box-sizing: border-box;
@@ -42,7 +96,6 @@ body {
   line-height: 1.6;
   background: var(--bg);
   color: var(--text);
-  
 }
 
 /* util */
@@ -284,32 +337,54 @@ body {
   }
 }
 /* ---- Dark toggle animations ---- */
-.switch .slider::before{
+.switch .slider::before {
   /* از قبل هست – فقط افکت‌های بیشتر */
-  box-shadow: 0 2px 8px rgba(0,0,0,.25), 0 0 0 0 rgba(124,92,255,0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 0 0 0 rgba(124, 92, 255, 0);
 }
-.switch input:checked + .slider::before{
-  animation: knob-pop .35s cubic-bezier(.2,.8,.2,1);
+.switch input:checked + .slider::before {
+  animation: knob-pop 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.switch .sun, .switch .moon{
-  transition: transform .35s ease, opacity .25s ease;
+.switch .sun,
+.switch .moon {
+  transition: transform 0.35s ease, opacity 0.25s ease;
 }
-.switch input:checked + .slider .sun{ transform: rotate(-90deg) scale(.85) }
-.switch input:checked + .slider .moon{ transform: rotate(0deg) scale(1.05) }
+.switch input:checked + .slider .sun {
+  transform: rotate(-90deg) scale(0.85);
+}
+.switch input:checked + .slider .moon {
+  transform: rotate(0deg) scale(1.05);
+}
 
-@keyframes knob-pop{
-  0%   { transform: translate(0,-50%) scale(1); }
-  60%  { transform: translate(var(--shift), -50%) scale(1.08); }
-  100% { transform: translate(var(--shift), -50%) scale(1); }
+@keyframes knob-pop {
+  0% {
+    transform: translate(0, -50%) scale(1);
+  }
+  60% {
+    transform: translate(var(--shift), -50%) scale(1.08);
+  }
+  100% {
+    transform: translate(var(--shift), -50%) scale(1);
+  }
 }
 
 /* موج نور کوتاه هنگام تغییر */
-.switch .slider::after{
-  content:""; position:absolute; inset:0; border-radius:999px; pointer-events:none;
-  background: radial-gradient(circle at var(--x,10%) 50%, rgba(124,92,255,.25), transparent 45%);
-  opacity:0; transition: opacity .3s ease;
+.switch .slider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--x, 10%) 50%,
+    rgba(124, 92, 255, 0.25),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
-.switch.input-wave .slider::after{ opacity:1 }
+.switch.input-wave .slider::after {
+  opacity: 1;
+}
 
 /* header buttons */
 .icon-btn,
@@ -339,7 +414,6 @@ body {
   gap: 8px;
   padding: 8px 14px 12px;
   border-top: 1px solid var(--border);
-
 }
 .main-nav .nav-link {
   display: inline-flex;

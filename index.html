@@ -38,8 +38,8 @@
     <!-- Header -->
     <header class="site-header" data-sticky>
       <div class="topbar container">
-        <!-- Brand -->
-        <a class="brand" href="index.html" aria-label="Home">
+        <!-- برند -->
+        <a class="brand" href="index.html" aria-label="خانه">
           <span class="brand-icon"
             ><i class="fa-solid fa-map-location-dot"></i
           ></span>
@@ -48,24 +48,22 @@
           >
         </a>
 
-        <!-- Search -->
+        <!-- جستجو -->
         <form class="searchbox" role="search" onsubmit="return false;">
           <i class="fa-solid fa-magnifying-glass"></i>
           <input
             id="searchInput"
             type="search"
-            placeholder="... جستجوی استان"
             data-i18n-placeholder="search.placeholder"
-            aria-label="Search provinces"
-            autocomplete="off"
+            placeholder="... جستجوی استان"
           />
           <kbd class="kbd">/</kbd>
         </form>
 
-        <!-- Actions -->
+        <!-- اکشن‌ها -->
         <div class="actions">
           <div class="capsule">
-            <!-- Theme switch -->
+            <!-- سوییچ تم -->
             <label class="switch" title="Theme">
               <input type="checkbox" id="darkModeToggle" aria-label="Theme" />
               <span class="slider">
@@ -74,40 +72,41 @@
               </span>
             </label>
 
-            <!-- Language -->
+            <!-- زبان -->
             <button id="langToggle" class="capsule-btn" aria-label="Language">
               <i class="fa-solid fa-language"></i>
-              <span class="hide-sm" data-i18n="lang.caption">زبان</span>
+              <span class="hide-sm" data-i18n="header.lang">زبان</span>
             </button>
           </div>
 
-          <!-- Mobile menu -->
+          <!-- منوی موبایل -->
           <button
             id="navToggle"
             class="icon-btn only-sm"
             aria-controls="mainNav"
             aria-expanded="false"
-            aria-label="Open navigation"
           >
             <i class="fa-solid fa-bars"></i>
           </button>
         </div>
       </div>
 
-      <!-- Nav -->
-      <nav id="mainNav" class="main-nav" aria-label="Main navigation">
-        <a href="index.html" class="nav-link is-active"
-          ><i class="fa-solid fa-house"></i
-          ><span data-i18n="nav.home">خانه</span></a
-        >
-        <a href="about.html" class="nav-link"
-          ><i class="fa-solid fa-circle-info"></i
-          ><span data-i18n="nav.about">درباره</span></a
-        >
-        <a href="contact.html" class="nav-link"
-          ><i class="fa-solid fa-envelope"></i
-          ><span data-i18n="nav.contact">تماس</span></a
-        >
+      <!-- ناوبری: دقیــقاً زیر متن برند و هم‌تراز با آن -->
+      <nav id="mainNav" class="main-nav" aria-label="ناوبری اصلی">
+        <div class="container nav-inner">
+          <a href="index.html" class="nav-link  is-active"
+            ><i class="fa-solid fa-house"></i
+            ><span data-i18n="nav.home">خانه</span></a
+          >
+          <a href="about.html" class="nav-link"
+            ><i class="fa-solid fa-circle-info"></i
+            ><span data-i18n="nav.about">درباره</span></a
+          >
+          <a href="contact.html" class="nav-link"
+            ><i class="fa-solid fa-envelope"></i
+            ><span data-i18n="nav.contact">تماس</span></a
+          >
+        </div>
       </nav>
       <div class="nav-backdrop" id="navBackdrop"></div>
     </header>

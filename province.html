@@ -28,22 +28,22 @@
       <div class="topbar container">
         <!-- برند -->
         <a class="brand" href="index.html" aria-label="خانه">
-          <span class="brand-icon">
-            <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
-          </span>
-          <span class="brand-text" data-i18n="brand.title"
-            >استان‌های ایران</span
+          <span class="brand-icon"
+            ><i class="fa-solid fa-map-location-dot"></i
+          ></span>
+          <strong class="brand-text" data-i18n="brand.title"
+            >استان‌های ایران</strong
           >
         </a>
 
-        <!-- جعبه جستجو (لوکال برای تب‌ها/لیست‌ها) -->
+        <!-- جستجو -->
         <form class="searchbox" role="search" onsubmit="return false;">
-          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <i class="fa-solid fa-magnifying-glass"></i>
           <input
             id="searchInput"
             type="search"
-            placeholder="جستجوی استان…"
-            aria-label="جستجو"
+            data-i18n-placeholder="search.placeholder"
+            placeholder="... جستجوی استان"
           />
           <kbd class="kbd">/</kbd>
         </form>
@@ -51,55 +51,50 @@
         <!-- اکشن‌ها -->
         <div class="actions">
           <div class="capsule">
-            <button
-              id="langToggle"
-              class="capsule-btn"
-              title="تغییر زبان"
-              aria-label="Language"
-            >
-              <i class="fa-solid fa-language" aria-hidden="true"></i>
-              <span class="hide-sm" data-i18n="header.lang">زبان</span>
-            </button>
-
-            <label class="switch capsule-switch" title="تیره/روشن">
-              <input
-                type="checkbox"
-                id="darkModeToggle"
-                aria-label="Dark mode"
-              />
+            <!-- سوییچ تم -->
+            <label class="switch" title="Theme">
+              <input type="checkbox" id="darkModeToggle" aria-label="Theme" />
               <span class="slider">
-                <i class="sun fa-solid fa-sun" aria-hidden="true"></i>
-                <i class="moon fa-solid fa-moon" aria-hidden="true"></i>
+                <i class="sun fa-solid fa-sun"></i>
+                <i class="moon fa-solid fa-moon"></i>
               </span>
             </label>
+
+            <!-- زبان -->
+            <button id="langToggle" class="capsule-btn" aria-label="Language">
+              <i class="fa-solid fa-language"></i>
+              <span class="hide-sm" data-i18n="header.lang">زبان</span>
+            </button>
           </div>
 
+          <!-- منوی موبایل -->
           <button
             id="navToggle"
             class="icon-btn only-sm"
             aria-controls="mainNav"
             aria-expanded="false"
-            aria-label="باز کردن منو"
           >
-            <i class="fa-solid fa-bars" aria-hidden="true"></i>
+            <i class="fa-solid fa-bars"></i>
           </button>
         </div>
       </div>
 
-      <!-- ناوبری -->
+      <!-- ناوبری: دقیــقاً زیر متن برند و هم‌تراز با آن -->
       <nav id="mainNav" class="main-nav" aria-label="ناوبری اصلی">
-        <a href="index.html" class="nav-link is-active" aria-current="page">
-          <i class="fa-solid fa-house" aria-hidden="true"></i>
-          <span data-i18n="nav.home">خانه</span>
-        </a>
-        <a href="about.html" class="nav-link">
-          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-          <span data-i18n="nav.about">درباره</span>
-        </a>
-        <a href="contact.html" class="nav-link">
-          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-          <span data-i18n="nav.contact">تماس</span>
-        </a>
+        <div class="container nav-inner">
+          <a href="index.html" class="nav-link"
+            ><i class="fa-solid fa-house"></i
+            ><span data-i18n="nav.home">خانه</span></a
+          >
+          <a href="about.html" class="nav-link"
+            ><i class="fa-solid fa-circle-info"></i
+            ><span data-i18n="nav.about">درباره</span></a
+          >
+          <a href="contact.html" class="nav-link"
+            ><i class="fa-solid fa-envelope"></i
+            ><span data-i18n="nav.contact">تماس</span></a
+          >
+        </div>
       </nav>
       <div class="nav-backdrop" id="navBackdrop"></div>
     </header>
