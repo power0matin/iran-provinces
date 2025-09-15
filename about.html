@@ -3,7 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="معرفی جامع استان‌های ایران با جستجو، نقشه تعاملی، حالت تیره/روشن و پشتیبانی چندزبانه."
+    />
+    <meta name="theme-color" content="#0ea5e9" />
+
+    <!-- Open Graph / SEO -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="استان‌های ایران - درباره" />
+    <meta
+      property="og:description"
+      content="هدف، روش گردآوری داده‌ها، امکانات و نقشه‌راه پروژه استان‌های ایران."
+    />
+    <meta property="og:locale" content="fa_IR" />
+
     <title data-i18n="nav.about">درباره</title>
+
+    <!-- Fonts & Icons -->
     <link
       href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap"
       rel="stylesheet"
@@ -15,14 +32,108 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
+
+    <!-- JSON-LD: اطلاعات ساخت‌یافته -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "درباره پروژه استان‌های ایران",
+        "inLanguage": "fa",
+        "isPartOf": { "@type": "WebSite", "name": "استان‌های ایران" },
+        "description": "صفحه درباره: هدف، امکانات، منابع داده و تیم توسعه.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Iran Provinces Project"
+        }
+      }
+    </script>
+    <style>
+      /* اختیاری: چند ریز-استایل کمکی تا بدون CSSهای پروژه هم قابل خواندن باشد */
+      body {
+        font-family: Vazirmatn, system-ui, -apple-system, Segoe UI, Roboto,
+          "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
+          "Segoe UI Emoji";
+      }
+      .prose p {
+        line-height: 1.9;
+      }
+      .kbd {
+        border: 1px solid #aaa;
+        border-bottom-width: 2px;
+        padding: 0 0.4rem;
+        border-radius: 0.4rem;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        font-size: 0.85em;
+      }
+      .list-check {
+        list-style: none;
+        padding: 0;
+      }
+      .list-check li {
+        margin: 0.35rem 0;
+      }
+      .list-check li i {
+        margin-inline-start: 0.25rem;
+        color: var(--accent, #0ea5e9);
+      }
+      .muted {
+        opacity: 0.8;
+      }
+      .callout {
+        border-inline-start: 4px solid var(--accent, #0ea5e9);
+        background: color-mix(in oklab, var(--accent, #0ea5e9) 6%, transparent);
+        padding: 1rem;
+        border-radius: 0.6rem;
+      }
+      .grid {
+        display: grid;
+        gap: 1rem;
+      }
+      @media (min-width: 768px) {
+        .grid.cols-2 {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .badge {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        background: color-mix(
+          in oklab,
+          var(--accent, #0ea5e9) 12%,
+          transparent
+        );
+      }
+      .code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          monospace;
+        background: #00000010;
+        padding: 0.15rem 0.35rem;
+        border-radius: 0.35rem;
+      }
+    </style>
   </head>
   <body class="theme-auto">
+    <a class="sr-only" href="#content" data-i18n="a11y.skip">پرش به محتوا</a>
+
+    <noscript>
+      <div class="site-banner warning" role="status">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span data-i18n="noscript"
+          >برای تجربه کامل، جاوااسکریپت مرورگر را فعال کنید.</span
+        >
+      </div>
+    </noscript>
+
     <header class="site-header" data-sticky>
       <div class="topbar container">
         <!-- برند -->
         <a class="brand" href="index.html" aria-label="خانه">
           <span class="brand-icon"
-            ><i class="fa-solid fa-map-location-dot"></i
+            ><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i
           ></span>
           <strong class="brand-text" data-i18n="brand.title"
             >استان‌های ایران</strong
@@ -30,15 +141,24 @@
         </a>
 
         <!-- جستجو -->
-        <form class="searchbox" role="search" onsubmit="return false;">
-          <i class="fa-solid fa-magnifying-glass"></i>
+        <form
+          class="searchbox"
+          role="search"
+          onsubmit="return false;"
+          aria-label="جستجو"
+        >
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <label class="sr-only" for="searchInput" data-i18n="search.label"
+            >جستجوی استان</label
+          >
           <input
             id="searchInput"
             type="search"
             data-i18n-placeholder="search.placeholder"
             placeholder="... جستجوی استان"
+            autocomplete="off"
           />
-          <kbd class="kbd">/</kbd>
+          <kbd class="kbd" aria-hidden="true">/</kbd>
         </form>
 
         <!-- اکشن‌ها -->
@@ -48,14 +168,14 @@
             <label class="switch" title="Theme">
               <input type="checkbox" id="darkModeToggle" aria-label="Theme" />
               <span class="slider">
-                <i class="sun fa-solid fa-sun"></i>
-                <i class="moon fa-solid fa-moon"></i>
+                <i class="sun fa-solid fa-sun" aria-hidden="true"></i>
+                <i class="moon fa-solid fa-moon" aria-hidden="true"></i>
               </span>
             </label>
 
             <!-- زبان -->
             <button id="langToggle" class="capsule-btn" aria-label="Language">
-              <i class="fa-solid fa-language"></i>
+              <i class="fa-solid fa-language" aria-hidden="true"></i>
               <span class="hide-sm" data-i18n="header.lang">زبان</span>
             </button>
           </div>
@@ -66,8 +186,9 @@
             class="icon-btn only-sm"
             aria-controls="mainNav"
             aria-expanded="false"
+            aria-label="باز کردن منو"
           >
-            <i class="fa-solid fa-bars"></i>
+            <i class="fa-solid fa-bars" aria-hidden="true"></i>
           </button>
         </div>
       </div>
@@ -76,36 +197,353 @@
       <nav id="mainNav" class="main-nav" aria-label="ناوبری اصلی">
         <div class="container nav-inner">
           <a href="index.html" class="nav-link"
-            ><i class="fa-solid fa-house"></i
+            ><i class="fa-solid fa-house" aria-hidden="true"></i
             ><span data-i18n="nav.home">خانه</span></a
           >
           <a href="about.html" class="nav-link is-active"
-            ><i class="fa-solid fa-circle-info"></i
+            ><i class="fa-solid fa-circle-info" aria-hidden="true"></i
             ><span data-i18n="nav.about">درباره</span></a
           >
           <a href="contact.html" class="nav-link"
-            ><i class="fa-solid fa-envelope"></i
+            ><i class="fa-solid fa-envelope" aria-hidden="true"></i
             ><span data-i18n="nav.contact">تماس</span></a
           >
         </div>
       </nav>
-      <div class="nav-backdrop" id="navBackdrop"></div>
+      <div
+        class="nav-backdrop"
+        id="navBackdrop"
+        tabindex="-1"
+        aria-hidden="true"
+      ></div>
     </header>
 
-    <main class="container">
-      <section class="card fade-in-up">
+    <main id="content" class="container">
+      <!-- هِرو / معرفی کوتاه -->
+      <section class="card fade-in-up" aria-labelledby="aboutTitle">
         <div class="card-header">
           <div class="card-title">
-            <i class="fa-regular fa-circle-question"></i
-            ><span data-i18n="nav.about">درباره</span>
+            <i class="fa-regular fa-circle-question" aria-hidden="true"></i>
+            <span id="aboutTitle" data-i18n="nav.about">درباره</span>
+          </div>
+          <span class="badge" data-i18n="about.version">نسخه ۱.۰</span>
+        </div>
+        <div class="card-body prose">
+          <h2 data-i18n="about.hero.title">
+            این وب‌سایت برای معرفی جامع استان‌های ایران ساخته شده است.
+          </h2>
+          <p class="muted" data-i18n="about.hero.lead">
+            داده‌ها به‌صورت پویا قابل به‌روزرسانی‌اند و رابط کاربری از
+            <strong>حالت تیره/روشن</strong>، <strong>جستجو</strong> و
+            <strong>چندزبانه</strong> پشتیبانی می‌کند. تمرکز اصلی ما ارائه
+            اطلاعات معتبر، ساختار‌یافته و قابل دسترس برای دانش‌آموزان، پژوهشگران
+            و علاقه‌مندان است.
+          </p>
+          <div class="callout" role="note">
+            <p data-i18n="about.hero.tip">
+              میانبرها: برای فوکوس روی جستجو کلید <span class="kbd">/</span> و
+              برای بستن منو <span class="kbd">Esc</span> را بزنید.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- مأموریت و اهداف -->
+      <section class="card fade-in-up" aria-labelledby="missionTitle">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fa-solid fa-bullseye" aria-hidden="true"></i>
+            <span id="missionTitle" data-i18n="about.mission.title"
+              >ماموریت و اهداف</span
+            >
+          </div>
+        </div>
+        <div class="card-body prose">
+          <div class="grid cols-2">
+            <div>
+              <h3 data-i18n="about.mission.mission">ماموریت</h3>
+              <p data-i18n="about.mission.text">
+                فراهم کردن مرجع برخطی که اطلاعات کلیدی هر استان—از موقعیت
+                جغرافیایی و تقسیمات تا جمعیت و جاذبه‌ها—را به شکلی استاندارد،
+                خوش‌خوان و قابل استناد ارائه دهد.
+              </p>
+            </div>
+            <div>
+              <h3 data-i18n="about.mission.goals">اهداف</h3>
+              <ul class="list-check">
+                <li>
+                  <i class="fa-solid fa-check"></i
+                  ><span data-i18n="about.mission.g1"
+                    >ارائه داده‌های دقیق و منبع‌دار</span
+                  >
+                </li>
+                <li>
+                  <i class="fa-solid fa-check"></i
+                  ><span data-i18n="about.mission.g2"
+                    >دسترسی سریع با جستجوی هوشمند</span
+                  >
+                </li>
+                <li>
+                  <i class="fa-solid fa-check"></i
+                  ><span data-i18n="about.mission.g3"
+                    >پشتیبانی از چند زبان برای مخاطبان گسترده</span
+                  >
+                </li>
+                <li>
+                  <i class="fa-solid fa-check"></i
+                  ><span data-i18n="about.mission.g4"
+                    >قابلیت استفاده بالا در موبایل و دسکتاپ</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- امکانات -->
+      <section class="card fade-in-up" aria-labelledby="featuresTitle">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+            <span id="featuresTitle" data-i18n="about.features.title"
+              >امکانات کلیدی</span
+            >
+          </div>
+        </div>
+        <div class="card-body prose">
+          <ul class="list-check">
+            <li>
+              <i class="fa-solid fa-check"></i
+              ><span data-i18n="about.features.f1"
+                >جستجوی سریع نام استان‌ها و فیلتر نتایج</span
+              >
+            </li>
+            <li>
+              <i class="fa-solid fa-check"></i
+              ><span data-i18n="about.features.f2"
+                >نقشه تعاملی (Image Map) با پشتیبانی از تغییر اندازه</span
+              >
+            </li>
+            <li>
+              <i class="fa-solid fa-check"></i
+              ><span data-i18n="about.features.f3"
+                >حالت تیره/روشن با ذخیره ترجیح کاربر</span
+              >
+            </li>
+            <li>
+              <i class="fa-solid fa-check"></i
+              ><span data-i18n="about.features.f4"
+                >چندزبانه با کلید تغییر سریع زبان</span
+              >
+            </li>
+            <li>
+              <i class="fa-solid fa-check"></i
+              ><span data-i18n="about.features.f5"
+                >دسترسی‌پذیری: ناوبری با کی‌بورد، برچسب‌های ARIA و کنتراست
+                مناسب</span
+              >
+            </li>
+            <li>
+              <i class="fa-solid fa-check"></i
+              ><span data-i18n="about.features.f6"
+                >ساختار ماژولار فایل‌ها: <span class="code">style.css</span>،
+                <span class="code">components.css</span>،
+                <span class="code">responsive.css</span></span
+              >
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- منابع داده -->
+      <section class="card fade-in-up" aria-labelledby="dataTitle">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fa-solid fa-database" aria-hidden="true"></i>
+            <span id="dataTitle" data-i18n="about.data.title"
+              >منابع و به‌روزرسانی داده‌ها</span
+            >
+          </div>
+        </div>
+        <div class="card-body prose">
+          <p data-i18n="about.data.text">
+            اطلاعات پایه استان‌ها از منابع عمومی و داده‌های رسمی گردآوری می‌شود.
+            داده‌ها ساختارمند هستند و در نسخه‌های بعدی، امکان همگام‌سازی و
+            به‌روزرسانی خودکار پیش‌بینی شده است. هرگونه اصلاح یا پیشنهاد شما
+            باعث بهبود کیفیت خواهد شد.
+          </p>
+          <ul class="list-check">
+            <li>
+              <i class="fa-solid fa-check"></i
+              ><span data-i18n="about.data.p1"
+                >بازبینی دوره‌ای برای اطمینان از صحت</span
+              >
+            </li>
+            <li>
+              <i class="fa-solid fa-check"></i
+              ><span data-i18n="about.data.p2"
+                >ارجاع به منابع در صورت نیاز داخل صفحات هر استان</span
+              >
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- نحوه استفاده -->
+      <section class="card fade-in-up" aria-labelledby="howtoTitle">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+            <span id="howtoTitle" data-i18n="about.howto.title"
+              >چگونه استفاده کنیم؟</span
+            >
+          </div>
+        </div>
+        <div class="card-body prose">
+          <ol>
+            <li data-i18n="about.howto.s1">
+              از کادر جستجو نام استان را وارد کنید (میانبر:
+              <span class="kbd">/</span>).
+            </li>
+            <li data-i18n="about.howto.s2">
+              در صفحه استان، نمای کلی، آمار، تقسیمات و جاذبه‌ها را ببینید.
+            </li>
+            <li data-i18n="about.howto.s3">
+              برای تغییر زبان روی دکمه <em>زبان</em> بزنید.
+            </li>
+            <li data-i18n="about.howto.s4">
+              برای تم دلخواه، سوئیچ خورشید/ماه را تغییر دهید.
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- سوالات متداول -->
+      <section class="card fade-in-up" aria-labelledby="faqTitle">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fa-regular fa-circle-question" aria-hidden="true"></i>
+            <span id="faqTitle" data-i18n="about.faq.title">سوالات متداول</span>
+          </div>
+        </div>
+        <div class="card-body prose">
+          <details>
+            <summary data-i18n="about.faq.q1">
+              چطور داده‌ها به‌روز می‌شوند؟
+            </summary>
+            <p data-i18n="about.faq.a1">
+              داده‌ها به‌صورت دوره‌ای بازبینی می‌شوند و در صورت انتشار نسخه‌های
+              رسمی، به‌روزرسانی می‌گردند.
+            </p>
+          </details>
+          <details>
+            <summary data-i18n="about.faq.q2">آیا می‌توانم مشارکت کنم؟</summary>
+            <p data-i18n="about.faq.a2">
+              بله، از طریق صفحه تماس می‌توانید پیشنهاد و ایرادات را ارسال کنید.
+            </p>
+          </details>
+          <details>
+            <summary data-i18n="about.faq.q3">
+              آیا حالت تیره خودکار است؟
+            </summary>
+            <p data-i18n="about.faq.a3">
+              اگر گزینه <span class="code">theme-auto</span> فعال باشد، بر اساس
+              ترجیح سیستم شما اعمال می‌شود و می‌توانید دستی هم تغییر دهید.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <!-- نقشه راه -->
+      <section class="card fade-in-up" aria-labelledby="roadmapTitle">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fa-solid fa-road" aria-hidden="true"></i>
+            <span id="roadmapTitle" data-i18n="about.roadmap.title"
+              >نقشه‌راه نسخه‌های بعد</span
+            >
+          </div>
+        </div>
+        <div class="card-body prose">
+          <ul class="list-check">
+            <li>
+              <i class="fa-solid fa-check"></i
+              ><span data-i18n="about.roadmap.r1"
+                >فیلترهای پیشرفته (جمعیت، مساحت، آب‌وهوا)</span
+              >
+            </li>
+            <li>
+              <i class="fa-solid fa-check"></i
+              ><span data-i18n="about.roadmap.r2"
+                >مقایسه دو استان در یک نگاه</span
+              >
+            </li>
+            <li>
+              <i class="fa-solid fa-check"></i
+              ><span data-i18n="about.roadmap.r3"
+                >گالری تصاویر و لینک به منابع گردشگری</span
+              >
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- تیم/اعتبارات -->
+      <section class="card fade-in-up" aria-labelledby="creditsTitle">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fa-solid fa-people-group" aria-hidden="true"></i>
+            <span id="creditsTitle" data-i18n="about.credits.title"
+              >اعتبارات و سپاس</span
+            >
+          </div>
+        </div>
+        <div class="card-body prose">
+          <p data-i18n="about.credits.text">
+            از تمامی همیاران و بازبین‌ها برای مشارکت در بهبود کیفیت داده‌ها
+            سپاسگزاریم. اگر شما هم علاقه‌مندید در این پروژه سهیم باشید، از صفحه
+            تماس پیام بگذارید.
+          </p>
+        </div>
+      </section>
+
+      <!-- مجوز -->
+      <section class="card fade-in-up" aria-labelledby="licenseTitle">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fa-solid fa-scale-balanced" aria-hidden="true"></i>
+            <span id="licenseTitle" data-i18n="about.license.title"
+              >مجوز استفاده</span
+            >
+          </div>
+        </div>
+        <div class="card-body prose">
+          <p data-i18n="about.license.text">
+            محتوای متنی تا حد امکان با ذکر منبع قابل استفاده است. کد رابط کاربری
+            تحت مجوز MIT ارائه می‌شود مگر آن‌که در مخزن پروژه خلاف آن ذکر شده
+            باشد.
+          </p>
+        </div>
+      </section>
+
+      <!-- تماس سریع -->
+      <section class="card fade-in-up" aria-labelledby="ctaTitle">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+            <span id="ctaTitle" data-i18n="about.cta.title"
+              >پیشنهاد یا ایرادی دارید؟</span
+            >
           </div>
         </div>
         <div class="card-body">
-          <h2>این سایت برای معرفی استان‌های ایران ساخته شده است.</h2>
-          <p class="muted">
-            داده‌ها قابل به‌روزرسانی‌اند و رابط کاربری از حالت تیره/روشن، جستجو
-            و چندزبانه پشتیبانی می‌کند.
-          </p>
+          <a
+            href="contact.html"
+            class="btn primary"
+            data-i18n="about.cta.action"
+            >ارسال بازخورد</a
+          >
         </div>
       </section>
     </main>
@@ -119,29 +557,88 @@
       </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/image-map-resizer/1.0.10/js/imageMapResizer.min.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        window.imageMapResize?.();
-      });
-    </script>
+    <!-- Dependencies -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/image-map-resizer/1.0.10/js/imageMapResizer.min.js"
+      integrity="sha512-i2jX8d8H58KSBhYq4E1y8z9iZlC1v1SsWq7bqQXc2YQy3uM2u3Ggs2w8J7q7K8VZfW8hGQq1m2F+8rXK7e0fRQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <!-- App Scripts -->
     <script src="js/darkMode.js"></script>
     <script src="js/i18n.js"></script>
-    <!-- اگر داری -->
     <script src="js/app.js"></script>
 
+    <!-- رفتارهای صفحه -->
     <script>
       (function () {
+        const $ = (sel) => document.querySelector(sel);
+        const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+        // سال جاری
         const y = document.getElementById("year");
         if (y) y.textContent = new Date().getFullYear();
-        document
-          .getElementById("langToggle")
-          ?.addEventListener("click", () => I18N.toggle());
-        document
-          .getElementById("navToggle")
-          ?.addEventListener("click", () =>
-            document.getElementById("mainNav")?.classList.toggle("open")
-          );
+
+        // تغییر زبان
+        document.getElementById("langToggle")?.addEventListener("click", () => {
+          if (window.I18N?.toggle) I18N.toggle();
+        });
+
+        // منوی موبایل
+        const nav = document.getElementById("mainNav");
+        const navBtn = document.getElementById("navToggle");
+        const backdrop = document.getElementById("navBackdrop");
+        function toggleNav(force) {
+          const willOpen =
+            typeof force === "boolean"
+              ? force
+              : !nav.classList.contains("open");
+          nav.classList.toggle("open", willOpen);
+          navBtn?.setAttribute("aria-expanded", String(willOpen));
+          backdrop?.setAttribute("aria-hidden", String(!willOpen));
+          if (willOpen) {
+            backdrop?.addEventListener("click", () => toggleNav(false), {
+              once: true,
+            });
+          }
+        }
+        navBtn?.addEventListener("click", () => toggleNav());
+
+        // کلیدهای میانبر
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "/" && !e.target.closest("input, textarea")) {
+            e.preventDefault();
+            document.getElementById("searchInput")?.focus();
+          }
+          if (e.key === "Escape" && nav?.classList.contains("open")) {
+            toggleNav(false);
+          }
+        });
+
+        // حالت تیره/روشن (اگر darkMode.js نبود)
+        const themeToggle = document.getElementById("darkModeToggle");
+        if (themeToggle && !window.DarkMode) {
+          const root = document.body;
+          const STORAGE_KEY = "theme";
+          const prefersDark =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const saved = localStorage.getItem(STORAGE_KEY);
+          const initial = saved || (prefersDark ? "dark" : "light");
+          root.classList.toggle("theme-dark", initial === "dark");
+          themeToggle.checked = initial === "dark";
+          themeToggle.addEventListener("change", () => {
+            const isDark = themeToggle.checked;
+            root.classList.toggle("theme-dark", isDark);
+            localStorage.setItem(STORAGE_KEY, isDark ? "dark" : "light");
+          });
+        }
+
+        // Image Map Resizer (در صورت استفاده از نقشه تصویری در صفحات دیگر)
+        document.addEventListener("DOMContentLoaded", () => {
+          window.imageMapResize?.();
+        });
       })();
     </script>
   </body>
