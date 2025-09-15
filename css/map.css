@@ -1,0 +1,67 @@
+/* ===================== Leaflet Map (future-proof) ===================== */
+.leaflet-map {
+  width: 100%;
+  height: min(70vh, 720px);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+/* Hover tooltip that follows the cursor */
+.map-tooltip {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -140%);
+  background: color-mix(in oklab, var(--card) 92%, transparent);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 500;
+}
+.map-tooltip.show {
+  opacity: 1;
+  transform: translate(-50%, -150%);
+}
+
+/* Province polygons */
+.leaflet-container path[data-province] {
+  fill: color-mix(in oklab, var(--primary) 12%, var(--bg-soft));
+  stroke: var(--border);
+  stroke-width: 1;
+  transition: fill 0.15s ease, stroke 0.15s ease, filter 0.15s ease;
+  cursor: pointer;
+}
+.leaflet-container path[data-province].hovered {
+  fill: color-mix(in oklab, var(--primary) 30%, var(--bg-soft));
+  stroke: color-mix(in oklab, var(--primary) 55%, var(--border));
+  filter: drop-shadow(
+    0 0 4px color-mix(in oklab, var(--primary) 25%, transparent)
+  );
+}
+
+/* Optional: make attribution unobtrusive */
+.leaflet-control-attribution {
+  background: color-mix(in oklab, var(--card) 75%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding-inline: 8px;
+}
+
+/* Improve zoom controls */
+.leaflet-control-zoom a {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.leaflet-control-zoom a:hover {
+  background: color-mix(in oklab, var(--primary) 12%, var(--bg-soft));
+  border-color: color-mix(in oklab, var(--primary) 30%, var(--border));
+}

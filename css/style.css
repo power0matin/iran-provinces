@@ -42,6 +42,7 @@ body {
   line-height: 1.6;
   background: var(--bg);
   color: var(--text);
+  
 }
 
 /* util */
@@ -338,6 +339,7 @@ body {
   gap: 8px;
   padding: 8px 14px 12px;
   border-top: 1px solid var(--border);
+
 }
 .main-nav .nav-link {
   display: inline-flex;

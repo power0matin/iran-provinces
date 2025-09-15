@@ -1,0 +1,9 @@
+{
+  "type": "Feature",
+  "properties": {
+    "id": "tehran",       // your slug used in province.html?id=tehran
+    "nameFa": "تهران",
+    "nameEn": "Tehran"
+  },
+  "geometry": { "type": "Polygon", "coordinates": [ ... ] }
+}

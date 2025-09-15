@@ -1,0 +1,11 @@
+[
+  {
+    "matchEn": "Tehran",
+    "id": "tehran",
+    "nameFa": "تهران",
+    "nameEn": "Tehran"
+  },
+  { "matchEn": "Fars", "id": "fars", "nameFa": "فارس", "nameEn": "Fars" },
+  { "matchEn": "Alborz", "id": "alborz", "nameFa": "البرز", "nameEn": "Alborz" }
+  // ... add all 31
+]

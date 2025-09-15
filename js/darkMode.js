@@ -1,63 +1,77 @@
-/* js/darkMode.js */
-(() => {
+// darkMode.js — persistent theme with system-preference support + event dispatch
+(function () {
   const LS_KEY = "theme"; // 'light' | 'dark' | 'auto'
-  const $ = (s) => document.querySelector(s);
+  const root = document.documentElement;
+  const body = document.body;
 
-  // auto = بر اساس media-query؛ در UI ما فقط دوحالته است (روشن/تاریک)
-  function applyTheme(next) {
-    const root = document.documentElement;
-    if (next === "dark") {
-      root.setAttribute("data-theme", "light"); // برعکس؟ خیر؛ از متغیرهای شما استفاده می‌کنیم:
-      // در CSS شما theme با data-theme="light" override شده؛ پس:
-      root.removeAttribute("data-theme"); // پاک کنیم و کلاس theme-auto نگذاریم
-      document.body.classList.remove("theme-auto");
-      root.setAttribute("data-theme", "dark");
-    } else if (next === "light") {
-      root.setAttribute("data-theme", "light");
-      document.body.classList.remove("theme-auto");
-    } else {
-      // auto
-      document.body.classList.add("theme-auto");
-      root.removeAttribute("data-theme");
-    }
+  function saved() {
+    return localStorage.getItem(LS_KEY);
   }
-
-  function readInitial() {
-    const v = localStorage.getItem(LS_KEY);
-    return v || "auto";
-  }
-
-  function setTheme(v) {
+  function save(v) {
     localStorage.setItem(LS_KEY, v);
-    applyTheme(v);
-    // موج نور کوتاه روی سوییچ
-    const label = document.querySelector(".switch.capsule-switch");
-    if (label) {
-      label.classList.add("input-wave");
-      setTimeout(() => label.classList.remove("input-wave"), 300);
-    }
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const toggle = $("#darkModeToggle");
-    const prefersDark = matchMedia("(prefers-color-scheme: dark)");
-    let current = readInitial();
+  function systemPrefersDark() {
+    return (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    );
+  }
 
-    // نخستین اعمال
-    applyTheme(current);
-    if (toggle) {
-      toggle.checked =
-        current === "dark" || (current === "auto" && prefersDark.matches);
-      // موقع کلیک: روشن<->تاریک (auto را فعلا استفاده نمی‌کنیم؛ ساده و پایدار)
-      toggle.addEventListener("change", () => {
-        setTheme(toggle.checked ? "dark" : "light");
+  function apply(theme) {
+    // data-theme=light|dark, and keep "theme-auto" class for auto mode (optional)
+    const isAuto = theme === "auto";
+    const isDark = theme === "dark" || (isAuto && systemPrefersDark());
+    root.setAttribute("data-theme", isDark ? "dark" : "light");
+    body.classList.toggle("theme-auto", isAuto);
+    window.dispatchEvent(
+      new CustomEvent("themechange", {
+        detail: { theme, resolved: isDark ? "dark" : "light" },
+      })
+    );
+  }
+
+  function initUI(theme) {
+    // checkbox ON means dark (resolved)
+    const toggle = document.getElementById("darkModeToggle");
+    if (!toggle) return;
+    toggle.checked =
+      theme === "dark" || (theme === "auto" && systemPrefersDark());
+
+    // subtle wave animation on change
+    const slider = toggle.closest(".switch")?.querySelector(".slider");
+    toggle.addEventListener("change", () => {
+      // clicking the checkbox toggles resolved state; we preserve 'auto' only via long-press or code.
+      const resolved = toggle.checked ? "dark" : "light";
+      save(resolved);
+      apply(resolved);
+
+      if (slider) {
+        slider.classList.add("wave");
+        setTimeout(() => slider.classList.remove("wave"), 350);
+      }
+    });
+
+    // if you want a tri-state (auto/light/dark), you can cycle via contextmenu (right-click)
+    toggle.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      save("auto");
+      apply("auto");
+      toggle.checked = systemPrefersDark(); // reflect resolved
+    });
+
+    // React to system changes in auto mode
+    if (window.matchMedia) {
+      const mq = window.matchMedia("(prefers-color-scheme: dark)");
+      mq.addEventListener?.("change", () => {
+        const th = saved() || "auto";
+        if (th === "auto") apply("auto");
       });
     }
+  }
 
-    // اگر کاربر سیستم را عوض کرد و ما در auto باشیم
-    prefersDark.addEventListener?.("change", () => {
-      const mode = localStorage.getItem(LS_KEY) || "auto";
-      if (mode === "auto") applyTheme("auto");
-    });
-  });
+  // init
+  const theme = saved() || "auto";
+  apply(theme);
+  document.addEventListener("DOMContentLoaded", () => initUI(theme));
 })();

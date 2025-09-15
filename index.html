@@ -5,21 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title data-i18n="header.title">استان‌های ایران</title>
 
+    <!-- Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Base styles (yours) -->
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/responsive.css" />
+
+    <!-- Icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
+
+    <!-- Leaflet -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+
+    <!-- Map styles -->
+    <link rel="stylesheet" href="css/map.css" />
   </head>
+
   <body class="theme-auto">
-    <header class="site-header">
+    <!-- Header -->
+    <header class="site-header" data-sticky>
       <div class="topbar container">
+        <!-- Brand -->
         <a class="brand" href="index.html" aria-label="Home">
           <span class="brand-icon"
             ><i class="fa-solid fa-map-location-dot"></i
@@ -29,19 +48,24 @@
           >
         </a>
 
-        <div class="searchbox" role="search">
+        <!-- Search -->
+        <form class="searchbox" role="search" onsubmit="return false;">
           <i class="fa-solid fa-magnifying-glass"></i>
           <input
             id="searchInput"
             type="search"
-            data-i18n-placeholder="search.placeholder"
             placeholder="... جستجوی استان"
+            data-i18n-placeholder="search.placeholder"
+            aria-label="Search provinces"
+            autocomplete="off"
           />
           <kbd class="kbd">/</kbd>
-        </div>
+        </form>
 
+        <!-- Actions -->
         <div class="actions">
           <div class="capsule">
+            <!-- Theme switch -->
             <label class="switch" title="Theme">
               <input type="checkbox" id="darkModeToggle" aria-label="Theme" />
               <span class="slider">
@@ -50,42 +74,49 @@
               </span>
             </label>
 
+            <!-- Language -->
             <button id="langToggle" class="capsule-btn" aria-label="Language">
               <i class="fa-solid fa-language"></i>
               <span class="hide-sm" data-i18n="lang.caption">زبان</span>
             </button>
           </div>
 
+          <!-- Mobile menu -->
           <button
             id="navToggle"
             class="icon-btn only-sm"
             aria-controls="mainNav"
             aria-expanded="false"
+            aria-label="Open navigation"
           >
             <i class="fa-solid fa-bars"></i>
           </button>
         </div>
       </div>
 
-      <!-- ناوبری -->
-      <nav id="mainNav" class="main-nav" aria-label="ناوبری اصلی">
+      <!-- Nav -->
+      <nav id="mainNav" class="main-nav" aria-label="Main navigation">
         <a href="index.html" class="nav-link is-active"
-          ><i class="fa-solid fa-house"></i><span>خانه</span></a
+          ><i class="fa-solid fa-house"></i
+          ><span data-i18n="nav.home">خانه</span></a
         >
         <a href="about.html" class="nav-link"
-          ><i class="fa-solid fa-circle-info"></i><span>درباره</span></a
+          ><i class="fa-solid fa-circle-info"></i
+          ><span data-i18n="nav.about">درباره</span></a
         >
         <a href="contact.html" class="nav-link"
-          ><i class="fa-solid fa-envelope"></i><span>تماس</span></a
+          ><i class="fa-solid fa-envelope"></i
+          ><span data-i18n="nav.contact">تماس</span></a
         >
       </nav>
       <div class="nav-backdrop" id="navBackdrop"></div>
     </header>
 
+    <!-- Main -->
     <main class="container">
       <section class="grid">
-        <!-- لیست استان‌ها -->
-        <section class="card list-card">
+        <!-- Province list -->
+        <section class="card list-card fade-in-up">
           <div class="card-header">
             <div class="card-title">
               <i class="fa-regular fa-rectangle-list"></i>
@@ -94,7 +125,7 @@
             <span id="countBadge" class="badge">—</span>
           </div>
 
-          <ul id="provinceList" class="province-list"></ul>
+          <ul id="provinceList" class="province-list" aria-live="polite"></ul>
 
           <div class="hint">
             <i class="fa-regular fa-lightbulb"></i>
@@ -104,52 +135,41 @@
           </div>
         </section>
 
-        <!-- نقشه -->
-        <section class="card map-card">
+        <!-- Interactive map -->
+        <section class="card map-card fade-in-up">
           <div class="card-header">
             <div class="card-title">
-              <i class="fa-regular fa-compass"></i
-              ><span data-i18n="home.map">نقشه تعاملی</span>
+              <i class="fa-regular fa-compass"></i>
+              <span data-i18n="home.map">نقشه تعاملی</span>
             </div>
-            <span class="badge" data-i18n="home.mapImg">تصویر نقشه</span>
+            <span class="badge" id="mapStatus">Loading…</span>
           </div>
 
-          <div class="map-wrap">
-            <img
-              src="images/iran-map.png"
-              class="responsive-map"
-              usemap="#iran-map"
-              alt="نقشه استان‌های ایران"
-            />
-            <map name="iran-map">
-              <!-- چند نمونه؛ بقیهٔ areaهای قبلی‌ت را نگه‌دار -->
-              <area
-                alt="tehran"
-                title="Tehran | تهران"
-                href="province.html?id=tehran"
-                coords="195,127,190,133,185,136,174,138,185,144,187,150,197,153,205,158,206,147,222,144,231,136,210,136"
-                shape="poly"
-              />
-              <area
-                alt="fars"
-                title="Fars | فارس"
-                href="province.html?id=fars"
-                coords="204,321,203,307,193,297,176,285,191,271,200,275,206,241,220,245,225,258,245,268,246,279,254,290,264,290,276,305,276,314,280,324,288,337,276,347,256,348,246,357,216,344"
-                shape="poly"
-              />
-              <area
-                alt="kerman"
-                title="Kerman | کرمان"
-                href="province.html?id=kerman"
-                coords="259,286,258,254,284,249,308,231,337,235,368,268,375,303,375,320,366,321,360,360,364,369,356,369,330,357,323,346,324,336,317,332,313,323,304,330,297,322,294,313,281,314"
-                shape="poly"
-              />
-            </map>
+          <div class="card-body">
+            <div
+              id="map"
+              class="leaflet-map"
+              aria-label="Iran interactive map"
+            ></div>
+            <div
+              id="mapTooltip"
+              class="map-tooltip"
+              role="tooltip"
+              aria-hidden="true"
+            ></div>
+          </div>
+
+          <div class="card-footer">
+            <span class="muted" data-i18n="home.mapHint">
+              با هاور/تاچ روی هر استان نام آن را ببینید؛ با کلیک وارد صفحه همان
+              استان شوید.
+            </span>
           </div>
         </section>
       </section>
     </main>
 
+    <!-- Footer -->
     <footer class="site-footer">
       <div class="footer-inner">
         <p>
@@ -164,17 +184,23 @@
           >
         </p>
       </div>
+      <noscript
+        >JavaScript is required for the interactive map and search.</noscript
+      >
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/image-map-resizer/1.0.10/js/imageMapResizer.min.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        window.imageMapResize?.();
-      });
-    </script>
-    <script src="js/darkMode.js"></script>
-    <script src="js/i18n.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/home.js"></script>
+    <!-- Scripts (order matters) -->
+    <script src="js/i18n.js" defer></script>
+    <script src="js/darkMode.js" defer></script>
+    <script src="js/home.js" defer></script>
+
+    <!-- Leaflet -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+      defer
+    ></script>
+    <script src="js/map.js" defer></script>
   </body>
 </html>
