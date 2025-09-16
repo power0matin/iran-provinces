@@ -1,21 +1,234 @@
-/* فاصله‌بندی کلی صفحه‌ها */
+/* ===================================================================
+   responsive.css  •  Mobile-first, no horizontal scroll, healthy map
+   Breakpoints: 1400 / 1200 / 1000 / 900 / 600 / 380
+   =================================================================== */
+
+:root {
+  --page-gap: clamp(12px, 2.4vw, 22px);
+  --radius: 16px;
+
+  /* Viewport-friendly map sizes */
+  --map-min-h: 320px;
+  --map-ideal-h: 58vh;
+  --map-max-h: 760px;
+
+  --bp-xl: 1400px;
+  --bp-lg: 1200px;
+  --bp-md: 1000px;
+  --bp-sm: 900px;
+  --bp-xs: 600px;
+  --bp-xxs: 380px;
+}
+
+/* Avoid accidental sideways scroll on phones */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Let sticky header respect iOS notches */
+.site-header {
+  padding-inline: max(0px, env(safe-area-inset-left))
+    max(0px, env(safe-area-inset-right));
+}
+
+/* ---------- Topbar ---------- */
+.topbar {
+  gap: 12px;
+  grid-template-columns: 1fr minmax(320px, 520px) auto;
+}
+@media (max-width: 1000px) {
+  .topbar {
+    grid-template-columns: 1fr 1fr auto;
+  }
+}
+@media (max-width: 780px) {
+  .topbar {
+    grid-template-columns: 1fr auto auto;
+  }
+  .searchbox {
+    display: none;
+  } /* you already support "/" shortcut */
+}
+
+/* ---------- Navigation drawer tweaks ---------- */
+@media (max-width: 900px) {
+  .main-nav {
+    padding-block: 10px 16px;
+  }
+  .main-nav .nav-link {
+    padding: 12px 14px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ===================================================================
+   Grid (list + map) — **critical: min-width:0** so children shrink
+   =================================================================== */
 .page-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 16px;
+  gap: var(--page-gap);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: start;
 }
-@media (max-width: 1100px) {
+.page-grid > * {
+  min-width: 0;
+} /* prevents overflow on mobile */
+
+@media (max-width: 1200px) {
+  .page-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 900px) {
   .page-grid {
     grid-template-columns: 1fr;
   }
+  .list-card {
+    order: 1;
+  }
+  .map-card {
+    order: 2;
+  }
 }
-/* کارت نقشه و لیست */
-.map-card,
+
+/* Cards: allow map overlays to escape the card (popups/zooms) */
 .list-card {
-  overflow: hidden;
+  overflow: clip;
 }
+@supports not (overflow: clip) {
+  .list-card {
+    overflow: hidden;
+  }
+}
+
+.map-card {
+  overflow: visible;
+}
+.map-card .card-body {
+  overflow: clip; /* keeps inner padding tidy */
+  border-radius: inherit;
+}
+@supports not (overflow: clip) {
+  .map-card .card-body {
+    overflow: hidden;
+  }
+}
+
+/* ===================================================================
+   Map sizing (Leaflet or image fallback)
+   =================================================================== */
+.leaflet-map {
+  inline-size: 100%;
+  block-size: clamp(var(--map-min-h), var(--map-ideal-h), var(--map-max-h));
+  border-radius: calc(var(--radius) - 2px);
+  isolation: isolate;
+  touch-action: manipulation;
+}
+
 .responsive-map {
-  max-width: 100%;
-  height: auto;
   display: block;
+  inline-size: 100%;
+  aspect-ratio: 3/2;
+  height: auto;
+  border-radius: calc(var(--radius) - 2px);
+  object-fit: cover;
+}
+@supports not (aspect-ratio: 1) {
+  .responsive-map {
+    height: auto;
+  }
+}
+
+/* ===================================================================
+   Province list: adaptive columns
+   =================================================================== */
+.province-list {
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+}
+@media (max-width: 600px) {
+  .province-list {
+    grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+    gap: 8px;
+  }
+}
+@media (max-width: 380px) {
+  .province-list {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 900px) {
+  .province-list a {
+    padding: 14px 12px;
+    font-size: 0.98rem;
+  }
+}
+
+/* ===================================================================
+   Tabs / chips / hero
+   =================================================================== */
+.tabs {
+  overflow: auto hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+@media (max-width: 900px) {
+  .hero {
+    max-height: 260px;
+  }
+}
+
+/* ===================================================================
+   Forms (contact page)
+   =================================================================== */
+[data-contact] {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--page-gap);
+}
+@media (max-width: 900px) {
+  [data-contact] {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 900px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+} /* no iOS zoom */
+
+/* ===================================================================
+   Footer
+   =================================================================== */
+@media (max-width: 600px) {
+  .site-footer {
+    padding: 14px 10px;
+    font-size: 0.92rem;
+  }
+}
+
+/* Print */
+@media print {
+  .page-grid {
+    display: block;
+  }
+  .leaflet-control-container {
+    display: none !important;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .leaflet-pane,
+  .leaflet-map * {
+    transition: none !important;
+    animation: none !important;
+  }
 }

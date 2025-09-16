@@ -285,3 +285,129 @@ select.input.invalid {
   left: -10000px !important;
   opacity: 0 !important;
 }
+
+/* ========= Smooth Theme Transition ========= */
+:root {
+  --theme-xdur: 280ms;
+}
+
+/* ---------- global theme fade (optional but recommended) ---------- */
+:root {
+  --theme-xdur: 240ms;
+}
+html,
+body,
+.site-header,
+.main-nav,
+.card,
+.card *,
+.searchbox,
+.province-list a,
+.chip,
+.tab,
+.acc-item,
+.tiles li,
+.hero,
+.badge,
+.icon-btn,
+.capsule,
+.brand-icon,
+.switch .slider,
+.switch .slider::before {
+  transition: background-color var(--theme-xdur) ease,
+    color var(--theme-xdur) ease, border-color var(--theme-xdur) ease,
+    box-shadow var(--theme-xdur) ease, outline-color var(--theme-xdur) ease,
+    fill var(--theme-xdur) ease, stroke var(--theme-xdur) ease;
+}
+
+/* ---------- toggle ripple / glow (class is added to .slider by JS) ---------- */
+.switch .slider {
+  --wave-dur: 320ms;
+  /* JS sets --x on the .slider; fallback to center when keyboard toggles */
+  --wave-x: var(--x, 50%);
+  position: relative;
+  overflow: hidden;
+  will-change: background, box-shadow;
+}
+
+/* fallback radial wave (works everywhere) */
+.switch .slider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--wave-x) 50%,
+    rgba(124, 92, 255, 0.25) 0%,
+    rgba(124, 92, 255, 0.18) 22%,
+    transparent 48%
+  );
+  opacity: 0;
+  transition: opacity var(--wave-dur) ease;
+}
+
+/* prefer color-mix if supported (nicer tone using --primary) */
+@supports (color: color-mix(in oklab, white, black)) {
+  .switch .slider::after {
+    background: radial-gradient(
+      circle at var(--wave-x) 50%,
+      color-mix(in oklab, var(--primary) 30%, transparent) 0%,
+      color-mix(in oklab, var(--primary) 18%, transparent) 22%,
+      transparent 48%
+    );
+  }
+}
+
+/* JS toggles .wave on the .slider (legacy .input-wave on .switch still works) */
+.switch .slider.wave::after,
+.switch.input-wave .slider::after {
+  opacity: 1;
+}
+
+/* gentle rail pulse */
+.switch .slider.wave,
+.switch.input-wave .slider {
+  animation: slider-pulse var(--wave-dur) ease-out;
+}
+@keyframes slider-pulse {
+  0% {
+    box-shadow: inset 0 0 0 0 rgba(124, 92, 255, 0);
+  }
+  40% {
+    box-shadow: inset 0 0 0 4px rgba(124, 92, 255, 0.22);
+  }
+  100% {
+    box-shadow: inset 0 0 0 0 rgba(124, 92, 255, 0);
+  }
+}
+
+/* knob pop when toggled */
+@keyframes knob-pop {
+  0% {
+    transform: translate(0, -50%) scale(1);
+  }
+  60% {
+    transform: translate(var(--shift), -50%) scale(1.08);
+  }
+  100% {
+    transform: translate(var(--shift), -50%) scale(1);
+  }
+}
+.switch .slider.wave::before,
+.switch.input-wave .slider::before {
+  animation: knob-pop 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* reduced motion: no animations */
+@media (prefers-reduced-motion: reduce) {
+  .switch .slider,
+  .switch .slider::before,
+  .switch .slider::after {
+    transition: none !important;
+    animation: none !important;
+  }
+  .switch .slider::after {
+    display: none;
+  }
+}

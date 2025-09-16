@@ -278,7 +278,6 @@ body {
     display: none;
   }
 }
-
 /* THEME SWITCH (scoped, stable) */
 .switch {
   --w: 56px;
@@ -286,6 +285,8 @@ body {
   --knob: 24px;
   --gap: 3px;
   --shift: calc(var(--w) - var(--knob) - var(--gap) * 2);
+  /* wave origin along the track (percent) */
+  --x: 10%;
   position: relative;
   display: inline-block;
   width: var(--w);
@@ -293,6 +294,7 @@ body {
   flex: 0 0 auto;
   isolation: isolate;
 }
+
 .switch input {
   position: absolute;
   inset: 0;
@@ -301,6 +303,7 @@ body {
   height: 100%;
   cursor: pointer;
 }
+
 .switch .slider {
   position: relative;
   display: block;
@@ -316,6 +319,8 @@ body {
   overflow: hidden;
   transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
+
+/* knob */
 .switch .slider::before {
   content: "";
   position: absolute;
@@ -326,11 +331,12 @@ body {
   border-radius: 50%;
   background: var(--card);
   border: 1px solid var(--border);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 0 0 0 rgba(124, 92, 255, 0);
   transform: translate(0, -50%);
   transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.2s,
     border-color 0.2s;
 }
+
 .switch .sun,
 .switch .moon {
   position: absolute;
@@ -340,6 +346,7 @@ body {
   color: var(--muted);
   pointer-events: none;
   opacity: 0.8;
+  transition: transform 0.35s ease, opacity 0.25s ease;
 }
 .switch .sun {
   left: 9px;
@@ -348,41 +355,28 @@ body {
   right: 9px;
   opacity: 0.45;
 }
-.switch input:checked + .slider::before {
-  transform: translate(var(--shift), -50%);
-}
-.switch input:checked + .slider .moon {
-  opacity: 1;
-}
-.switch input:checked + .slider .sun {
-  opacity: 0.45;
-}
-.switch input:focus + .slider {
+
+.switch input:focus-visible + .slider {
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 25%, transparent);
 }
-@media (prefers-reduced-motion: reduce) {
-  .switch .slider,
-  .switch .slider::before {
-    transition: none;
-  }
+
+/* wave glow – class .wave is added to the .switch wrapper */
+.switch .slider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--x) 50%,
+    rgba(124, 92, 255, 0.25),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.28s ease;
 }
-/* ---- Dark toggle animations ---- */
-.switch .slider::before {
-  /* از قبل هست – فقط افکت‌های بیشتر */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 0 0 0 rgba(124, 92, 255, 0);
-}
-.switch input:checked + .slider::before {
-  animation: knob-pop 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.switch .sun,
-.switch .moon {
-  transition: transform 0.35s ease, opacity 0.25s ease;
-}
-.switch input:checked + .slider .sun {
-  transform: rotate(-90deg) scale(0.85);
-}
-.switch input:checked + .slider .moon {
-  transform: rotate(0deg) scale(1.05);
+.switch.wave .slider::after {
+  opacity: 1;
 }
 
 @keyframes knob-pop {
@@ -396,8 +390,65 @@ body {
     transform: translate(var(--shift), -50%) scale(1);
   }
 }
+.switch input:checked + .slider::before {
+  animation: knob-pop 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
 
-/* موج نور کوتاه هنگام تغییر */
+@media (prefers-reduced-motion: reduce) {
+  .switch .slider,
+  .switch .slider::before {
+    transition: none;
+  }
+  .switch .sun,
+  .switch .moon {
+    transition: none;
+  }
+  .switch .slider::before {
+    animation: none !important;
+  }
+}
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+/* ---------- FIX: layer order & stop the old double animation ---------- */
+/* Stop the old pop that ran on every :checked state; we pop only on .wave */
+.switch input:checked + .slider::before {
+  animation: none !important;
+}
+
+/* Make sure we have a clear stacking order */
+.switch .slider {
+  position: relative;
+  overflow: hidden;
+}
+.switch .slider::after {
+  z-index: 1;
+} /* ripple layer */
+.switch .sun,
+.switch .moon {
+  z-index: 2;
+  position: absolute;
+}
+.switch .slider::before {
+  z-index: 3;
+} /* knob above all */
+
+/* ---------- nice ripple tied to .slider.wave ---------- */
+.switch .slider {
+  --wave-dur: 320ms;
+  --wave-x: var(--x, 50%); /* set via JS; keyboard -> center */
+  will-change: box-shadow, background;
+}
+
+/* fallback wave for all browsers */
 .switch .slider::after {
   content: "";
   position: absolute;
@@ -405,15 +456,204 @@ body {
   border-radius: 999px;
   pointer-events: none;
   background: radial-gradient(
-    circle at var(--x, 10%) 50%,
-    rgba(124, 92, 255, 0.25),
-    transparent 45%
+    circle at var(--wave-x) 50%,
+    rgba(124, 92, 255, 0.25) 0%,
+    rgba(124, 92, 255, 0.18) 22%,
+    transparent 48%
   );
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--wave-dur) ease;
 }
-.switch.input-wave .slider::after {
+
+/* nicer tone with color-mix if supported */
+@supports (color: color-mix(in oklab, white, black)) {
+  .switch .slider::after {
+    background: radial-gradient(
+      circle at var(--wave-x) 50%,
+      color-mix(in oklab, var(--primary) 30%, transparent) 0%,
+      color-mix(in oklab, var(--primary) 18%, transparent) 22%,
+      transparent 48%
+    );
+  }
+}
+
+/* show the wave when toggled */
+.switch .slider.wave::after {
   opacity: 1;
+}
+
+/* gentle rail pulse when toggled */
+.switch .slider.wave {
+  animation: slider-pulse var(--wave-dur) ease-out;
+}
+@keyframes slider-pulse {
+  0% {
+    box-shadow: inset 0 0 0 0 rgba(124, 92, 255, 0);
+  }
+  40% {
+    box-shadow: inset 0 0 0 4px rgba(124, 92, 255, 0.22);
+  }
+  100% {
+    box-shadow: inset 0 0 0 0 rgba(124, 92, 255, 0);
+  }
+}
+
+/* the knob pop (only when .wave is applied) */
+@keyframes knob-pop {
+  0% {
+    transform: translate(0, -50%) scale(1);
+  }
+  60% {
+    transform: translate(var(--shift), -50%) scale(1.08);
+  }
+  100% {
+    transform: translate(var(--shift), -50%) scale(1);
+  }
+}
+.switch .slider.wave::before {
+  animation: knob-pop 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .switch .slider,
+  .switch .slider::before,
+  .switch .slider::after {
+    transition: none !important;
+    animation: none !important;
+  }
+  .switch .slider::after {
+    display: none;
+  }
+}
+/* === Switch with "halo behind the active icon" === */
+
+/* توقف پاپ خودکار قبلی؛ فقط هنگام .wave پاپ می‌زنیم */
+.switch input:checked + .slider::before {
+  animation: none !important;
+}
+
+/* لایه‌بندی صحیح: موج < هاله (knob) < آیکن‌ها */
+.switch .slider {
+  position: relative;
+  overflow: hidden;
+}
+.switch .slider::after {
+  z-index: 0;
+} /* ripple */
+.switch .slider::before {
+  z-index: 1;
+} /* halo/knob */
+.switch .sun,
+.switch .moon {
+  z-index: 2;
+  position: absolute;
+  pointer-events: none;
+}
+
+/* هاله (knob) پشت آیکن‌ها */
+.switch .slider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: var(--gap);
+  width: var(--knob);
+  height: var(--knob);
+  transform: translate(0, -50%);
+  border-radius: 50%;
+  /* رنگ هاله با تم هماهنگ */
+  background: color-mix(in oklab, var(--primary) 14%, var(--card));
+  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25),
+    0 0 0 6px color-mix(in oklab, var(--primary) 10%, transparent);
+  transition: transform 0.26s cubic-bezier(0.25, 0.85, 0.25, 1),
+    box-shadow 0.26s ease, background 0.26s ease, border-color 0.26s ease;
+}
+/* جابه‌جایی نرم هاله به سمت ماه */
+.switch input:checked + .slider::before {
+  transform: translate(var(--shift), -50%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25),
+    0 0 0 6px color-mix(in oklab, var(--primary) 16%, transparent);
+}
+
+/* آیکن‌ها: پیش‌فرض کمی ضعیف */
+.switch .sun,
+.switch .moon {
+  top: 50%;
+  transform: translateY(-50%) scale(0.92);
+  font-size: 12px;
+  color: var(--muted);
+  opacity: 0.55;
+  transition: transform 0.25s ease, opacity 0.25s ease, color 0.25s ease;
+}
+.switch .sun {
+  left: 9px;
+}
+.switch .moon {
+  right: 9px;
+}
+
+/* وقتی «روز» است → خورشید برجسته */
+.switch input:not(:checked) + .slider .sun {
+  opacity: 1;
+  color: var(--text);
+  transform: translateY(-50%) scale(1);
+}
+/* وقتی «شب» است → ماه برجسته */
+.switch input:checked + .slider .moon {
+  opacity: 1;
+  color: var(--text);
+  transform: translateY(-50%) scale(1);
+}
+
+/* Ripple/glow قبلی؛ اگر داری بگذار بماند.
+   اگر از نسخهٔ من استفاده می‌کنی، فقط مطمئن شو کلاس .wave روی .slider ست می‌شود. */
+.switch .slider.wave::after {
+  opacity: 1;
+}
+.switch .slider.wave {
+  animation: slider-pulse 320ms ease-out;
+}
+
+@keyframes slider-pulse {
+  0% {
+    box-shadow: inset 0 0 0 0 rgba(124, 92, 255, 0);
+  }
+  40% {
+    box-shadow: inset 0 0 0 4px rgba(124, 92, 255, 0.22);
+  }
+  100% {
+    box-shadow: inset 0 0 0 0 rgba(124, 92, 255, 0);
+  }
+}
+
+/* پاپ اختیاری هنگام wave (نه همیشه) */
+@keyframes knob-pop {
+  0% {
+    transform: translate(0, -50%) scale(1);
+  }
+  60% {
+    transform: translate(var(--shift), -50%) scale(1.08);
+  }
+  100% {
+    transform: translate(var(--shift), -50%) scale(1);
+  }
+}
+.switch .slider.wave::before {
+  animation: knob-pop 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* احترام به reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .switch .slider,
+  .switch .slider::before,
+  .switch .slider::after {
+    transition: none !important;
+    animation: none !important;
+  }
+  .switch .slider::after {
+    display: none;
+  }
 }
 
 /* header buttons */
@@ -438,7 +678,12 @@ body {
   }
 }
 
-/* NAV */
+/* ==================== NAV (Desktop + Mobile Drawer) ==================== */
+:root {
+  --nav-bp: 900px;
+} /* باید با مقدار JS هماهنگ باشد */
+
+/* Desktop layout */
 .main-nav {
   display: flex;
   gap: 8px;
@@ -449,11 +694,13 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  min-height: 40px; /* tap target بهتر روی دسکتاپ */
   padding: 10px 12px;
   color: var(--muted);
   text-decoration: none;
   border-radius: 10px;
   border: 1px solid transparent;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }
 .main-nav .nav-link:hover {
   color: var(--text);
@@ -464,23 +711,49 @@ body {
   background: var(--primary);
   border-color: var(--primary);
 }
+.main-nav .nav-link:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
 
-/* mobile drawer */
+/* Bigger hit-area for touch devices even on wide screens */
+@media (pointer: coarse) {
+  .main-nav .nav-link {
+    min-height: 44px;
+    padding-block: 12px;
+  }
+}
+
+/* ==================== Mobile Drawer ==================== */
 @media (max-width: 900px) {
+  /* Drawer */
   .main-nav {
     position: fixed;
-    inset: 0 auto 0 0;
-    width: min(300px, 85vw);
+    inset-block: 0; /* top/bottom: 0 */
+    inset-inline-start: 0; /* respects RTL/LTR */
+    width: min(308px, 88vw);
+    display: flex;
     flex-direction: column;
+    gap: 6px;
     background: var(--card);
     border-inline-end: 1px solid var(--border);
-    transform: translateX(-105%);
+    /* safe-area paddings (iOS notch) */
+    padding: max(12px, env(safe-area-inset-top, 0px)) 12px
+      max(12px, env(safe-area-inset-bottom, 0px))
+      max(12px, env(safe-area-inset-left, 0px));
+    transform: translateX(calc(-100% - 12px)); /* completely out of view */
     transition: transform 0.25s ease;
     z-index: 1001;
+    overflow-y: auto; /* scroll inside drawer */
+    overscroll-behavior: contain; /* جلوگیری از اسکرول پس‌زمینه */
+    -webkit-overflow-scrolling: touch; /* smooth iOS */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   }
   .main-nav.open {
-    transform: none;
+    transform: translateX(0);
   }
+
+  /* Backdrop */
   .nav-backdrop {
     position: fixed;
     inset: 0;
@@ -494,6 +767,36 @@ body {
   .nav-backdrop.show {
     opacity: 1;
     pointer-events: auto;
+  }
+
+  /* Touch targets a bit larger in drawer */
+  .main-nav .nav-link {
+    min-height: 44px;
+    padding: 12px 14px;
+    border: 1px solid transparent;
+  }
+
+  /* Optional header area inside drawer (اگر بعداً اضافه شد) */
+  .main-nav .nav-title {
+    font-weight: 800;
+    margin: 6px 2px 8px;
+    color: var(--text);
+  }
+}
+
+/* Lock page scroll while drawer open (JS جسم را overflow:hidden می‌کند؛
+   این کلاس هم اگر خواستی می‌توانی در JS ست کنی) */
+html.nav-lock,
+body.nav-lock {
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .main-nav,
+  .nav-backdrop {
+    transition: none !important;
   }
 }
 

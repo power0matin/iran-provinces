@@ -1,208 +1,111 @@
-/* Leaflet interactive map with real zoom/pan + province polygons
- * Dependencies: Leaflet (CDN), darkMode.js (theme), i18n.js (lang)
- *
- * Data:
- *  - GeoJSON: data/geo/iran-provinces.geojson
- *      Feature.properties must include:
- *        - id        (slug, e.g. "tehran")
- *        - nameFa
- *        - nameEn
- *        - (optional) center: [lat, lng] | centroid computed
- *
- *  - Your existing province index (optional for cross-check):
- *      data/provinces/index.json  -> { provinces: [ { id, nameFa, nameEn, ... } ] }
- */
-
+// map.js – Mobile-solid Leaflet init with theme + fallback + reflow guards
 (function () {
-  const $status = document.getElementById("mapStatus");
-  const $tooltip = document.getElementById("mapTooltip");
+  const el = document.getElementById("map");
+  if (!el || typeof L === "undefined") return;
 
-  // Iran approximate bounds (to limit panning hard out of the area)
-  const IRAN_BOUNDS = L.latLngBounds([24, 43], [40.5, 64.5]);
-  const IRAN_CENTER = [32.5, 53.5];
-  const START_ZOOM = 4.8;
+  // Choose a provider set: light/dark + a plain OSM fallback
+  const providers = {
+    light: {
+      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      attr: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors',
+    },
+    dark: {
+      // Dark-friendly tiles (CartoDB DarkMatter)
+      url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+      attr:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> ' +
+        'contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    },
+    fallback: {
+      // Humanitarian style as a second attempt if we get repeated tileerror
+      url: "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+      attr: '&copy; OSM & <a href="https://www.openstreetmap.fr/">OSM France</a>',
+    },
+  };
 
-  // Base tiles (light/dark). Use free public providers with attribution.
-  const tilesLight = L.tileLayer(
-    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors',
-      minZoom: 3,
-      maxZoom: 10,
-      className: "light-tiles",
+  function resolvedTheme() {
+    // data-theme="dark"|"light" set by your darkMode.js
+    return document.documentElement.getAttribute("data-theme") || "light";
+  }
+
+  // Ensure container has a workable height (CSS sets it, this is just a guard)
+  function ensureHeight() {
+    const min = 280; // final guard
+    if (el.offsetHeight < min) {
+      el.style.minHeight = min + "px";
     }
-  );
+  }
 
-  // CARTO Dark Matter (no key). If ever blocked, swap to another dark provider.
-  const tilesDark = L.tileLayer(
-    "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-    {
-      attribution:
-        '&copy; <a href="https://carto.com/attributions">CARTO</a> | &copy; OSM',
-      minZoom: 3,
-      maxZoom: 10,
-      className: "dark-tiles",
-    }
-  );
+  ensureHeight();
 
-  // Create map
-  const map = L.map("map", {
-    center: IRAN_CENTER,
-    zoom: START_ZOOM,
-    maxBounds: IRAN_BOUNDS.pad(0.2),
-    worldCopyJump: false,
+  // Init map
+  const map = L.map(el, {
     zoomControl: true,
     attributionControl: true,
   });
 
-  // Decide initial theme
-  const root = document.documentElement;
-  const getTheme = () =>
-    root.getAttribute("data-theme") ||
-    (root.classList.contains("theme-auto") ? "auto" : "dark");
+  // Iran centroid
+  map.setView([32.4279, 53.688], 5);
 
-  // Attach base layer per theme
-  let currentBase = null;
-  function applyBaseTiles() {
-    const theme = getTheme();
-    const prefersDark =
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const dark = theme === "dark" || (theme === "auto" && prefersDark);
+  // Tile layer with error-based fallback + theme switch
+  let currentLayer;
+  let errorCount = 0;
 
-    if (currentBase) map.removeLayer(currentBase);
-    currentBase = dark ? tilesDark : tilesLight;
-    currentBase.addTo(map);
-  }
-  applyBaseTiles();
-
-  // React to theme changes (darkMode.js should dispatch a custom event)
-  window.addEventListener("themechange", applyBaseTiles);
-
-  // Tooltip helpers
-  function showTooltip(latlng, label) {
-    if (!$tooltip) return;
-    const pt = map.latLngToContainerPoint(latlng);
-    $tooltip.textContent = label;
-    $tooltip.style.left = `${pt.x}px`;
-    $tooltip.style.top = `${pt.y}px`;
-    $tooltip.classList.add("show");
-    $tooltip.setAttribute("aria-hidden", "false");
-  }
-  function hideTooltip() {
-    if (!$tooltip) return;
-    $tooltip.classList.remove("show");
-    $tooltip.setAttribute("aria-hidden", "true");
+  function useLayer(kind) {
+    if (currentLayer) {
+      currentLayer.off("tileerror", onTileError);
+      currentLayer.remove();
+    }
+    const p = providers[kind] || providers.light;
+    currentLayer = L.tileLayer(p.url, {
+      attribution: p.attr,
+      detectRetina: window.devicePixelRatio > 1,
+      crossOrigin: true,
+    }).addTo(map);
+    currentLayer.on("tileerror", onTileError);
   }
 
-  // Province layer
-  let provincesLayer = null;
-
-  // i18n: use FA for rtl, EN for ltr
-  function getLang() {
-    return document.documentElement.getAttribute("lang") || "fa";
-  }
-  function provinceLabel(props) {
-    return getLang().startsWith("fa")
-      ? props.nameFa || props.nameEn
-      : props.nameEn || props.nameFa;
-  }
-
-  // Style + interaction
-  function defaultStyle() {
-    return {
-      color:
-        getComputedStyle(document.documentElement).getPropertyValue(
-          "--border"
-        ) || "#334",
-      weight: 1,
-      fillColor: "rgba(124, 92, 255, .12)",
-      fillOpacity: 0.8,
-    };
-  }
-
-  function onEachFeature(feature, layer) {
-    // mark for CSS targeting
-    layer
-      .getElement?.()
-      ?.setAttribute?.("data-province", feature?.properties?.id || "");
-
-    layer.on("mouseover", (e) => {
-      const el = e.target.getElement ? e.target.getElement() : null;
-      if (el) el.classList.add("hovered");
-      const center = e.latlng || e.target.getBounds().getCenter();
-      showTooltip(center, provinceLabel(feature.properties));
-    });
-
-    layer.on("mousemove", (e) => {
-      showTooltip(e.latlng, provinceLabel(feature.properties));
-    });
-
-    layer.on("mouseout", (e) => {
-      const el = e.target.getElement ? e.target.getElement() : null;
-      if (el) el.classList.remove("hovered");
-      hideTooltip();
-    });
-
-    layer.on("click", () => {
-      const id = feature?.properties?.id;
-      if (id) {
-        window.location.href = `province.html?id=${encodeURIComponent(id)}`;
-      }
-    });
-
-    // Focus ring for keyboard nav (optional)
-    layer.on("keydown", (e) => {
-      if (e.originalEvent.key === "Enter") {
-        const id = feature?.properties?.id;
-        if (id)
-          window.location.href = `province.html?id=${encodeURIComponent(id)}`;
-      }
-    });
-  }
-
-  async function loadProvinces() {
-    try {
-      $status && ($status.textContent = "Loading…");
-
-      // Load the GeoJSON (province boundaries)
-      const res = await fetch("data/geo/iran-provinces.geojson", {
-        cache: "no-store",
-      });
-      if (!res.ok) throw new Error(`GeoJSON HTTP ${res.status}`);
-      const geo = await res.json();
-
-      // Optional cross-check with your data index (to ensure IDs exist)
-      // const idx = await (await fetch('data/provinces/index.json', { cache: 'no-store' })).json();
-
-      provincesLayer = L.geoJSON(geo, {
-        style: defaultStyle,
-        onEachFeature,
-      }).addTo(map);
-
-      // Fit bounds neatly (once)
-      try {
-        map.fitBounds(provincesLayer.getBounds().pad(0.05));
-      } catch {
-        /* ignore if invalid bounds */
-      }
-
-      $status && ($status.textContent = "Ready");
-    } catch (err) {
-      console.error(err);
-      if ($status) {
-        $status.textContent = "Failed to load";
-        $status.classList.add("badge-error");
-      }
+  function onTileError() {
+    // after a few errors swap to fallback once
+    errorCount++;
+    if (errorCount === 4) {
+      useLayer("fallback");
     }
   }
 
-  loadProvinces();
+  // initial layer based on theme
+  useLayer(resolvedTheme() === "dark" ? "dark" : "light");
 
-  // Re-render labels when language changes
-  window.addEventListener("langchange", () => {
-    // Just force-hide tooltip to avoid stale text; next hover shows correct lang
-    hideTooltip();
+  // switch tiles when theme changes
+  window.addEventListener("themechange", (e) => {
+    const resolved = e.detail?.resolved || "light";
+    errorCount = 0;
+    useLayer(resolved === "dark" ? "dark" : "light");
+    // Give the browser a tick to paint, then fix layout
+    requestAnimationFrame(() => map.invalidateSize());
   });
+
+  // Reflow guards: phone rotations, drawer open/close, tab switches
+  const invalidate = () => map.invalidateSize(true);
+  window.addEventListener("resize", () => setTimeout(invalidate, 120));
+  window.addEventListener("orientationchange", () =>
+    setTimeout(invalidate, 180)
+  );
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) setTimeout(invalidate, 100);
+  });
+
+  // If your map is inside a tab/panel that toggles, observe visibility
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((it) => {
+        if (it.isIntersecting) setTimeout(invalidate, 80);
+      });
+    },
+    { threshold: 0.2 }
+  );
+  io.observe(el);
+
+  // Optional: smoother scroll on iOS
+  el.style.webkitOverflowScrolling = "touch";
 })();

@@ -5,9 +5,11 @@
       "nameFa": "البرز",
       "nameEn": "Alborz",
       "capital": "کرج",
+      "capitalEn": "Karaj",
       "population": 2712400,
       "areaKm2": 5122,
       "intro": "استان البرز در دامنه‌های جنوبی رشته‌کوه البرز و در مجاورت پایتخت قرار دارد. نزدیکی به تهران، اقلیم متنوع کوهستانی تا دشت و مراکز دانشگاهی و صنعتی، این استان را به یکی از قطب‌های نوظهور کشور تبدیل کرده است.",
+      "introEn": "Alborz lies on the southern slopes of the Alborz range next to Tehran. Its mixed mountain–plain climate and fast-growing academic and industrial hubs make it a rising powerhouse.",
       "hero": "images/alborz_1.jpg",
       "counties": [
         { "name": "کرج", "cities": ["کرج", "ماهدشت", "محمدشهر", "کمال‌شهر"] },
@@ -34,14 +36,16 @@
       "nameFa": "اردبیل",
       "nameEn": "Ardabil",
       "capital": "اردبیل",
+      "capitalEn": "Ardabil",
       "population": 1330000,
       "areaKm2": 17800,
       "intro": "اردبیل در شمال‌غرب ایران با زمستان‌های سرد و طبیعت کوهستانی شناخته می‌شود. چشمه‌های آبگرم سرعین و بقعه شیخ صفی‌الدین از مهم‌ترین جاذبه‌های استان‌اند.",
+      "introEn": "Ardabil sits in Iran’s northwest with cold winters and mountain landscapes. Sarein hot springs and the Sheikh Safi al-Din complex are top highlights.",
       "hero": "images/ardabil_1.jpg",
       "counties": [
         { "name": "اردبیل", "cities": ["اردبیل", "هیر"] },
         { "name": "سرعین", "cities": ["سرعین"] },
-        { "name": "مشگین‌شهر", "cities": ["مشگین‌شهر", "لاسجرد"] },
+        { "name": "مشگین‌شهر", "cities": ["مشگین‌شهر"] },
         { "name": "پارس‌آباد", "cities": ["پارس‌آباد", "اصلاندوز"] },
         { "name": "بیله‌سوار", "cities": ["بیله‌سوار"] },
         { "name": "خلخال", "cities": ["خلخال", "کلور"] },
@@ -70,9 +74,11 @@
       "nameFa": "آذربایجان شرقی",
       "nameEn": "East Azerbaijan",
       "capital": "تبریز",
+      "capitalEn": "Tabriz",
       "population": 4010000,
       "areaKm2": 45490,
       "intro": "استان آذربایجان شرقی با مرکزیت تبریز تاریخ پرفرازونشیبی دارد و در صنعت و هنر پیشرو است. بازار جهانی تبریز، روستای صخره‌ای کندوان و کلیسای سنت استپانوس از مشهورترین دیدنی‌ها هستند.",
+      "introEn": "East Azerbaijan, centered on Tabriz, blends industrial strength with rich heritage. The UNESCO-listed Tabriz Bazaar, Kandovan rock village, and St. Stepanos are key sights.",
       "hero": "images/tabriz_1.jpg",
       "counties": [
         { "name": "تبریز", "cities": ["تبریز", "سردرود", "باسمنج"] },
@@ -106,9 +112,11 @@
       "nameFa": "آذربایجان غربی",
       "nameEn": "West Azerbaijan",
       "capital": "ارومیه",
+      "capitalEn": "Urmia",
       "population": 3350000,
       "areaKm2": 37411,
       "intro": "آذربایجان غربی با تنوع قومی و طبیعی چشمگیر شناخته می‌شود. دریاچه ارومیه، پیست اسکی خوشاکو و کلیساهای تاریخی از جاذبه‌های مهم استان هستند.",
+      "introEn": "West Azerbaijan is diverse in people and nature. Lake Urmia, historical churches, and mountain resorts like Khoshaku draw visitors year-round.",
       "hero": "images/azarbaijan-west_1.jpg",
       "counties": [
         { "name": "ارومیه", "cities": ["ارومیه", "سرو", "نوشین‌شهر"] },
@@ -131,7 +139,7 @@
       "attractions": [
         "دریاچه ارومیه",
         "کلیسای مریم ننه",
-        "تخت سلیمان (نزدیک استان)",
+        "تخت سلیمان",
         "پیست خوشاکو"
       ]
     },
@@ -140,9 +148,11 @@
       "nameFa": "بوشهر",
       "nameEn": "Bushehr",
       "capital": "بوشهر",
+      "capitalEn": "Bushehr",
       "population": 1234000,
       "areaKm2": 22743,
       "intro": "بوشهر استانی ساحلی در جنوب ایران با اقتصاد مبتنی بر نفت، گاز و دریا است. بافت تاریخی بوشهر، سواحل طولانی و نخلستان‌ها از ویژگی‌های بارز آن محسوب می‌شوند.",
+      "introEn": "Bushehr is a southern coastal province shaped by oil, gas, and the sea. Its historic urban fabric, long shores, and palm groves stand out.",
       "hero": "images/bushehr_1.jpg",
       "counties": [
         { "name": "بوشهر", "cities": ["بوشهر", "چغادک"] },
@@ -150,20 +160,12 @@
         { "name": "کنگان", "cities": ["کنگان", "عسلویه"] },
         { "name": "گناوه", "cities": ["گناوه", "بنک"] }
       ],
-      "cities": [
-        "بوشهر",
-        "برازجان",
-        "گناوه",
-        "دیّر",
-        "کنارک",
-        "عسلویه",
-        "کنگان"
-      ],
+      "cities": ["بوشهر", "برازجان", "گناوه", "دیّر", "عسلویه", "کنگان"],
       "attractions": [
         "بافت تاریخی بوشهر",
         "ساحل بوشهر",
         "نخلستان‌های دالکی",
-        "کشتی پراگسو (کشتی به گل‌نشسته)"
+        "کشتی به‌گل‌نشسته"
       ]
     },
     {
@@ -171,9 +173,11 @@
       "nameFa": "چهارمحال و بختیاری",
       "nameEn": "Chaharmahal and Bakhtiari",
       "capital": "شهرکرد",
+      "capitalEn": "Shahrekord",
       "population": 979000,
       "areaKm2": 16328,
       "intro": "سرزمین چشمه‌ها و رودخانه‌ها، با طبیعتی بکر و ییلاقی. این استان به فرهنگ بختیاری و صنایع دستی مشهور است.",
+      "introEn": "Known as the land of springs, it offers pristine upland nature. Bakhtiari culture and handicrafts are signature elements.",
       "hero": "images/chaharmahal_1.jpg",
       "counties": [
         { "name": "شهرکرد", "cities": ["شهرکرد", "کیان"] },
@@ -182,33 +186,31 @@
         { "name": "بروجن", "cities": ["بروجن", "فرخ‌شهر"] }
       ],
       "cities": ["شهرکرد", "بروجن", "فارسان", "لردگان", "سامان", "اردل"],
-      "attractions": [
-        "چشمه دیمه",
-        "رودخانه کارون سرچشمه‌ها",
-        "منطقه حفاظت‌شده تنگ صیاد"
-      ]
+      "attractions": ["چشمه دیمه", "منطقه تنگ صیاد", "سرچشمه‌های کارون"]
     },
     {
       "id": "fars",
       "nameFa": "فارس",
       "nameEn": "Fars",
       "capital": "شیراز",
+      "capitalEn": "Shiraz",
       "population": 4920000,
       "areaKm2": 122608,
       "intro": "فارس مهد فرهنگ و تاریخ ایران باستان است. شیراز با حافظیه و سعدیه، و تخت‌جمشید و پاسارگاد از مهم‌ترین شناسنامه‌های تمدن ایران‌اند.",
+      "introEn": "Fars is the cradle of Persian civilization—home to Persepolis, Pasargadae, and the literary city of Shiraz.",
       "hero": "images/fars_1.jpg",
       "counties": [
         { "name": "شیراز", "cities": ["شیراز", "زرقان", "سروستان"] },
         { "name": "مرودشت", "cities": ["مرودشت", "کام‌فیروز"] },
         { "name": "کازرون", "cities": ["کازرون", "کنارتخته"] },
-        { "name": "لارستان", "cities": ["لار", "گراش", "اوَز"] },
+        { "name": "لارستان", "cities": ["لار", "گراش", "اوز"] },
         { "name": "جهرم", "cities": ["جهرم", "خفر"] }
       ],
       "cities": [
         "شیراز",
         "مرودشت",
         "کازرون",
-        "فَسا",
+        "فسا",
         "لار",
         "جهرم",
         "نی‌ریز",
@@ -228,9 +230,11 @@
       "nameFa": "گیلان",
       "nameEn": "Gilan",
       "capital": "رشت",
+      "capitalEn": "Rasht",
       "population": 2540000,
       "areaKm2": 14044,
       "intro": "استانی بارانی با جنگل‌های هیرکانی و فرهنگ غذایی غنی. سواحل خزر، ماسوله و تالاب انزلی از نمادهای گیلان هستند.",
+      "introEn": "A rainy province of Hyrcanian forests and rich cuisine, featuring the Caspian coast, Masuleh village, and Anzali Lagoon.",
       "hero": "images/gilan_1.jpg",
       "counties": [
         { "name": "رشت", "cities": ["رشت", "خمام", "کوچصفهان"] },
@@ -243,8 +247,7 @@
         "رشت",
         "انزلی",
         "لاهیجان",
-        "آستانه",
-        "لاهیجان",
+        "آستانه‌اشرفیه",
         "فومن",
         "صومعه‌سرا",
         "آستارا"
@@ -261,9 +264,11 @@
       "nameFa": "گلستان",
       "nameEn": "Golestan",
       "capital": "گرگان",
+      "capitalEn": "Gorgan",
       "population": 1900000,
       "areaKm2": 20367,
       "intro": "گلستان دروازهٔ شمال‌شرق با تنوع اقلیمی؛ از جنگل تا دشت و ساحل. پارک ملی گلستان از مهم‌ترین ذخیره‌گاه‌های زیستی ایران است.",
+      "introEn": "Golestan, gateway to the northeast, ranges from forest to steppe and coast. Golestan National Park is a major biosphere reserve.",
       "hero": "images/golestan_1.jpg",
       "counties": [
         { "name": "گرگان", "cities": ["گرگان"] },
@@ -273,7 +278,7 @@
       ],
       "cities": [
         "گرگان",
-        "گنبد",
+        "گنبد کاووس",
         "علی‌آباد",
         "کردکوی",
         "بندرگز",
@@ -282,8 +287,8 @@
       ],
       "attractions": [
         "پارک ملی گلستان",
-        "میل گنبد",
-        "جهان‌نما",
+        "برج گنبد قابوس",
+        "منطقه جهان‌نما",
         "جزیره آشوراده"
       ]
     },
@@ -292,9 +297,11 @@
       "nameFa": "همدان",
       "nameEn": "Hamadan",
       "capital": "همدان",
+      "capitalEn": "Hamadan",
       "population": 1750000,
       "areaKm2": 19493,
       "intro": "همدان یکی از کهن‌ترین شهرهای ایران (هگمتانه) است. غار علیصدر، آرامگاه بوعلی‌سینا و گنجنامه از دیدنی‌های شاخص استان‌اند.",
+      "introEn": "Ancient Ecbatana (Hamadan) hosts Ali Sadr Cave, Avicenna’s Mausoleum, and Ganjnameh inscriptions.",
       "hero": "images/hamadan_1.jpg",
       "counties": [
         { "name": "همدان", "cities": ["همدان", "مریانج"] },
@@ -317,9 +324,11 @@
       "nameFa": "هرمزگان",
       "nameEn": "Hormozgan",
       "capital": "بندرعباس",
+      "capitalEn": "Bandar Abbas",
       "population": 1890000,
       "areaKm2": 70697,
       "intro": "استانی ساحلی با ده‌ها جزیره در خلیج فارس. قشم، هرمز و کیش به همراه سواحل بکر و جنگل‌های حرا مقصد محبوب گردشگری هستند.",
+      "introEn": "A coastal province dotted with Persian Gulf islands—Qeshm, Hormuz, and Kish—plus pristine beaches and mangrove forests.",
       "hero": "images/hormozgan_1.jpg",
       "counties": [
         { "name": "بندرعباس", "cities": ["بندرعباس"] },
@@ -331,7 +340,7 @@
       "attractions": [
         "ژئوپارک قشم",
         "دره ستاره‌ها",
-        "جزیره هرمز (خاک سرخ)",
+        "جزیره هرمز",
         "جنگل‌های حرا"
       ]
     },
@@ -340,9 +349,11 @@
       "nameFa": "ایلام",
       "nameEn": "Ilam",
       "capital": "ایلام",
+      "capitalEn": "Ilam",
       "population": 600000,
       "areaKm2": 20150,
       "intro": "استانی کوهستانی در غرب کشور با طبیعت بکر و فرهنگ کردی-لری. تنگه کافرین و آبشارهای متعدد از دیدنی‌های ایلام‌اند.",
+      "introEn": "A mountainous western province with pristine nature and Kurdish–Luri culture. Gorges and waterfalls abound.",
       "hero": "images/ilam_1.jpg",
       "counties": [
         { "name": "ایلام", "cities": ["ایلام", "چوار"] },
@@ -363,9 +374,11 @@
       "nameFa": "اصفهان",
       "nameEn": "Isfahan",
       "capital": "اصفهان",
+      "capitalEn": "Isfahan",
       "population": 5130000,
       "areaKm2": 107018,
       "intro": "اصفهان، نصف جهان؛ با میدان نقش جهان، سی‌وسه‌پل و معماری صفوی. صنایع‌دستی اصفهان شهرت جهانی دارد.",
+      "introEn": "Isfahan—‘half the world’—features Naqsh-e Jahan Square, Safavid architecture, and world-famous handicrafts.",
       "hero": "images/isfahan_1.jpg",
       "counties": [
         { "name": "اصفهان", "cities": ["اصفهان", "خانه‌اصفهان"] },
@@ -396,9 +409,11 @@
       "nameFa": "کرمان",
       "nameEn": "Kerman",
       "capital": "کرمان",
+      "capitalEn": "Kerman",
       "population": 3340000,
       "areaKm2": 183285,
       "intro": "کرمان از وسیع‌ترین استان‌های ایران با تنوع اقلیمی از کویر تا کوهستان است. ارگ بم و باغ شازده ماهان از شاهکارهای تاریخی این استان‌اند.",
+      "introEn": "One of Iran’s largest provinces, spanning desert to mountains. Bam Citadel and Shazdeh Garden are iconic.",
       "hero": "images/kerman_1.jpg",
       "counties": [
         { "name": "کرمان", "cities": ["کرمان", "اختیارآباد"] },
@@ -407,7 +422,7 @@
         { "name": "رفسنجان", "cities": ["رفسنجان"] },
         { "name": "سیرجان", "cities": ["سیرجان"] }
       ],
-      "cities": ["کرمان", "رفسنجان", "سیرجان", "بم", "جیرفت", "زرند", "با‌فت"],
+      "cities": ["کرمان", "رفسنجان", "سیرجان", "بم", "جیرفت", "زرند", "بافت"],
       "attractions": ["ارگ بم", "باغ شازده ماهان", "کویر لوت", "گنبد جبلیه"]
     },
     {
@@ -415,9 +430,11 @@
       "nameFa": "کرمانشاه",
       "nameEn": "Kermanshah",
       "capital": "کرمانشاه",
+      "capitalEn": "Kermanshah",
       "population": 1950000,
       "areaKm2": 24998,
       "intro": "کرمانشاه سرزمین هنر و تاریخ در غرب کشور است. بیستون و طاق‌بستان از آثار جهانی و مشهور استان به‌شمار می‌آیند.",
+      "introEn": "A western hub of art and history. UNESCO-listed Bisotun and the rock reliefs of Taq-e Bostan are must-sees.",
       "hero": "images/kermanshah_1.jpg",
       "counties": [
         { "name": "کرمانشاه", "cities": ["کرمانشاه", "ماهیدشت"] },
@@ -432,7 +449,7 @@
         "سنقر",
         "هرسین",
         "صحنه",
-        "قصر شیرین"
+        "قصرشیرین"
       ],
       "attractions": ["طاق‌بستان", "بیستون", "اورامانات", "طاق‌گرا"]
     },
@@ -441,9 +458,11 @@
       "nameFa": "خوزستان",
       "nameEn": "Khuzestan",
       "capital": "اهواز",
+      "capitalEn": "Ahvaz",
       "population": 4870000,
       "areaKm2": 64057,
       "intro": "خوزستان قطب انرژی کشور با تاریخ باستانی است. شوش و چغازنبیل، رود کارون و نخلستان‌ها از نمادهای این استان هستند.",
+      "introEn": "Khuzestan is Iran’s energy heartland with deep antiquity—Susa and Chogha Zanbil—plus the Karun River and vast palm groves.",
       "hero": "images/ahvaz_1.jpg",
       "counties": [
         { "name": "اهواز", "cities": ["اهواز", "ویس", "الهایی"] },
@@ -462,10 +481,10 @@
         "بهبهان"
       ],
       "attractions": [
-        "محوطه چغازنبیل",
+        "زیگورات چغازنبیل",
         "آبشارهای شوشتر",
         "پل کارون",
-        "زیگورات شوش"
+        "محوطه باستانی شوش"
       ]
     },
     {
@@ -473,9 +492,11 @@
       "nameFa": "کهگیلویه و بویراحمد",
       "nameEn": "Kohgiluyeh and Boyer-Ahmad",
       "capital": "یاسوج",
+      "capitalEn": "Yasuj",
       "population": 723000,
       "areaKm2": 15563,
       "intro": "استانی کوهستانی با طبیعت چهار فصل، آبشارهای متعدد و ییلاق‌های زیبا. یاسوج به عروس آبشارهای ایران مشهور است.",
+      "introEn": "A mountainous four-season province with many waterfalls and alpine pastures. Yasuj is famed for its cascades.",
       "hero": "images/kb_1.jpg",
       "counties": [
         { "name": "بویراحمد", "cities": ["یاسوج", "مادوان"] },
@@ -490,9 +511,11 @@
       "nameFa": "کردستان",
       "nameEn": "Kurdistan",
       "capital": "سنندج",
+      "capitalEn": "Sanandaj",
       "population": 1640000,
       "areaKm2": 29137,
       "intro": "کردستان با فرهنگ غنی کردی، موسیقی و طبیعت کوهستانی شناخته می‌شود. پالنگان و اورامان از روستاهای پلکانی مشهورند.",
+      "introEn": "Kurdistan is renowned for Kurdish culture, music, and rugged mountains. Palangan and Uraman are celebrated stepped villages.",
       "hero": "images/kordestan_1.jpg",
       "counties": [
         { "name": "سنندج", "cities": ["سنندج"] },
@@ -501,16 +524,18 @@
         { "name": "مریوان", "cities": ["مریوان"] }
       ],
       "cities": ["سنندج", "سقز", "بانه", "مریوان", "قروه", "بیجار", "دیواندره"],
-      "attractions": ["اورامان", "زریوار", "پالنگان", "عمارت خسروآباد"]
+      "attractions": ["اورامان", "دریاچه زریوار", "پالنگان", "عمارت خسروآباد"]
     },
     {
       "id": "khorasan-north",
       "nameFa": "خراسان شمالی",
       "nameEn": "North Khorasan",
       "capital": "بجنورد",
+      "capitalEn": "Bojnurd",
       "population": 920000,
       "areaKm2": 28434,
       "intro": "استانی جوان در شمال‌شرق با تنوع فرهنگی (کرد، ترک، ترکمن، فارس). بجنورد و شیروان از شهرهای مهم آن هستند.",
+      "introEn": "A young northeastern province with diverse ethnicities—Kurd, Turk, Turkmen, Persian. Bojnurd and Shirvan are key cities.",
       "hero": "images/khn_1.jpg",
       "counties": [
         { "name": "بجنورد", "cities": ["بجنورد"] },
@@ -518,20 +543,18 @@
         { "name": "اسفراین", "cities": ["اسفراین"] }
       ],
       "cities": ["بجنورد", "شیروان", "اسفراین", "جاجرم"],
-      "attractions": [
-        "منطقه گردشگری بش‌قارداش",
-        "آبشار اسطرخی",
-        "قلعه جلال‌الدین"
-      ]
+      "attractions": ["منطقه بش‌قارداش", "آبشار اسطرخی", "قلعه جلال‌الدین"]
     },
     {
       "id": "khorasan-razavi",
       "nameFa": "خراسان رضوی",
       "nameEn": "Razavi Khorasan",
       "capital": "مشهد",
+      "capitalEn": "Mashhad",
       "population": 6510000,
       "areaKm2": 118854,
       "intro": "پرجمعیت‌ترین استان شرق کشور با مرکزیت مشهد؛ قطب زیارت و گردشگری. حرم امام رضا(ع) سالانه میلیون‌ها زائر را میزبانی می‌کند.",
+      "introEn": "The most populous eastern province, centered on Mashhad—a major pilgrimage destination hosting millions each year.",
       "hero": "images/mashhad_1.jpg",
       "counties": [
         { "name": "مشهد", "cities": ["مشهد", "طرقبه", "شاندیز"] },
@@ -541,7 +564,7 @@
       ],
       "cities": ["مشهد", "نیشابور", "سبزوار", "تربت‌حیدریه", "قوچان", "کاشمر"],
       "attractions": [
-        "حرم مطهر امام رضا(ع)",
+        "حرم امام رضا(ع)",
         "طرقبه و شاندیز",
         "شهر تاریخی نیشابور",
         "کلات نادری"
@@ -552,9 +575,11 @@
       "nameFa": "خراسان جنوبی",
       "nameEn": "South Khorasan",
       "capital": "بیرجند",
+      "capitalEn": "Birjand",
       "population": 820000,
       "areaKm2": 95700,
       "intro": "سرزمین زعفران و عناب با کویرهای شگفت‌انگیز. قلعه‌های تاریخی و باغ‌های بیرجند از دیدنی‌های استان هستند.",
+      "introEn": "Land of saffron and jujube with striking deserts. Historic forts and Birjand’s gardens are standouts.",
       "hero": "images/khs_1.jpg",
       "counties": [
         { "name": "بیرجند", "cities": ["بیرجند"] },
@@ -569,9 +594,11 @@
       "nameFa": "لرستان",
       "nameEn": "Lorestan",
       "capital": "خرم‌آباد",
+      "capitalEn": "Khorramabad",
       "population": 1760000,
       "areaKm2": 28308,
       "intro": "لرستان با طبیعت کوهستانی و آبشارهای فراوان مشهور است. قلعه فلک‌الافلاک نماد تاریخی خرم‌آباد است.",
+      "introEn": "A mountainous province famed for waterfalls. Falak-ol-Aflak Castle crowns Khorramabad.",
       "hero": "images/lorestan_1.jpg",
       "counties": [
         { "name": "خرم‌آباد", "cities": ["خرم‌آباد"] },
@@ -591,7 +618,7 @@
         "قلعه فلک‌الافلاک",
         "آبشار بیشه",
         "دریاچه گهر",
-        "تنگه هلت"
+        "تنگه هِلت"
       ]
     },
     {
@@ -599,9 +626,11 @@
       "nameFa": "مرکزی",
       "nameEn": "Markazi",
       "capital": "اراک",
+      "capitalEn": "Arak",
       "population": 1470000,
       "areaKm2": 29127,
       "intro": "استان صنعتی در قلب ایران با شهرهای تاریخی. اراک، ساوه و محلات از قطب‌های اقتصادی استان هستند.",
+      "introEn": "An industrial heartland with historic towns. Arak, Saveh, and Mahallat lead regional economies.",
       "hero": "images/markazi_1.jpg",
       "counties": [
         { "name": "اراک", "cities": ["اراک"] },
@@ -609,20 +638,18 @@
         { "name": "محلات", "cities": ["محلات"] }
       ],
       "cities": ["اراک", "ساوه", "محلات", "خمین", "تفرش", "شازند"],
-      "attractions": [
-        "غار چال‌نخجیر",
-        "باغ‌های محلات",
-        "کاروانسرای شاه‌عباسی زاویه"
-      ]
+      "attractions": ["غار چال‌نخجیر", "باغ‌های گل محلات", "کاروانسرای زاویه"]
     },
     {
       "id": "mazandaran",
       "nameFa": "مازندران",
       "nameEn": "Mazandaran",
       "capital": "ساری",
+      "capitalEn": "Sari",
       "population": 3410000,
       "areaKm2": 23833,
       "intro": "مازندران با جنگل‌های هیرکانی، ساحل خزر و ییلاقات مرتفع، مقصد محبوب گردشگری است.",
+      "introEn": "Mazandaran pairs Hyrcanian forests with Caspian beaches and cool highland pastures—a perennial favorite.",
       "hero": "images/mazandaran_1.jpg",
       "counties": [
         { "name": "ساری", "cities": ["ساری"] },
@@ -647,9 +674,11 @@
       "nameFa": "قزوین",
       "nameEn": "Qazvin",
       "capital": "قزوین",
+      "capitalEn": "Qazvin",
       "population": 1300000,
       "areaKm2": 15820,
       "intro": "قزوین با تاریخ صفوی و دروازهٔ ورودی البرز. قلعه الموت و کاخ چهلستون (عمارت) از دیدنی‌های مهم هستند.",
+      "introEn": "Qazvin, once a Safavid capital at the Alborz gateway, is known for the Alamut castles and Chehel Sotoun mansion.",
       "hero": "images/qazvin_1.jpg",
       "counties": [
         { "name": "قزوین", "cities": ["قزوین"] },
@@ -668,9 +697,11 @@
       "nameFa": "قم",
       "nameEn": "Qom",
       "capital": "قم",
+      "capitalEn": "Qom",
       "population": 1310000,
       "areaKm2": 11450,
       "intro": "قم مرکز مذهبی ایران و دومین مقصد زیارتی کشور است. حرم حضرت معصومه(س) مهم‌ترین جاذبه استان محسوب می‌شود.",
+      "introEn": "Iran’s religious center and second major pilgrimage destination, home to the Shrine of Fatima Masumeh.",
       "hero": "images/qom_1.jpg",
       "counties": [{ "name": "قم", "cities": ["قم"] }],
       "cities": ["قم", "سلفچگان", "جعفریه"],
@@ -681,9 +712,11 @@
       "nameFa": "سمنان",
       "nameEn": "Semnan",
       "capital": "سمنان",
+      "capitalEn": "Semnan",
       "population": 702000,
       "areaKm2": 97491,
       "intro": "سمنان در حاشیه کویر با کاروانسراهای تاریخی و نجوم‌گردی مشهور است. شاهرود و دامغان از شهرهای مهم استان‌اند.",
+      "introEn": "On the edge of the desert, Semnan is known for caravanserais and stargazing. Shahroud and Damghan are key cities.",
       "hero": "images/semnan_1.jpg",
       "counties": [
         { "name": "سمنان", "cities": ["سمنان"] },
@@ -692,20 +725,18 @@
         { "name": "گرمسار", "cities": ["گرمسار"] }
       ],
       "cities": ["سمنان", "شاهرود", "دامغان", "گرمسار", "مهدی‌شهر"],
-      "attractions": [
-        "پارک ملی کویر",
-        "کاروانسرای ده‌نمک",
-        "جنگل ابر (لبه استان)"
-      ]
+      "attractions": ["پارک ملی کویر", "کاروانسرای ده‌نمک", "جنگل ابر"]
     },
     {
       "id": "sistan-baluchestan",
       "nameFa": "سیستان و بلوچستان",
       "nameEn": "Sistan and Baluchestan",
       "capital": "زاهدان",
+      "capitalEn": "Zahedan",
       "population": 2870000,
       "areaKm2": 181785,
       "intro": "پهناورترین استان جنوب‌شرق با فرهنگ بلوچ و طبیعت بکر ساحلی و کویری. چابهار و سواحل مکران نگین دریای عمان‌اند.",
+      "introEn": "The vast southeast—home to Baluchi culture and raw coastal–desert scenery. Chabahar and the Makran coast shine on the Gulf of Oman.",
       "hero": "images/sistan_1.jpg",
       "counties": [
         { "name": "زاهدان", "cities": ["زاهدان"] },
@@ -726,7 +757,7 @@
         "سواحل بریس",
         "کوه‌های مینیاتوری",
         "تالاب هامون",
-        "گِل‌فشان‌ها"
+        "گل‌فشان‌ها"
       ]
     },
     {
@@ -734,9 +765,11 @@
       "nameFa": "تهران",
       "nameEn": "Tehran",
       "capital": "تهران",
+      "capitalEn": "Tehran",
       "population": 13600000,
       "areaKm2": 12981,
       "intro": "تهران پایتخت سیاسی و اقتصادی ایران با ترکیبی از بناهای قاجاری تا معماری مدرن است. موزه‌ها، پارک‌ها و مراکز فرهنگی متعددی در شهر و حومه قرار دارند.",
+      "introEn": "Iran’s political and economic capital blends Qajar-era heritage with modern architecture, museums, and green spaces.",
       "hero": "images/tehran_1.jpg",
       "counties": [
         { "name": "تهران", "cities": ["تهران"] },
@@ -769,9 +802,11 @@
       "nameFa": "یزد",
       "nameEn": "Yazd",
       "capital": "یزد",
+      "capitalEn": "Yazd",
       "population": 1210000,
       "areaKm2": 74493,
       "intro": "یزد شهر بادگیرها و نخستین شهر خشتی جهان است که در یونسکو ثبت شده. کوچه‌های کاهگلی و قنات‌ها میراث مهندسی اقلیم گرم‌وخشک‌اند.",
+      "introEn": "Yazd, the city of windcatchers, is a UNESCO-listed adobe metropolis famed for its qanats and climate-smart design.",
       "hero": "images/yazd_1.jpg",
       "counties": [
         { "name": "یزد", "cities": ["یزد"] },
@@ -792,9 +827,11 @@
       "nameFa": "زنجان",
       "nameEn": "Zanjan",
       "capital": "زنجان",
+      "capitalEn": "Zanjan",
       "population": 1090000,
       "areaKm2": 22164,
-      "intro": "زنجان در مسیر تهران–تبریز با صنایع دستی چون چاقو و ملیله کاری شناخته می‌شود. گنبد سلطانیه میراث جهانی این استان است.",
+      "intro": "زنجان در مسیر تهران–تبریز با صنایع دستی چون چاقو و ملیله‌کاری شناخته می‌شود. گنبد سلطانیه میراث جهانی این استان است.",
+      "introEn": "On the Tehran–Tabriz corridor, Zanjan is noted for cutlery and filigree work; UNESCO-listed Soltaniyeh Dome is its crown jewel.",
       "hero": "images/zanjan_1.jpg",
       "counties": [
         { "name": "زنجان", "cities": ["زنجان"] },
