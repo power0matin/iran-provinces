@@ -29,8 +29,7 @@ body {
 
 /* Let sticky header respect iOS notches */
 .site-header {
-  padding-inline: max(0px, env(safe-area-inset-left))
-    max(0px, env(safe-area-inset-right));
+  padding-inline: max(0px, env(safe-area-inset-left)) max(0px, env(safe-area-inset-right));
 }
 
 /* ---------- Topbar ---------- */
@@ -38,18 +37,23 @@ body {
   gap: 12px;
   grid-template-columns: 1fr minmax(320px, 520px) auto;
 }
+
 @media (max-width: 1000px) {
   .topbar {
     grid-template-columns: 1fr 1fr auto;
   }
 }
+
 @media (max-width: 780px) {
   .topbar {
     grid-template-columns: 1fr auto auto;
   }
+
   .searchbox {
     display: none;
-  } /* you already support "/" shortcut */
+  }
+
+  /* you already support "/" shortcut */
 }
 
 /* ---------- Navigation drawer tweaks ---------- */
@@ -57,6 +61,7 @@ body {
   .main-nav {
     padding-block: 10px 16px;
   }
+
   .main-nav .nav-link {
     padding: 12px 14px;
     font-size: 0.95rem;
@@ -72,22 +77,28 @@ body {
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   align-items: start;
 }
-.page-grid > * {
+
+.page-grid>* {
   min-width: 0;
-} /* prevents overflow on mobile */
+}
+
+/* prevents overflow on mobile */
 
 @media (max-width: 1200px) {
   .page-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
 @media (max-width: 900px) {
   .page-grid {
     grid-template-columns: 1fr;
   }
+
   .list-card {
     order: 1;
   }
+
   .map-card {
     order: 2;
   }
@@ -97,6 +108,7 @@ body {
 .list-card {
   overflow: clip;
 }
+
 @supports not (overflow: clip) {
   .list-card {
     overflow: hidden;
@@ -106,10 +118,13 @@ body {
 .map-card {
   overflow: visible;
 }
+
 .map-card .card-body {
-  overflow: clip; /* keeps inner padding tidy */
+  overflow: clip;
+  /* keeps inner padding tidy */
   border-radius: inherit;
 }
+
 @supports not (overflow: clip) {
   .map-card .card-body {
     overflow: hidden;
@@ -135,6 +150,7 @@ body {
   border-radius: calc(var(--radius) - 2px);
   object-fit: cover;
 }
+
 @supports not (aspect-ratio: 1) {
   .responsive-map {
     height: auto;
@@ -144,27 +160,49 @@ body {
 /* ===================================================================
    Province list: adaptive columns
    =================================================================== */
-.province-list {
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 10px;
+/* --- English layout tweaks for long province names --- */
+html[lang="en"] .province-list {
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
 }
+
+/* پایداری ظاهری دکمه‌ها */
+.province-list a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 14px 12px;
+  /* یکنواخت برای هر دو زبان */
+  min-height: 52px;
+  /* ارتفاع مناسب برای دو خط */
+  line-height: 1.35;
+  word-break: break-word;
+  /* اگر مرورگر hyphen نداشت */
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+/* اگر مرورگر پشتیبانی کند، بالانس خطوط بهتر می‌شود */
+@supports (text-wrap: balance) {
+  .province-list a {
+    text-wrap: balance;
+  }
+}
+
+/* در موبایل کمی فشرده‌تر */
 @media (max-width: 600px) {
-  .province-list {
-    grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  html[lang="en"] .province-list {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 8px;
   }
-}
-@media (max-width: 380px) {
-  .province-list {
-    grid-template-columns: 1fr;
+
+  html[lang="en"] .province-list a {
+    font-size: 0.95rem;
+    min-height: 50px;
   }
 }
-@media (max-width: 900px) {
-  .province-list a {
-    padding: 14px 12px;
-    font-size: 0.98rem;
-  }
-}
+
 
 /* ===================================================================
    Tabs / chips / hero
@@ -174,9 +212,11 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .tabs::-webkit-scrollbar {
   display: none;
 }
+
 @media (max-width: 900px) {
   .hero {
     max-height: 260px;
@@ -191,18 +231,23 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: var(--page-gap);
 }
+
 @media (max-width: 900px) {
   [data-contact] {
     grid-template-columns: 1fr;
   }
 }
+
 @media (max-width: 900px) {
+
   input,
   select,
   textarea {
     font-size: 16px;
   }
-} /* no iOS zoom */
+}
+
+/* no iOS zoom */
 
 /* ===================================================================
    Footer
@@ -219,6 +264,7 @@ body {
   .page-grid {
     display: block;
   }
+
   .leaflet-control-container {
     display: none !important;
   }
@@ -226,9 +272,17 @@ body {
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
+
   .leaflet-pane,
   .leaflet-map * {
     transition: none !important;
     animation: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding-top: 20px;
+    padding-bottom: 32px;
   }
 }

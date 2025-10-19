@@ -1,8 +1,8 @@
 /* js/i18n.js */
 (() => {
   const LS_KEY = "lang";
-  const $ = (sel, root = document) => root.querySelector(sel);
-  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
   // واژه‌نامه‌ها
   const dict = {
@@ -119,34 +119,65 @@
   function t(key, params) {
     const d = dict[lang] || dict.fa;
     const val = d[key];
-    if (!val) return null; // اجازه بده متن اصلی صفحه باقی بماند
-    if (params && typeof val === "string") {
-      return val.replace(/\{(\w+)\}/g, (_, k) => params[k] ?? "");
-    }
-    return val;
+    if (!val) return null;
+    return params && typeof val === "string"
+      ? val.replace(/\{(\w+)\}/g, (_, k) => params[k] ?? "")
+      : val;
   }
 
   function applyI18n(root = document) {
+    // متن ساده
     $$("[data-i18n]", root).forEach((el) => {
-      const key = el.getAttribute("data-i18n");
-      const txt = t(key);
-      if (txt) el.textContent = txt; // فقط اگر ترجمه داریم جایگزین کن
+      const v = t(el.getAttribute("data-i18n"));
+      if (v != null) el.textContent = v;
+    });
+    // HTML
+    $$("[data-i18n-html]", root).forEach((el) => {
+      const v = t(el.getAttribute("data-i18n-html"));
+      if (v != null) el.innerHTML = v;
+    });
+    // placeholder / title / aria-label / value
+    $$("[data-i18n-placeholder]", root).forEach((el) => {
+      const v = t(el.getAttribute("data-i18n-placeholder"));
+      if (v != null) el.setAttribute("placeholder", v);
+    });
+    $$("[data-i18n-title]", root).forEach((el) => {
+      const v = t(el.getAttribute("data-i18n-title"));
+      if (v != null) el.setAttribute("title", v);
+    });
+    $$("[data-i18n-aria-label]", root).forEach((el) => {
+      const v = t(el.getAttribute("data-i18n-aria-label"));
+      if (v != null) el.setAttribute("aria-label", v);
+    });
+    $$("[data-i18n-value]", root).forEach((el) => {
+      const v = t(el.getAttribute("data-i18n-value"));
+      if (v != null) el.setAttribute("value", v);
     });
   }
 
-  function toggleLang() {
-    lang = lang === "fa" ? "en" : "fa";
+  function emit() {
+    window.dispatchEvent(new CustomEvent("langchange", { detail: { lang } }));
+    window.dispatchEvent(new CustomEvent("i18n:changed", { detail: { lang } }));
+  }
+  function set(l) {
+    if (!l || l === lang) return;
+    lang = l;
     localStorage.setItem(LS_KEY, lang);
     setDirByLang(lang);
     applyI18n(document);
-    // رویداد برای اسکریپت‌های دیگر (مثلا province.js) که متن داینامیک دارند
-    window.dispatchEvent(new CustomEvent("langchange", { detail: { lang } }));
+    emit();
   }
+  const toggle = () => set(lang === "fa" ? "en" : "fa");
+  const get = () => lang;
+  const current = get;
 
-  // اکسپورت مینیمال
   window.I18N = {
     t,
     applyI18n,
+    set,
+    toggle,
+    get,
+    current,
     get lang() {
       return lang;
     },
@@ -155,6 +186,6 @@
   document.addEventListener("DOMContentLoaded", () => {
     setDirByLang(lang);
     applyI18n(document);
-    $("#langToggle")?.addEventListener("click", toggleLang);
+    $("#langToggle")?.addEventListener("click", toggle);
   });
 })();

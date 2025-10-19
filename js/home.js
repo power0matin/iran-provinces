@@ -1,4 +1,4 @@
-// js/home.js
+// js/home.js  (use I18N consistently + listen to 'langchange')
 (() => {
   const LIST = document.getElementById("provinceList");
   const BADGE = document.getElementById("countBadge");
@@ -68,8 +68,8 @@
 
   let provinces = [];
 
-  const lang = () => (window.I18n?.get ? I18n.get() : "fa");
-  const nameOf = (p) => p.names?.[lang()] || p.title || p.name || p.slug;
+  const lang = () => (window.I18N?.get ? I18N.get() : "fa");
+  window.addEventListener("langchange", () => render(SEARCH?.value || ""));
 
   const esc = (s = "") =>
     s.replace(
@@ -99,7 +99,9 @@
       <li data-name="${esc(p.slug)}">
         <a class="province" href="province.html?id=${encodeURIComponent(
           p.slug
-        )}">${esc(nameOf(p))}</a>
+        )}">
+          ${esc(nameOf(p))}
+        </a>
       </li>`
       )
       .join("");
@@ -111,7 +113,6 @@
     try {
       const r = await fetch(ENDPOINT, { cache: "no-store" });
       const data = await r.json();
-      // انتظار: [{slug, names:{fa,en}} , ...]
       provinces = Array.isArray(data) ? data : FALLBACK;
     } catch {
       provinces = FALLBACK;
@@ -119,11 +120,8 @@
     render(SEARCH?.value || "");
   }
 
-  // جستجو
   SEARCH?.addEventListener("input", () => render(SEARCH.value));
-
-  // با تغییر زبان، رندر مجدد (برای نام‌های انگلیسی/فارسی)
-  window.addEventListener("i18n:changed", () => render(SEARCH?.value || ""));
+  window.addEventListener("langchange", () => render(SEARCH?.value || ""));
 
   document.addEventListener("DOMContentLoaded", load);
 })();

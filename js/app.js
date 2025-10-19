@@ -171,15 +171,32 @@
   });
   search?.addEventListener("input", (e) => renderList(e.target.value));
 
-  document
-    .getElementById("langToggle")
-    ?.addEventListener("click", () => I18N.toggle());
-  document.addEventListener("i18n:changed", () =>
-    renderList(search?.value || "")
-  );
+  // تضمین اینکه بعد از ساخته‌شدن DOM همه‌چیز بایند شود
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1) بایند تک‌مرتبه‌ای روی دکمهٔ زبان (جلوگیری از دوبار بایند شدن)
+    const toggleBtn = document.getElementById("langToggle");
+    if (toggleBtn && !toggleBtn.dataset.bound) {
+      toggleBtn.addEventListener("click", () => window.I18N?.toggle());
+      toggleBtn.dataset.bound = "1";
+    }
 
-  I18N.apply();
-  loadIndex();
+    // 2) تابع رندر مجدد، سازگار با هر دو رویداد زبان
+    const rerender = () => {
+      if (typeof renderList === "function") {
+        renderList(window.search?.value || "");
+      }
+    };
+    window.addEventListener("langchange", rerender); // رویداد استاندارد
+    window.addEventListener("i18n:changed", rerender); // سازگاری عقب‌رو
+
+    // 3) اعمال ترجمهٔ اولیه + لود داده‌ها
+    if (window.I18N?.applyI18n) {
+      window.I18N.applyI18n(); // اگر i18n.js جدید داری
+    } else if (window.I18N?.apply) {
+      window.I18N.apply(); // اگر نسخه قدیمی است
+    }
+    if (typeof loadIndex === "function") loadIndex();
+  });
 
   /* Header interactions: mobile drawer + search shortcuts + basic helpers */
   (function () {

@@ -1,337 +1,238 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title data-i18n="nav.contact">تماس</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/components.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
-    <link rel="stylesheet" href="css/map.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-  </head>
-  <body class="theme-auto">
-    <!-- Header -->
-    <header class="site-header" data-sticky>
-      <div class="topbar container">
-        <!-- برند -->
-        <a class="brand" href="index.html" aria-label="خانه">
-          <span class="brand-icon"
-            ><i class="fa-solid fa-map-location-dot"></i
-          ></span>
-          <strong class="brand-text" data-i18n="brand.title"
-            >استان‌های ایران</strong
-          >
-        </a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-i18n="nav.contact">تماس</title>
 
-        <!-- جستجو -->
-        <form class="searchbox" role="search" onsubmit="return false;">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <input
-            id="searchInput"
-            type="search"
-            data-i18n-placeholder="search.placeholder"
-            placeholder="... جستجوی استان"
-          />
-          <kbd class="kbd">/</kbd>
-        </form>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="css/map.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
 
-        <!-- اکشن‌ها -->
-        <div class="actions">
-          <div class="capsule">
-            <!-- سوییچ تم -->
-            <label class="switch" title="Theme">
-              <input type="checkbox" id="darkModeToggle" aria-label="Theme" />
-              <span class="slider">
-                <i class="sun fa-solid fa-sun"></i>
-                <i class="moon fa-solid fa-moon"></i>
-              </span>
-            </label>
+<body class="theme-auto">
+  <!-- Header -->
+  <header class="site-header" data-sticky>
+    <div class="topbar container">
+      <!-- برند -->
+      <a class="brand" href="index.html" aria-label="خانه">
+        <span class="brand-icon"><i class="fa-solid fa-map-location-dot"></i></span>
+        <strong class="brand-text" data-i18n="brand.title">استان‌های ایران</strong>
+      </a>
 
-            <!-- زبان -->
-            <button id="langToggle" class="capsule-btn" aria-label="Language">
-              <i class="fa-solid fa-language"></i>
-              <span class="hide-sm" data-i18n="header.lang">زبان</span>
-            </button>
-          </div>
+      <!-- جستجو -->
+      <form class="searchbox" role="search" onsubmit="return false;">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="searchInput" type="search" data-i18n-placeholder="search.placeholder"
+          placeholder="... جستجوی استان" />
+        <kbd class="kbd">/</kbd>
+      </form>
 
-          <!-- منوی موبایل -->
-          <button
-            id="navToggle"
-            class="icon-btn only-sm"
-            aria-controls="mainNav"
-            aria-expanded="false"
-          >
-            <i class="fa-solid fa-bars"></i>
+      <!-- اکشن‌ها -->
+      <div class="actions">
+        <div class="capsule">
+          <!-- سوییچ تم -->
+          <label class="switch" title="Theme">
+            <input type="checkbox" id="darkModeToggle" aria-label="Theme" />
+            <span class="slider">
+              <i class="sun fa-solid fa-sun"></i>
+              <i class="moon fa-solid fa-moon"></i>
+            </span>
+          </label>
+
+          <!-- زبان -->
+          <button id="langToggle" class="capsule-btn" aria-label="Language">
+            <i class="fa-solid fa-language" aria-hidden="true"></i>
+            <span class="hide-sm" data-i18n="header.lang">زبان</span>
           </button>
         </div>
+
+        <!-- منوی موبایل -->
+        <button id="navToggle" class="icon-btn only-sm" aria-controls="mainNav" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ناوبری: دقیــقاً زیر متن برند و هم‌تراز با آن -->
+    <nav id="mainNav" class="main-nav" aria-label="ناوبری اصلی">
+      <div class="container nav-inner">
+        <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i><span
+            data-i18n="nav.home">خانه</span></a>
+        <a href="about.html" class="nav-link"><i class="fa-solid fa-circle-info"></i><span
+            data-i18n="nav.about">درباره</span></a>
+        <a href="contact.html" class="nav-link is-active"><i class="fa-solid fa-envelope"></i><span
+            data-i18n="nav.contact">تماس</span></a>
+      </div>
+    </nav>
+    <div class="nav-backdrop" id="navBackdrop"></div>
+  </header>
+
+  <!-- Main -->
+  <main class="container">
+    <section class="card fade-in-up">
+      <div class="card-header">
+        <div class="card-title">
+          <i class="fa-regular fa-envelope"></i>
+          <span data-i18n="contact.title">تماس</span>
+        </div>
+        <span class="badge" data-i18n="contact.badge">پاسخ معمولاً کمتر از ۲۴ ساعت</span>
       </div>
 
-      <!-- ناوبری: دقیــقاً زیر متن برند و هم‌تراز با آن -->
-      <nav id="mainNav" class="main-nav" aria-label="ناوبری اصلی">
-        <div class="container nav-inner">
-          <a href="index.html" class="nav-link"
-            ><i class="fa-solid fa-house"></i
-            ><span data-i18n="nav.home">خانه</span></a
-          >
-          <a href="about.html" class="nav-link"
-            ><i class="fa-solid fa-circle-info"></i
-            ><span data-i18n="nav.about">درباره</span></a
-          >
-          <a href="contact.html" class="nav-link is-active"
-            ><i class="fa-solid fa-envelope"></i
-            ><span data-i18n="nav.contact">تماس</span></a
-          >
-        </div>
-      </nav>
-      <div class="nav-backdrop" id="navBackdrop"></div>
-    </header>
+      <div class="card-body">
+        <div class="contact-grid">
+          <!-- Form -->
+          <form id="contactForm" novalidate>
+            <!-- honeypot ضد‌بات -->
+            <input type="text" name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />
 
-    <!-- Main -->
-    <main class="container">
-      <section class="card fade-in-up">
-        <div class="card-header">
-          <div class="card-title">
-            <i class="fa-regular fa-envelope"></i>
-            <span data-i18n="contact.title">تماس</span>
-          </div>
-          <span class="badge" data-i18n="contact.badge"
-            >پاسخ معمولاً کمتر از ۲۴ ساعت</span
-          >
-        </div>
-
-        <div class="card-body">
-          <div class="contact-grid">
-            <!-- Form -->
-            <form id="contactForm" novalidate>
-              <!-- honeypot ضد‌بات -->
-              <input
-                type="text"
-                name="website"
-                tabindex="-1"
-                autocomplete="off"
-                class="hp"
-                aria-hidden="true"
-              />
-
-              <div class="form-grid">
-                <div class="field">
-                  <label for="name" data-i18n="contact.name">نام</label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    class="input"
-                    data-i18n-placeholder="contact.namePlaceholder"
-                    placeholder="نام شما"
-                    autocomplete="name"
-                  />
-                  <small class="help" id="nameHelp" data-i18n="contact.nameHelp"
-                    >حداقل ۲ کاراکتر</small
-                  >
-                </div>
-
-                <div class="field">
-                  <label for="email" data-i18n="contact.email">ایمیل</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    class="input"
-                    placeholder="you@example.com"
-                    autocomplete="email"
-                  />
-                  <small
-                    class="help"
-                    id="emailHelp"
-                    data-i18n="contact.emailHelp"
-                    >برای پاسخ لازم است</small
-                  >
-                </div>
-
-                <div class="field">
-                  <label for="subject" data-i18n="contact.subject">موضوع</label>
-                  <select id="subject" name="subject" class="input">
-                    <option value="general" data-i18n="contact.subject.general">
-                      عمومی
-                    </option>
-                    <option value="bug" data-i18n="contact.subject.bug">
-                      گزارش باگ
-                    </option>
-                    <option value="feature" data-i18n="contact.subject.feature">
-                      پیشنهاد ویژگی
-                    </option>
-                    <option value="support" data-i18n="contact.subject.support">
-                      پشتیبانی
-                    </option>
-                  </select>
-                </div>
-
-                <div class="field">
-                  <label for="attachments" data-i18n="contact.attach"
-                    >پیوست (اختیاری)</label
-                  >
-                  <div
-                    id="dropzone"
-                    class="dropzone"
-                    tabindex="0"
-                    role="button"
-                    aria-label="Drag & drop"
-                  >
-                    <i class="fa-regular fa-folder-open" aria-hidden="true"></i>
-                    <span data-i18n="contact.drop"
-                      >فایل را بکشید و رها کنید یا کلیک کنید</span
-                    >
-                    <input
-                      id="attachments"
-                      name="files"
-                      type="file"
-                      multiple
-                      hidden
-                    />
-                  </div>
-                  <ul id="fileList" class="file-list"></ul>
-                </div>
-
-                <div class="field field-full">
-                  <label for="message" data-i18n="contact.message">پیام</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    class="textarea"
-                    rows="6"
-                    data-i18n-placeholder="contact.messagePlaceholder"
-                    placeholder="پیام خود را بنویسید…"
-                  ></textarea>
-                  <div class="row-between">
-                    <small
-                      class="help"
-                      id="msgHelp"
-                      data-i18n="contact.messageHelp"
-                      >حداقل ۱۰ کاراکتر</small
-                    >
-                    <small class="counter"
-                      ><span id="msgCount">0</span>/1000</small
-                    >
-                  </div>
-                </div>
+            <div class="form-grid">
+              <div class="field">
+                <label for="name" data-i18n="contact.name">نام</label>
+                <input id="name" name="name" type="text" class="input" data-i18n-placeholder="contact.namePlaceholder"
+                  placeholder="نام شما" autocomplete="name" />
+                <small class="help" id="nameHelp" data-i18n="contact.nameHelp">حداقل ۲ کاراکتر</small>
               </div>
 
-              <div class="row-between mt-12">
-                <div class="row gap-8">
-                  <button id="submitBtn" type="submit" class="btn primary">
-                    <i class="fa-regular fa-paper-plane"></i>
-                    <span data-i18n="contact.send">ارسال</span>
+              <div class="field">
+                <label for="email" data-i18n="contact.email">ایمیل</label>
+                <input id="email" name="email" type="email" class="input" placeholder="you@example.com"
+                  autocomplete="email" />
+                <small class="help" id="emailHelp" data-i18n="contact.emailHelp">برای پاسخ لازم است</small>
+              </div>
+
+              <div class="field">
+                <label for="subject" data-i18n="contact.subject">موضوع</label>
+                <select id="subject" name="subject" class="input">
+                  <option value="general" data-i18n="contact.subject.general">
+                    عمومی
+                  </option>
+                  <option value="bug" data-i18n="contact.subject.bug">
+                    گزارش باگ
+                  </option>
+                  <option value="feature" data-i18n="contact.subject.feature">
+                    پیشنهاد ویژگی
+                  </option>
+                  <option value="support" data-i18n="contact.subject.support">
+                    پشتیبانی
+                  </option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="attachments" data-i18n="contact.attach">پیوست (اختیاری)</label>
+                <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Drag & drop">
+                  <i class="fa-regular fa-folder-open" aria-hidden="true"></i>
+                  <span data-i18n="contact.drop">فایل را بکشید و رها کنید یا کلیک کنید</span>
+                  <input id="attachments" name="files" type="file" multiple hidden />
+                </div>
+                <ul id="fileList" class="file-list"></ul>
+              </div>
+
+              <div class="field field-full">
+                <label for="message" data-i18n="contact.message">پیام</label>
+                <textarea id="message" name="message" class="textarea" rows="6"
+                  data-i18n-placeholder="contact.messagePlaceholder" placeholder="پیام خود را بنویسید…"></textarea>
+                <div class="row-between">
+                  <small class="help" id="msgHelp" data-i18n="contact.messageHelp">حداقل ۱۰ کاراکتر</small>
+                  <small class="counter"><span id="msgCount">0</span>/1000</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="row-between mt-12">
+              <div class="row gap-8">
+                <button id="submitBtn" type="submit" class="btn primary">
+                  <i class="fa-regular fa-paper-plane"></i>
+                  <span data-i18n="contact.send">ارسال</span>
+                </button>
+                <button id="resetBtn" type="button" class="btn ghost">
+                  <i class="fa-solid fa-rotate-left"></i>
+                  <span data-i18n="contact.reset">پاک‌سازی</span>
+                </button>
+              </div>
+              <small class="muted" data-i18n="contact.privacy">اطلاعات شما ذخیره یا به اشتراک گذاشته نمی‌شود.</small>
+            </div>
+          </form>
+
+          <!-- Sidebar info -->
+          <aside class="contact-aside">
+            <div class="aside-card">
+              <h3>
+                <i class="fa-solid fa-circle-info"></i>
+                <span data-i18n="contact.quick">راه‌های سریع</span>
+              </h3>
+              <ul class="link-list">
+                <li>
+                  <a href="mailto:you@example.com" class="link">
+                    <i class="fa-regular fa-envelope"></i> you@example.com
+                  </a>
+                  <button class="icon-btn xs" data-copy="you@example.com" title="Copy" aria-label="Copy email">
+                    <i class="fa-regular fa-copy"></i>
                   </button>
-                  <button id="resetBtn" type="button" class="btn ghost">
-                    <i class="fa-solid fa-rotate-left"></i>
-                    <span data-i18n="contact.reset">پاک‌سازی</span>
-                  </button>
-                </div>
-                <small class="muted" data-i18n="contact.privacy"
-                  >اطلاعات شما ذخیره یا به اشتراک گذاشته نمی‌شود.</small
-                >
-              </div>
-            </form>
+                </li>
+                <li>
+                  <a href="https://t.me/powermatin" target="_blank" rel="noreferrer" class="link">
+                    <i class="fa-brands fa-telegram"></i> Telegram
+                  </a>
+                </li>
+                <li>
+                  <a href="https://github.com/power0matin/iran-provinces" target="_blank" rel="noreferrer" class="link">
+                    <i class="fa-brands fa-github"></i> GitHub
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-            <!-- Sidebar info -->
-            <aside class="contact-aside">
-              <div class="aside-card">
-                <h3>
-                  <i class="fa-solid fa-circle-info"></i>
-                  <span data-i18n="contact.quick">راه‌های سریع</span>
-                </h3>
-                <ul class="link-list">
-                  <li>
-                    <a href="mailto:you@example.com" class="link">
-                      <i class="fa-regular fa-envelope"></i> you@example.com
-                    </a>
-                    <button
-                      class="icon-btn xs"
-                      data-copy="you@example.com"
-                      title="Copy"
-                      aria-label="Copy email"
-                    >
-                      <i class="fa-regular fa-copy"></i>
-                    </button>
-                  </li>
-                  <li>
-                    <a
-                      href="https://t.me/powermatin"
-                      target="_blank"
-                      rel="noreferrer"
-                      class="link"
-                    >
-                      <i class="fa-brands fa-telegram"></i> Telegram
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://github.com/power0matin/iran-provinces"
-                      target="_blank"
-                      rel="noreferrer"
-                      class="link"
-                    >
-                      <i class="fa-brands fa-github"></i> GitHub
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="aside-card">
-                <h3>
-                  <i class="fa-regular fa-circle-question"></i>
-                  <span data-i18n="contact.faq">سوالات متداول</span>
-                </h3>
-                <details class="faq">
-                  <summary data-i18n="contact.faq.1.q">
-                    چطور باگ گزارش کنم؟
-                  </summary>
-                  <p data-i18n="contact.faq.1.a">
-                    موضوع «گزارش باگ» را انتخاب کنید و جزییات را بنویسید.
-                  </p>
-                </details>
-                <details class="faq">
-                  <summary data-i18n="contact.faq.2.q">
-                    چقدر طول می‌کشد پاسخ بدهید؟
-                  </summary>
-                  <p data-i18n="contact.faq.2.a">معمولاً کمتر از ۲۴ ساعت.</p>
-                </details>
-              </div>
-            </aside>
-          </div>
+            <div class="aside-card">
+              <h3>
+                <i class="fa-regular fa-circle-question"></i>
+                <span data-i18n="contact.faq">سوالات متداول</span>
+              </h3>
+              <details class="faq">
+                <summary data-i18n="contact.faq.1.q">
+                  چطور باگ گزارش کنم؟
+                </summary>
+                <p data-i18n="contact.faq.1.a">
+                  موضوع «گزارش باگ» را انتخاب کنید و جزییات را بنویسید.
+                </p>
+              </details>
+              <details class="faq">
+                <summary data-i18n="contact.faq.2.q">
+                  چقدر طول می‌کشد پاسخ بدهید؟
+                </summary>
+                <p data-i18n="contact.faq.2.a">معمولاً کمتر از ۲۴ ساعت.</p>
+              </details>
+            </div>
+          </aside>
         </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <p>
-          © <span id="year"></span>
-          <span data-i18n="footer.rights">تمامی حقوق محفوظ است.</span>
-        </p>
       </div>
-    </footer>
+    </section>
+  </main>
 
-    <!-- Toast container -->
-    <div
-      id="toastHost"
-      class="toast-host"
-      aria-live="polite"
-      aria-atomic="true"
-    ></div>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>
+        © <span id="year"></span>
+        <span data-i18n="footer.rights">تمامی حقوق محفوظ است.</span>
+      </p>
+    </div>
+  </footer>
 
-    <script src="js/darkMode.js"></script>
-    <script src="js/i18n.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/contact.js"></script>
-  </body>
+  <!-- Toast container -->
+  <div id="toastHost" class="toast-host" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="js/i18n.js" defer></script>
+  <script src="js/site.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/darkMode.js" defer></script>
+  <script src="js/nav.js" defer></script>
+  <script src="js/contact.js" defer></script>
+</body>
+
 </html>

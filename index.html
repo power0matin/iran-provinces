@@ -1,206 +1,159 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title data-i18n="header.title">استان‌های ایران</title>
 
-    <!-- Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-i18n="header.title">استان‌های ایران</title>
 
-    <!-- Base styles (yours) -->
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/components.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
-    <!-- Icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
+  <!-- Base styles (yours) -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
 
-    <!-- Leaflet -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin=""
-    />
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
-    <!-- Map styles -->
-    <link rel="stylesheet" href="css/map.css" />
-  </head>
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <body class="theme-auto">
-    <!-- Header -->
-    <header class="site-header" data-sticky>
-      <div class="topbar container">
-        <!-- برند -->
-        <a class="brand" href="index.html" aria-label="خانه">
-          <span class="brand-icon"
-            ><i class="fa-solid fa-map-location-dot"></i
-          ></span>
-          <strong class="brand-text" data-i18n="brand.title"
-            >استان‌های ایران</strong
-          >
-        </a>
+  <!-- Map styles -->
+  <link rel="stylesheet" href="css/map.css" />
+</head>
 
-        <!-- جستجو -->
-        <form class="searchbox" role="search" onsubmit="return false;">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <input
-            id="searchInput"
-            type="search"
-            data-i18n-placeholder="search.placeholder"
-            placeholder="... جستجوی استان"
-          />
-          <kbd class="kbd">/</kbd>
-        </form>
+<body class="theme-auto">
+  <!-- Header -->
+  <header class="site-header" data-sticky>
+    <div class="topbar container">
+      <!-- برند -->
+      <a class="brand" href="index.html" aria-label="خانه">
+        <span class="brand-icon"><i class="fa-solid fa-map-location-dot"></i></span>
+        <strong class="brand-text" data-i18n="brand.title">استان‌های ایران</strong>
+      </a>
 
-        <!-- اکشن‌ها -->
-        <div class="actions">
-          <div class="capsule">
-            <label class="switch" title="Theme">
-              <input type="checkbox" id="darkModeToggle" aria-label="Theme" />
-              <span class="slider">
-                <i class="sun fa-solid fa-sun"></i>
-                <i class="moon fa-solid fa-moon"></i>
-              </span>
-            </label>
+      <!-- جستجو -->
+      <form class="searchbox" role="search" onsubmit="return false;">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="searchInput" type="search" data-i18n-placeholder="search.placeholder"
+          placeholder="... جستجوی استان" />
+        <kbd class="kbd">/</kbd>
+      </form>
 
-            <!-- زبان -->
-            <button id="langToggle" class="capsule-btn" aria-label="Language">
-              <i class="fa-solid fa-language"></i>
-              <span class="hide-sm" data-i18n="header.lang">زبان</span>
-            </button>
-          </div>
+      <!-- اکشن‌ها -->
+      <div class="actions">
+        <div class="capsule">
+          <label class="switch" title="Theme">
+            <input type="checkbox" id="darkModeToggle" aria-label="Theme" />
+            <span class="slider">
+              <i class="sun fa-solid fa-sun"></i>
+              <i class="moon fa-solid fa-moon"></i>
+            </span>
+          </label>
 
-          <!-- منوی موبایل -->
-          <button
-            id="navToggle"
-            class="icon-btn only-sm"
-            aria-controls="mainNav"
-            aria-expanded="false"
-          >
-            <i class="fa-solid fa-bars"></i>
+          <!-- زبان -->
+          <button id="langToggle" class="capsule-btn" aria-label="Language">
+            <i class="fa-solid fa-language"></i>
+            <span class="hide-sm" data-i18n="header.lang">زبان</span>
           </button>
         </div>
-      </div>
 
-      <!-- ناوبری: دقیــقاً زیر متن برند و هم‌تراز با آن -->
-      <nav id="mainNav" class="main-nav" aria-label="ناوبری اصلی">
-        <div class="container nav-inner">
-          <a href="index.html" class="nav-link is-active"
-            ><i class="fa-solid fa-house"></i
-            ><span data-i18n="nav.home">خانه</span></a
-          >
-          <a href="about.html" class="nav-link"
-            ><i class="fa-solid fa-circle-info"></i
-            ><span data-i18n="nav.about">درباره</span></a
-          >
-          <a href="contact.html" class="nav-link"
-            ><i class="fa-solid fa-envelope"></i
-            ><span data-i18n="nav.contact">تماس</span></a
-          >
+        <!-- منوی موبایل -->
+        <button id="navToggle" class="icon-btn only-sm" aria-controls="mainNav" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ناوبری: دقیــقاً زیر متن برند و هم‌تراز با آن -->
+    <nav id="mainNav" class="main-nav" aria-label="ناوبری اصلی">
+      <div class="container nav-inner">
+        <a href="index.html" class="nav-link is-active"><i class="fa-solid fa-house"></i><span
+            data-i18n="nav.home">خانه</span></a>
+        <a href="about.html" class="nav-link"><i class="fa-solid fa-circle-info"></i><span
+            data-i18n="nav.about">درباره</span></a>
+        <a href="contact.html" class="nav-link"><i class="fa-solid fa-envelope"></i><span
+            data-i18n="nav.contact">تماس</span></a>
+      </div>
+    </nav>
+    <div class="nav-backdrop" id="navBackdrop"></div>
+  </header>
+
+  <!-- Main -->
+  <main class="container">
+    <section class="grid">
+      <!-- Province list -->
+      <section class="card list-card fade-in-up">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fa-regular fa-rectangle-list"></i>
+            <span data-i18n="home.provinces">استان‌ها</span>
+          </div>
+          <span id="countBadge" class="badge">—</span>
         </div>
-      </nav>
-      <div class="nav-backdrop" id="navBackdrop"></div>
-    </header>
 
-    <!-- Main -->
-    <main class="container">
-      <section class="grid">
-        <!-- Province list -->
-        <section class="card list-card fade-in-up">
-          <div class="card-header">
-            <div class="card-title">
-              <i class="fa-regular fa-rectangle-list"></i>
-              <span data-i18n="home.provinces">استان‌ها</span>
-            </div>
-            <span id="countBadge" class="badge">—</span>
-          </div>
+        <ul id="provinceList" class="province-list" aria-live="polite"></ul>
 
-          <ul id="provinceList" class="province-list" aria-live="polite"></ul>
-
-          <div class="hint">
-            <i class="fa-regular fa-lightbulb"></i>
-            <span data-i18n="home.hint"
-              >کلید / برای فوکوس جستجو و کلید Esc برای پاک‌سازی.</span
-            >
-          </div>
-        </section>
-
-        <!-- Interactive map -->
-        <section class="card map-card fade-in-up">
-          <div class="card-header">
-            <div class="card-title">
-              <i class="fa-regular fa-compass"></i>
-              <span data-i18n="home.map">نقشه تعاملی</span>
-            </div>
-            <span class="badge" id="mapStatus">Loading…</span>
-          </div>
-
-          <div class="card-body">
-            <div
-              id="map"
-              class="leaflet-map"
-              aria-label="Iran interactive map"
-            ></div>
-            <div
-              id="mapTooltip"
-              class="map-tooltip"
-              role="tooltip"
-              aria-hidden="true"
-            ></div>
-          </div>
-
-          <div class="card-footer">
-            <span class="muted" data-i18n="home.mapHint">
-              با هاور/تاچ روی هر استان نام آن را ببینید؛ با کلیک وارد صفحه همان
-              استان شوید.
-            </span>
-          </div>
-        </section>
+        <div class="hint">
+          <i class="fa-regular fa-lightbulb"></i>
+          <span data-i18n="home.hint">کلید / برای فوکوس جستجو و کلید Esc برای پاک‌سازی.</span>
+        </div>
       </section>
-    </main>
 
-    <!-- Footer -->
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <p>
-          © <span id="year"></span>
-          <span data-i18n="footer.rights">تمامی حقوق محفوظ است.</span> ·
-          <span data-i18n="footer.by">طراحی توسط</span>
-          <a
-            href="https://github.com/power0matin"
-            target="_blank"
-            rel="noreferrer"
-            >powermatin</a
-          >
-        </p>
-      </div>
-      <noscript
-        >JavaScript is required for the interactive map and search.</noscript
-      >
-    </footer>
+      <!-- Interactive map -->
+      <section class="card map-card fade-in-up">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fa-regular fa-compass"></i>
+            <span data-i18n="home.map">نقشه تعاملی</span>
+          </div>
+          <span class="badge" id="mapStatus">Loading…</span>
+        </div>
 
-    <!-- Scripts (order matters) -->
-    <script src="js/i18n.js" defer></script>
-    <script src="js/darkMode.js" defer></script>
-    <script src="js/home.js" defer></script>
+        <div class="card-body">
+          <div id="map" class="leaflet-map" aria-label="Iran interactive map"></div>
+          <div id="mapTooltip" class="map-tooltip" role="tooltip" aria-hidden="true"></div>
+        </div>
 
-    <!-- Leaflet -->
-    <script
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""
-      defer
-    ></script>
-    <script src="js/map.js" defer></script>
-    <script src="js/nav.js" defer></script>
+        <div class="card-footer">
+          <span class="muted" data-i18n="home.mapHint">
+            با هاور/تاچ روی هر استان نام آن را ببینید؛ با کلیک وارد صفحه همان
+            استان شوید.
+          </span>
+        </div>
+      </section>
+    </section>
+  </main>
 
-  </body>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>
+        © <span id="year"></span>
+        <span data-i18n="footer.rights">تمامی حقوق محفوظ است.</span> ·
+        <span data-i18n="footer.by">طراحی توسط</span>
+        <a href="https://github.com/power0matin" target="_blank" rel="noreferrer">powermatin</a>
+      </p>
+    </div>
+    <noscript>JavaScript is required for the interactive map and search.</noscript>
+  </footer>
+
+  <!-- Scripts (order matters) -->
+  <script src="js/i18n.js" defer></script>
+  <script src="js/site.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/darkMode.js" defer></script>
+  <script src="js/home.js" defer></script>
+
+  <!-- Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+  <script src="js/map.js" defer></script>
+  <script src="js/nav.js" defer></script>
+
+</body>
+
 </html>
