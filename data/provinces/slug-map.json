@@ -1,11 +1,163 @@
 [
   {
+    "matchEn": "Alborz",
+    "id": "alborz",
+    "nameFa": "البرز",
+    "nameEn": "Alborz"
+  },
+  {
+    "matchEn": "Ardabil",
+    "id": "ardabil",
+    "nameFa": "اردبیل",
+    "nameEn": "Ardabil"
+  },
+  {
+    "matchEn": "East Azerbaijan",
+    "id": "east-azerbaijan",
+    "nameFa": "آذربایجان شرقی",
+    "nameEn": "East Azerbaijan"
+  },
+  {
+    "matchEn": "West Azerbaijan",
+    "id": "west-azerbaijan",
+    "nameFa": "آذربایجان غربی",
+    "nameEn": "West Azerbaijan"
+  },
+  {
+    "matchEn": "Bushehr",
+    "id": "bushehr",
+    "nameFa": "بوشهر",
+    "nameEn": "Bushehr"
+  },
+  {
+    "matchEn": "Chaharmahal and Bakhtiari",
+    "id": "chaharmahal-bakhtiari",
+    "nameFa": "چهارمحال و بختیاری",
+    "nameEn": "Chaharmahal and Bakhtiari"
+  },
+  { "matchEn": "Fars", "id": "fars", "nameFa": "فارس", "nameEn": "Fars" },
+  { "matchEn": "Gilan", "id": "gilan", "nameFa": "گیلان", "nameEn": "Gilan" },
+  {
+    "matchEn": "Golestan",
+    "id": "golestan",
+    "nameFa": "گلستان",
+    "nameEn": "Golestan"
+  },
+  {
+    "matchEn": "Hamadan",
+    "id": "hamadan",
+    "nameFa": "همدان",
+    "nameEn": "Hamadan"
+  },
+  {
+    "matchEn": "Hormozgan",
+    "id": "hormozgan",
+    "nameFa": "هرمزگان",
+    "nameEn": "Hormozgan"
+  },
+  { "matchEn": "Ilam", "id": "ilam", "nameFa": "ایلام", "nameEn": "Ilam" },
+  {
+    "matchEn": "Isfahan",
+    "id": "isfahan",
+    "nameFa": "اصفهان",
+    "nameEn": "Isfahan"
+  },
+  {
+    "matchEn": "Kerman",
+    "id": "kerman",
+    "nameFa": "کرمان",
+    "nameEn": "Kerman"
+  },
+  {
+    "matchEn": "Kermanshah",
+    "id": "kermanshah",
+    "nameFa": "کرمانشاه",
+    "nameEn": "Kermanshah"
+  },
+  {
+    "matchEn": "Khuzestan",
+    "id": "khuzestan",
+    "nameFa": "خوزستان",
+    "nameEn": "Khuzestan"
+  },
+  {
+    "matchEn": "Kohgiluyeh and Boyer-Ahmad",
+    "id": "kohgiluyeh-boyer-ahmad",
+    "nameFa": "کهگیلویه و بویراحمد",
+    "nameEn": "Kohgiluyeh and Boyer-Ahmad"
+  },
+  {
+    "matchEn": "Kurdistan",
+    "id": "kurdistan",
+    "nameFa": "کردستان",
+    "nameEn": "Kurdistan"
+  },
+  {
+    "matchEn": "Lorestan",
+    "id": "lorestan",
+    "nameFa": "لرستان",
+    "nameEn": "Lorestan"
+  },
+  {
+    "matchEn": "Markazi",
+    "id": "markazi",
+    "nameFa": "مرکزی",
+    "nameEn": "Markazi"
+  },
+  {
+    "matchEn": "Mazandaran",
+    "id": "mazandaran",
+    "nameFa": "مازندران",
+    "nameEn": "Mazandaran"
+  },
+  {
+    "matchEn": "Qazvin",
+    "id": "qazvin",
+    "nameFa": "قزوین",
+    "nameEn": "Qazvin"
+  },
+  { "matchEn": "Qom", "id": "qom", "nameFa": "قم", "nameEn": "Qom" },
+  {
+    "matchEn": "Semnan",
+    "id": "semnan",
+    "nameFa": "سمنان",
+    "nameEn": "Semnan"
+  },
+  {
+    "matchEn": "Sistan and Baluchestan",
+    "id": "sistan-baluchestan",
+    "nameFa": "سیستان و بلوچستان",
+    "nameEn": "Sistan and Baluchestan"
+  },
+  {
     "matchEn": "Tehran",
     "id": "tehran",
     "nameFa": "تهران",
     "nameEn": "Tehran"
   },
-  { "matchEn": "Fars", "id": "fars", "nameFa": "فارس", "nameEn": "Fars" },
-  { "matchEn": "Alborz", "id": "alborz", "nameFa": "البرز", "nameEn": "Alborz" }
-  // ... add all 31
+  { "matchEn": "Yazd", "id": "yazd", "nameFa": "یزد", "nameEn": "Yazd" },
+  {
+    "matchEn": "Zanjan",
+    "id": "zanjan",
+    "nameFa": "زنجان",
+    "nameEn": "Zanjan"
+  },
+  {
+    "matchEn": "North Khorasan",
+    "id": "north-khorasan",
+    "nameFa": "خراسان شمالی",
+    "nameEn": "North Khorasan"
+  },
+  {
+    "matchEn": "Razavi Khorasan",
+    "id": "razavi-khorasan",
+    "nameFa": "خراسان رضوی",
+    "nameEn": "Razavi Khorasan"
+  },
+  {
+    "matchEn": "South Khorasan",
+    "id": "south-khorasan",
+    "nameFa": "خراسان جنوبی",
+    "nameEn": "South Khorasan"
+  }
 ]
