@@ -151,31 +151,14 @@
   <script src="js/darkMode.js" defer></script>
   <script src="js/province.js" defer></script>
 
-  <!-- header glue (همبرگری/بک‌دراپ) -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const navToggle = document.getElementById("navToggle");
-      const mainNav = document.getElementById("mainNav");
-      const backdrop = document.getElementById("navBackdrop");
+  <script src="js/site.js" defer></script>
+  <script src="js/app.js" defer></script>
 
-      function closeNav() {
-        mainNav.classList.remove("open");
-        backdrop.classList.remove("show");
-        navToggle?.setAttribute("aria-expanded", "false");
-      }
-      function toggleNav() {
-        const isOpen = mainNav.classList.toggle("open");
-        backdrop.classList.toggle("show", isOpen);
-        navToggle?.setAttribute("aria-expanded", String(isOpen));
-      }
-
-      navToggle?.addEventListener("click", toggleNav);
-      backdrop?.addEventListener("click", closeNav);
-      window.addEventListener("resize", () => {
-        if (window.innerWidth > 900) closeNav();
-      });
-    });
-  </script>
+  <!-- Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+  <script src="js/map.js" defer></script>
+  <script src="js/nav.js" defer></script>
 </body>
 
 </html>

@@ -1,13 +1,23 @@
 /* ===================== Leaflet Map ===================== */
+/* فقط یکی از این دو ست ارتفاع را داشته باش—ترجیحاً همین */
+:root {
+  --map-min-h: 320px;
+  --map-ideal-h: 58vh;
+  --map-max-h: 760px;
+}
+
 .leaflet-map {
-  width: 100%;
-  height: min(70vh, 720px);
-  min-height: 280px;
-  /* با JS ensureHeight هماهنگ */
+  inline-size: 100%;
+  block-size: clamp(var(--map-min-h), var(--map-ideal-h), var(--map-max-h));
   border-radius: 14px;
   border: 1px solid var(--border);
   overflow: hidden;
+  isolation: isolate;
+  touch-action: manipulation;
+  -webkit-overflow-scrolling: touch;
+  /* اسکرول لایه‌های کنترل نرم‌تر */
 }
+
 
 /* Tooltip: JS مختصات را با left/top تنظیم می‌کند */
 .map-tooltip {

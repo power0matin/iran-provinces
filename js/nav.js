@@ -1,85 +1,79 @@
-// js/nav.js
-(function () {
-  function $(id) {
-    return document.getElementById(id);
+// js/nav.js — Drawer موبایل دو سویه (RTL/LTR) + a11y
+(() => {
+  const BP = 900; // با media query یکی است
+  const d = document;
+  const nav = d.getElementById("mainNav");
+  const toggle = d.getElementById("navToggle");
+  if (!nav || !toggle) return;
+
+  // Backdrop را اگر نبود می‌سازیم
+  let backdrop = d.getElementById("navBackdrop");
+  if (!backdrop) {
+    backdrop = d.createElement("div");
+    backdrop.id = "navBackdrop";
+    backdrop.className = "nav-backdrop";
+    backdrop.setAttribute("aria-hidden", "true");
+    document.body.appendChild(backdrop); // یا document.body.appendChild(backdrop)
   }
-  function ready(fn) {
-    document.readyState !== "loading"
-      ? fn()
-      : document.addEventListener("DOMContentLoaded", fn);
-  }
 
-  ready(function () {
-    var nav = $("mainNav");
-    var toggle = $("navToggle");
-    if (!nav || !toggle) return;
+  const isMobile = () => window.innerWidth < BP;
 
-    // بک‌دراپ اگر نبود بساز
-    var backdrop = $("navBackdrop");
-    if (!backdrop) {
-      backdrop = document.createElement("div");
-      backdrop.id = "navBackdrop";
-      backdrop.className = "nav-backdrop";
-      nav.parentNode.insertBefore(backdrop, nav.nextSibling);
-    }
+  const onKeydown = (e) => {
+    if (e.key === "Escape" && nav.classList.contains("open")) close();
+  };
 
-    var BP = 900; // باید با media-query شما هم‌خوان باشد
-    function isMobile() {
-      return window.innerWidth < BP;
-    }
+  const open = () => {
+    if (!isMobile() || nav.classList.contains("open")) return;
+    nav.classList.add("open");
+    nav.setAttribute("aria-hidden", "false");
+    toggle.setAttribute("aria-expanded", "true");
 
-    function openNav() {
-      if (nav.classList.contains("open")) return;
-      if (!isMobile()) return; // فقط در موبایل کشویی می‌شود
-      nav.classList.add("open");
-      backdrop.classList.add("show");
-      toggle.setAttribute("aria-expanded", "true");
-      nav.setAttribute("aria-hidden", "false");
-      // قفل اسکرول بدنه
-      document.body.dataset._overflow = document.body.style.overflow || "";
-      document.body.style.overflow = "hidden";
-      // فوکوس اولین آیتم
-      var first = nav.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
-      if (first) first.focus();
-      document.addEventListener("keydown", onKeydown);
-    }
+    backdrop.classList.add("show");
+    backdrop.setAttribute("aria-hidden", "false");
 
-    function closeNav() {
-      nav.classList.remove("open");
-      backdrop.classList.remove("show");
-      toggle.setAttribute("aria-expanded", "false");
-      nav.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = document.body.dataset._overflow || "";
-      document.removeEventListener("keydown", onKeydown);
-    }
+    d.body.classList.add("nav-locked"); // قفل اسکرول
 
-    function onKeydown(e) {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        closeNav();
-      }
-    }
+    // فوکوس اولین عنصر منو
+    const first = nav.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+    if (first) first.focus({ preventScroll: true });
 
-    toggle.addEventListener("click", function () {
-      nav.classList.contains("open") ? closeNav() : openNav();
-    });
+    d.addEventListener("keydown", onKeydown);
+  };
 
-    backdrop.addEventListener("click", closeNav);
-
-    // کلیک روی هر لینک داخل منو → بستن
-    nav.addEventListener("click", function (e) {
-      var a = e.target.closest && e.target.closest("a");
-      if (a) closeNav();
-    });
-
-    // وقتی عرض از BP بیشتر شد منو ریست شود
-    window.addEventListener("resize", function () {
-      if (!isMobile()) closeNav();
-    });
-
-    // مقداردهی ARIA اولیه
-    toggle.setAttribute("aria-controls", "mainNav");
-    toggle.setAttribute("aria-expanded", "false");
+  const close = () => {
+    if (!nav.classList.contains("open")) return;
+    nav.classList.remove("open");
     nav.setAttribute("aria-hidden", "true");
+    toggle.setAttribute("aria-expanded", "false");
+
+    backdrop.classList.remove("show");
+    backdrop.setAttribute("aria-hidden", "true");
+
+    d.body.classList.remove("nav-locked");
+    d.removeEventListener("keydown", onKeydown);
+    toggle.focus({ preventScroll: true });
+  };
+
+  const toggleNav = () => (nav.classList.contains("open") ? close() : open());
+
+  // رویدادها
+  toggle.addEventListener("click", toggleNav);
+  backdrop.addEventListener("click", close);
+  nav.addEventListener("click", (e) => {
+    if (e.target.closest("a")) close(); // کلیک روی لینک‌ها → بستن
   });
+
+  // خروج از حالت موبایل → بستن
+  let rtid;
+  window.addEventListener("resize", () => {
+    clearTimeout(rtid);
+    rtid = setTimeout(() => {
+      if (!isMobile()) close();
+    }, 80);
+  });
+
+  // ARIA اولیه
+  toggle.setAttribute("aria-controls", "mainNav");
+  toggle.setAttribute("aria-expanded", "false");
+  nav.setAttribute("aria-hidden", "true");
 })();

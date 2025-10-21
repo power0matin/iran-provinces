@@ -137,10 +137,15 @@ body {
 .leaflet-map {
   inline-size: 100%;
   block-size: clamp(var(--map-min-h), var(--map-ideal-h), var(--map-max-h));
-  border-radius: calc(var(--radius) - 2px);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  overflow: hidden;
   isolation: isolate;
   touch-action: manipulation;
+  -webkit-overflow-scrolling: touch;
+  /* اسکرول لایه‌های کنترل نرم‌تر */
 }
+
 
 .responsive-map {
   display: block;

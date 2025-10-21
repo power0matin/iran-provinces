@@ -140,10 +140,8 @@ body {
 .container {
   width: min(1280px, 100% - 32px);
   margin-inline: auto;
-  padding-top: 1%;
-  /* ✅ فاصله از بالای صفحه */
-  padding-bottom: 1%;
-  /* ✅ فاصله از پایین صفحه */
+  padding-block: clamp(12px, 2.4vw, 24px);
+  /* یکنواخت در همهٔ عرض‌ها */
 }
 
 .kbd {
@@ -173,17 +171,17 @@ body {
 .topbar {
   --h: 64px;
   display: grid;
-  grid-template-columns: 1fr minmax(360px, 640px) auto;
-  gap: 16px;
+  grid-template-columns: 1fr minmax(320px, 520px) auto;
+  /* یکسان با باقی UI */
+  gap: 12px;
   align-items: center;
-  padding: 8px 14px;
-  min-height: var(--h);
+  padding: 10px 14px;
+  min-width: 0;
 }
 
 @media (max-width: 1000px) {
   .topbar {
     grid-template-columns: 1fr 1fr auto;
-    gap: 12px;
   }
 }
 
@@ -193,15 +191,27 @@ body {
   }
 }
 
-/* header کمی برجسته‌تر و جدا از بدنه */
+/* سرچ‌باکس روی موبایل مخفی بماند (از هر دو فایل یکی بماند) */
+@media (max-width: 780px) {
+  .searchbox {
+    display: none;
+  }
+}
+
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 1003;
+  isolation: isolate;
+  /* ⬅️ مهم */
   backdrop-filter: blur(10px);
-  background: color-mix(in oklab, var(--bg) 86%, transparent);
+  background: color-mix(in oklab, var(--bg) 92%, transparent);
   border-bottom: 1px solid var(--border);
   box-shadow: 0 1px 0 var(--border), 0 8px 24px rgba(0, 0, 0, .04);
+}
+
+.topbar>* {
+  min-width: 0;
 }
 
 .icon-btn.only-sm {
@@ -279,11 +289,14 @@ body {
 
 /* capsule (lang + theme) */
 .capsule {
-  display: inline-flex;         /* ✅ محتوا در یک ردیف و هم‌تراز */
-  align-items: center;          /* ✅ عمودی وسط */
+  display: inline-flex;
+  /* ✅ محتوا در یک ردیف و هم‌تراز */
+  align-items: center;
+  /* ✅ عمودی وسط */
   gap: 4px;
   padding: 4px;
-  height: 42px;                 /* هم‌قد با .searchbox */
+  height: 42px;
+  /* هم‌قد با .searchbox */
   border-radius: 999px;
   background: color-mix(in oklab, var(--bg-soft) 92%, transparent);
   border: 1px solid var(--border);
@@ -770,13 +783,15 @@ body {
   --nav-bp: 900px;
 }
 
-/* باید با مقدار JS هماهنگ باشد */
-.main-nav {
-  display: flex;
-  gap: 10px;
-  border-top: 1px solid var(--border);
-  padding: 6px 14px 10px; 
+@media (min-width: 900px) {
+  .main-nav {
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid var(--border);
+    padding: 6px 14px 10px;
+  }
 }
+
 
 .main-nav .nav-link {
   display: inline-flex;
@@ -807,71 +822,128 @@ body {
   box-shadow: 0 6px 18px color-mix(in oklab, var(--primary) 26%, transparent);
 }
 
+@media (max-width: 900px) {
+  body.nav-locked {
+    overflow: hidden;
+    touch-action: none;
+  }
+}
 
 /* ==================== Mobile Drawer ==================== */
+/* ============== NAV: RTL-safe mobile drawer ============== */
+/* ============== NAV: RTL-safe mobile drawer (FINAL) ============== */
+/* هدر همیشه روی محتوا بماند */
+.site-header[data-sticky] {
+  position: sticky;
+  top: 0;
+  z-index: 1003;
+  background: color-mix(in oklab, var(--bg) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+body.nav-locked {
+  overflow: hidden;
+  touch-action: none;
+}
+
+
+/* Drawer + Backdrop داخل لایه مستقل */
 @media (max-width: 900px) {
 
-  /* Drawer */
-  .main-nav {
-    position: fixed;
-    inset-block: 0;
-    /* top/bottom: 0 */
-    inset-inline-start: 0;
-    /* respects RTL/LTR */
-    width: min(308px, 88vw);
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    background: var(--card);
-    border-inline-end: 1px solid var(--border);
-    /* safe-area paddings (iOS notch) */
-    padding: max(12px, env(safe-area-inset-top, 0px)) 12px max(12px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
-    transform: translateX(calc(-100% - 12px));
-    /* completely out of view */
-    transition: transform 0.25s ease;
-    z-index: 1001;
-    overflow-y: auto;
-    /* scroll inside drawer */
-    overscroll-behavior: contain;
-    /* جلوگیری از اسکرول پس‌زمینه */
-    -webkit-overflow-scrolling: touch;
-    /* smooth iOS */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-  }
-
-  .main-nav.open {
-    transform: translateX(0);
-  }
-
-  /* Backdrop */
-  .nav-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(2px);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-    z-index: 1000;
-  }
-
-  .nav-backdrop.show {
-    opacity: 1;
+  #navLayer>.main-nav,
+  #navLayer>.nav-backdrop {
     pointer-events: auto;
   }
 
-  /* Touch targets a bit larger in drawer */
-  .main-nav .nav-link {
-    min-height: 44px;
-    padding: 12px 14px;
-    border: 1px solid transparent;
+  /* RTL: از راست */
+  [dir="rtl"] #navLayer>.main-nav {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-end: 0;
+    inset-inline-start: auto;
+    inline-size: min(308px, 88vw);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)) 12px;
+    background: var(--card);
+    border-inline-start: 1px solid var(--border);
+    transform: translateX(calc(100% + 12px));
+    transition: transform .25s ease;
+    z-index: 1102;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
-  /* Optional header area inside drawer (اگر بعداً اضافه شد) */
-  .main-nav .nav-title {
-    font-weight: 800;
-    margin: 6px 2px 8px;
-    color: var(--text);
+  [dir="rtl"] #navLayer>.main-nav.open {
+    transform: translateX(0);
+  }
+
+  /* LTR: از چپ */
+  [dir="ltr"] #navLayer>.main-nav {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-start: 0;
+    inset-inline-end: auto;
+    inline-size: min(308px, 88vw);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)) 12px;
+    background: var(--card);
+    border-inline-end: 1px solid var(--border);
+    transform: translateX(calc(-100% - 12px));
+    transition: transform .25s ease;
+    z-index: 1102;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  [dir="ltr"] #navLayer>.main-nav.open {
+    transform: translateX(0);
+  }
+
+  /* Backdrop مشترک */
+  #navLayer>.nav-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .45);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease;
+    z-index: 1101;
+  }
+
+  #navLayer>.nav-backdrop.show,
+  #navLayer>.nav-backdrop[aria-hidden="false"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* دسکتاپ: لایه را بی‌اثر کن */
+@media (min-width: 900px) {
+  #navLayer {
+    display: contents;
+  }
+
+  #navLayer>.nav-backdrop {
+    display: none;
+  }
+}
+
+
+/* قبلی که روی همهٔ عرض‌ها بود را حذف کن و این را جایگزین کن: */
+@media (min-width: 900px) {
+  .main-nav {
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid var(--border);
+    padding: 6px 14px 10px;
   }
 }
 
@@ -1122,3 +1194,14 @@ body.nav-lock {
   display: inline-block;
   margin: 8px 16px 8px 0;
 }
+
+#navLayer {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  /* کانتینرِ لایه */
+  pointer-events: none;
+  /* پیش‌فرض: غیرقابل کلیک، تا وقتی open نشود */
+}
+
+/* وقتی منو باز می‌شود، nav/backdrop داخل #navLayer خودش pointer-events می‌گیرند */
