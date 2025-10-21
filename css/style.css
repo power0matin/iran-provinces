@@ -167,51 +167,27 @@ body {
 }
 
 /* ==================== HEADER (MODERN) ==================== */
-/* Topbar – height ثابت، گرافیک شفاف‌تر و فاصله بهتر */
 .topbar {
-  --h: 64px;
   display: grid;
-  grid-template-columns: 1fr minmax(320px, 520px) auto;
-  /* یکسان با باقی UI */
-  gap: 12px;
   align-items: center;
+  gap: 16px;
   padding: 10px 14px;
   min-width: 0;
 }
 
-@media (max-width: 1000px) {
-  .topbar {
-    grid-template-columns: 1fr 1fr auto;
-  }
+.topbar>* {
+  min-width: 0;
 }
 
-@media (max-width: 780px) {
-  .topbar {
-    grid-template-columns: 1fr auto auto;
-  }
-}
-
-/* سرچ‌باکس روی موبایل مخفی بماند (از هر دو فایل یکی بماند) */
-@media (max-width: 780px) {
-  .searchbox {
-    display: none;
-  }
-}
-
+/* ستون وسط سرریز نکنه */
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 1003;
-  isolation: isolate;
-  /* ⬅️ مهم */
-  backdrop-filter: blur(10px);
-  background: color-mix(in oklab, var(--bg) 92%, transparent);
+  z-index: 1000;
+  background: var(--bg-soft);
   border-bottom: 1px solid var(--border);
-  box-shadow: 0 1px 0 var(--border), 0 8px 24px rgba(0, 0, 0, .04);
-}
-
-.topbar>* {
-  min-width: 0;
+  backdrop-filter: blur(8px);
+  padding: 8px 0;
 }
 
 .icon-btn.only-sm {
@@ -231,30 +207,43 @@ body {
 .brand-icon {
   display: grid;
   place-items: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
-  background: color-mix(in oklab, var(--primary) 16%, var(--bg-soft));
-  border: 1px solid var(--border);
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: color-mix(in oklab, var(--primary) 20%, var(--bg));
   color: var(--primary);
 }
 
 .brand-text {
-  font-weight: 800;
+  font-weight: 700;
+  font-size: 1.05rem;
   color: var(--text);
 }
 
-/* Searchbox */
 .searchbox {
   display: flex;
   align-items: center;
   gap: 10px;
-  height: 42px;
+  width: 100% !important;
+  min-height: 44px;
+  max-width: 720px;
+  /* جلوگیری از زوم اجباری */
   border: 1px solid var(--border);
   padding: 0 12px;
-  transition: box-shadow 0.2s, border-color 0.2s;
   border-radius: 14px;
   background: color-mix(in oklab, var(--bg-soft) 94%, transparent);
+  justify-self: center;
+}
+
+.searchbox input {
+  all: unset;
+  flex: 1;
+  color: var(--text);
+  -webkit-appearance: none;
+  font-size: 16px;
+  /* iOS no-zoom */
+  direction: inherit;
+  text-align: start;
 }
 
 .searchbox:focus-within {
@@ -262,22 +251,22 @@ body {
   box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 18%, transparent);
 }
 
-.searchbox input {
-  all: unset;
-  flex: 1;
-  color: var(--text);
-  direction: rtl;
-}
-
 .searchbox i {
   opacity: .75;
 }
 
-
-@media (max-width: 780px) {
+@media (max-width: 900px) {
   .searchbox {
-    display: none;
+    max-width: 560px;
   }
+}
+
+@media (max-width: 600px) {
+  .searchbox {
+    max-width: none;
+  }
+
+  /* موبایل: تمام عرض */
 }
 
 /* right actions */
@@ -287,32 +276,26 @@ body {
   gap: 10px;
 }
 
-/* capsule (lang + theme) */
 .capsule {
   display: inline-flex;
-  /* ✅ محتوا در یک ردیف و هم‌تراز */
   align-items: center;
-  /* ✅ عمودی وسط */
   gap: 4px;
-  padding: 4px;
-  height: 42px;
-  /* هم‌قد با .searchbox */
-  border-radius: 999px;
-  background: color-mix(in oklab, var(--bg-soft) 92%, transparent);
+  height: 38px;
+  padding: 4px 6px;
   border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--bg) 94%, transparent);
 }
 
-
-
 .capsule-btn {
+  display: flex;
+  align-items: center;
   gap: 6px;
-  padding: 8px 10px;
+  padding: 6px 10px;
   border-radius: 999px;
-  border: 1px solid transparent;
   background: transparent;
+  border: 0;
   color: var(--text);
-  font-weight: 600;
-  transition: background .18s, border-color .18s, transform .08s;
 }
 
 .capsule-btn:hover {
@@ -786,18 +769,20 @@ body {
 @media (min-width: 900px) {
   .main-nav {
     display: flex;
-    gap: 10px;
-    border-top: 1px solid var(--border);
-    padding: 6px 14px 10px;
+    gap: 14px;
+    padding: 4px 0 10px;
+  }
+
+  .main-nav .nav-link {
+    padding: 6px 10px;
   }
 }
-
 
 .main-nav .nav-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
+  padding: 6px 10px;
   border-radius: 12px;
   color: var(--muted);
   text-decoration: none;
@@ -937,15 +922,7 @@ body.nav-locked {
 }
 
 
-/* قبلی که روی همهٔ عرض‌ها بود را حذف کن و این را جایگزین کن: */
-@media (min-width: 900px) {
-  .main-nav {
-    display: flex;
-    gap: 10px;
-    border-top: 1px solid var(--border);
-    padding: 6px 14px 10px;
-  }
-}
+
 
 /* Lock page scroll while drawer open (JS جسم را overflow:hidden می‌کند؛
    این کلاس هم اگر خواستی می‌توانی در JS ست کنی) */
@@ -1204,4 +1181,30 @@ body.nav-lock {
   /* پیش‌فرض: غیرقابل کلیک، تا وقتی open نشود */
 }
 
-/* وقتی منو باز می‌شود، nav/backdrop داخل #navLayer خودش pointer-events می‌گیرند */
+/* HEADER: remove container's vertical padding inside header */
+.site-header .container {
+  padding: 1%;
+}
+
+
+
+@media (min-width: 1024px) {
+  .topbar {
+    min-height: var(--topbar-h-desktop);
+    gap: 18px;
+  }
+}
+
+.capsule {
+  height: 40px;
+  padding: 4px 6px;
+}
+
+.capsule-btn {
+  padding: 6px 10px;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+}

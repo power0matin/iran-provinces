@@ -33,33 +33,48 @@ body {
 }
 
 /* ---------- Topbar ---------- */
+/* Base header layout */
 .topbar {
-  gap: 12px;
-  grid-template-columns: 1fr minmax(320px, 520px) auto;
+  display: grid;
+  grid-template-columns: auto minmax(420px, 1fr) auto;
+  /* لوگو | جستجو (کشسان) | اکشن‌ها */
 }
 
-@media (max-width: 1000px) {
-  .topbar {
-    grid-template-columns: 1fr 1fr auto;
-  }
+@media (max-width: 1000px){
+  .topbar{ grid-template-columns: auto 1fr auto; }
 }
 
-@media (max-width: 780px) {
+/* <=780px: همچنان یک ردیف پایدار */
+@media (max-width:780px) {
   .topbar {
-    grid-template-columns: 1fr auto auto;
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
   }
 
   .searchbox {
-    display: none;
+    display: flex;
+    width: 100%;
+    max-width: 520px;
   }
-
-  /* you already support "/" shortcut */
 }
+
+@media (max-width: 600px){
+  .topbar{
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+  }
+  .brand{ justify-self: start; }
+  .actions{ justify-self: end; order: -1; }
+  .searchbox{ justify-self: stretch; width: 100%; }
+}
+
 
 /* ---------- Navigation drawer tweaks ---------- */
 @media (max-width: 900px) {
   .main-nav {
     padding-block: 10px 16px;
+    border-top: 0 !important;
+    padding: 0 !important;
   }
 
   .main-nav .nav-link {
