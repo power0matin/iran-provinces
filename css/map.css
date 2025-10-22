@@ -18,6 +18,21 @@
   /* اسکرول لایه‌های کنترل نرم‌تر */
 }
 
+.leaflet-tooltip.prov-tip {
+  font-weight: 700;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  padding: 6px 10px;
+  user-select: none;
+  pointer-events: none;
+  /* روی نقشه کلیک را نبُرد */
+}
+
+
+
 
 /* Tooltip: JS مختصات را با left/top تنظیم می‌کند */
 .map-tooltip {

@@ -769,19 +769,14 @@ body {
 @media (min-width: 900px) {
   .main-nav {
     display: flex;
-    gap: 14px;
-    padding: 4px 0 10px;
+    gap: 1%;
+    padding: 1% 0 10px;
   }
-
-  .main-nav .nav-link {
-    padding: 6px 10px;
-  }
-}
 
 .main-nav .nav-link {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   padding: 6px 10px;
   border-radius: 12px;
   color: var(--muted);
