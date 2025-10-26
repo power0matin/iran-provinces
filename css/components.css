@@ -594,3 +594,18 @@ body,
     box-shadow: 0 0 0 2px Highlight;
   }
 }
+
+@media (max-width: 600px) {
+
+  /* کارت لیست، پدینگ کمتر */
+  .card .card-header,
+  .card .card-body,
+  .card .card-footer {
+    padding-inline: 10px;
+  }
+
+  .tiles {
+    gap: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}

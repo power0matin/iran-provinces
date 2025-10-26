@@ -76,8 +76,12 @@ body {
 
 @media (max-width: 600px) {
   .topbar {
-    grid-template-columns: 1fr;
-    row-gap: 10px;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    /* لوگو | جستجو | اکشن‌ها */
+    gap: 8px;
+    padding: 6px 10px;
+    /* کوچک‌تر از دسکتاپ */
+    align-items: center;
   }
 
   .brand {
@@ -86,29 +90,47 @@ body {
 
   .actions {
     justify-self: end;
-    order: -1;
   }
 
   .searchbox {
-    justify-self: stretch;
-    width: 100%;
+    max-width: none;
+    min-height: 38px;
+    /* از 44→38 */
+    padding-inline: 10px;
+    gap: 8px;
   }
+
+  .searchbox input {
+    font-size: 16px;
+  }
+
+  /* جلوگیری از زوم iOS */
 }
 
 
 /* ---------- Navigation drawer tweaks ---------- */
 @media (max-width: 900px) {
   .main-nav {
-    padding-block: 10px 16px;
-    border-top: 0 !important;
-    padding: 0 !important;
+    padding-block: 4px;
+    gap: 6px;
+  }
+
+  .nav-inner {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav-inner::-webkit-scrollbar {
+    display: none;
   }
 
   .main-nav .nav-link {
-    padding: 12px 14px;
-    font-size: 0.95rem;
+    min-block-size: 32px;
+    padding: 6px 10px;
+    font-size: .9rem;
   }
 }
+
 
 /* ===================================================================
    Grid (list + map) — **critical: min-width:0** so children shrink
@@ -287,6 +309,7 @@ html[lang="en"] .province-list {
   }
 }
 
+
 /* ===================================================================
    Forms (contact page)
    =================================================================== */
@@ -349,4 +372,60 @@ html[lang="en"] .province-list {
     padding-top: 20px;
     padding-bottom: 32px;
   }
+}
+
+/* --- Compact header on small phones --- */
+@media (max-width: 600px) {
+  .site-header {
+    padding-block: 2px;
+  }
+
+  .topbar {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    /* brand | search | actions */
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    /* کوچکتر از قبل */
+  }
+
+  .brand-text {
+    font-size: .95rem;
+  }
+
+  /* تیتر کوچکتر */
+  .searchbox {
+    min-height: 34px;
+    padding-inline: 10px;
+    gap: 8px;
+  }
+
+  .searchbox input {
+    font-size: 16px;
+  }
+
+  /* جلوگیری از زوم iOS */
+
+  .capsule {
+    height: 32px;
+    padding: 3px 6px;
+  }
+
+  .capsule-btn {
+    padding: 4px 8px;
+    min-height: 28px;
+  }
+
+  .icon-btn {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand-text {
+    display: none;
+  }
+
+  /* فقط آیکن برند بماند */
 }

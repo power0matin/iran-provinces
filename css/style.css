@@ -48,8 +48,14 @@ html {
 }
 
 .site-header {
-  /* ... مقادیر قبلی تو ... */
-  padding-inline: max(0px, env(safe-area-inset-left)) max(0px, env(safe-area-inset-right));
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  padding-block: 4px;
+  /* 8→4 برای کاهش ارتفاع کلی */
 }
 
 .province-list {
@@ -325,7 +331,6 @@ body {
   align-items: center;
   gap: 4px;
   min-height: var(--cap-h);
-  padding: 4px 6px;
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--bg-soft);
@@ -333,6 +338,8 @@ body {
   background: color-mix(in oklab, var(--bg) 94%, transparent);
   -webkit-backdrop-filter: saturate(120%);
   backdrop-filter: saturate(120%);
+  height: 36px;
+  padding: 3px 6px;
 }
 
 /* ---- Capsule button ---- */
@@ -1103,9 +1110,17 @@ body.nav-lock {
   display: none;
 }
 
-.tab {
-  scroll-snap-align: start;
+@media (max-width:600px) {
+  .tab {
+    min-block-size: 34px;
+    padding-inline: .7rem;
+  }
+
+  .pill {
+    min-block-size: 32px;
+  }
 }
+
 
 /* Panels: رندر سریع‌تر در صفحات طولانی */
 .tab-panel {
@@ -1367,4 +1382,19 @@ body.nav-lock {
 
 .tab-panel.active {
   display: block;
+}
+
+@media (max-width: 600px) {
+
+  /* کارت لیست، پدینگ کمتر */
+  .card .card-header,
+  .card .card-body,
+  .card .card-footer {
+    padding-inline: 10px;
+  }
+
+  .tiles {
+    gap: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
 }
