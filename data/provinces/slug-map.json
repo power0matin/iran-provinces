@@ -13,13 +13,13 @@
   },
   {
     "matchEn": "East Azerbaijan",
-    "id": "east-azerbaijan",
+    "id": "azarbaijan-east",
     "nameFa": "آذربایجان شرقی",
     "nameEn": "East Azerbaijan"
   },
   {
     "matchEn": "West Azerbaijan",
-    "id": "west-azerbaijan",
+    "id": "azarbaijan-west",
     "nameFa": "آذربایجان غربی",
     "nameEn": "West Azerbaijan"
   },
@@ -82,7 +82,7 @@
   },
   {
     "matchEn": "Kohgiluyeh and Boyer-Ahmad",
-    "id": "kohgiluyeh-boyer-ahmad",
+    "id": "kohgiluyeh-boyerahmad",
     "nameFa": "کهگیلویه و بویراحمد",
     "nameEn": "Kohgiluyeh and Boyer-Ahmad"
   },
@@ -144,19 +144,19 @@
   },
   {
     "matchEn": "North Khorasan",
-    "id": "north-khorasan",
+    "id": "khorasan-north",
     "nameFa": "خراسان شمالی",
     "nameEn": "North Khorasan"
   },
   {
     "matchEn": "Razavi Khorasan",
-    "id": "razavi-khorasan",
+    "id": "khorasan-razavi",
     "nameFa": "خراسان رضوی",
     "nameEn": "Razavi Khorasan"
   },
   {
     "matchEn": "South Khorasan",
-    "id": "south-khorasan",
+    "id": "khorasan-south",
     "nameFa": "خراسان جنوبی",
     "nameEn": "South Khorasan"
   }

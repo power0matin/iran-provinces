@@ -1,4 +1,18 @@
 /* ==================== TOKENS / THEME ==================== */
+/* UA color-scheme hints */
+html {
+  color-scheme: light dark;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* ==================== TOKENS / THEME ==================== */
 :root {
   /* dark (default) */
   --bg: #0b0f16;
@@ -15,7 +29,7 @@
     "Segoe UI Symbol";
 }
 
-:root[data-theme="light"] {
+[data-theme="light"] {
   --bg: #f7f8fb;
   --bg-soft: #ffffff;
   --card: #ffffff;
@@ -27,8 +41,25 @@
   --shadow: 0 10px 30px rgba(22, 30, 50, 0.08);
 }
 
+
+
 html {
   font-family: var(--font);
+}
+
+.site-header {
+  /* ... مقادیر قبلی تو ... */
+  padding-inline: max(0px, env(safe-area-inset-left)) max(0px, env(safe-area-inset-right));
+}
+
+.province-list {
+  /* قبلاً: grid-template-columns: 1fr 1fr; */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.main-nav .nav-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 24%, transparent);
 }
 
 body,
@@ -64,12 +95,17 @@ textarea {
 
 /* تب‌ها/چیپس/بدج‌ها حتماً از فونت ارث ببرند */
 .tab,
-.chip,
 .badge,
 .nav-link,
 .capsule-btn,
 .switch,
 .kbd {
+  font-family: inherit;
+}
+
+.chip {
+  background: color-mix(in oklab, var(--bg-soft) 88%, transparent);
+  border-color: color-mix(in oklab, var(--border) 80%, transparent);
   font-family: inherit;
 }
 
@@ -269,69 +305,117 @@ body {
   /* موبایل: تمام عرض */
 }
 
-/* right actions */
+/* ============================
+   Actions + Capsule + Switch
+   (clean, accessible, minimal)
+============================ */
+
+/* ---- Layout: actions ---- */
 .actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: clamp(8px, 1.6vw, 12px);
+  flex-wrap: wrap;
 }
 
+/* ---- Capsule wrapper ---- */
 .capsule {
+  --cap-h: 38px;
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  height: 38px;
+  min-height: var(--cap-h);
   padding: 4px 6px;
   border: 1px solid var(--border);
   border-radius: 999px;
+  background: var(--bg-soft);
+  /* fallback */
   background: color-mix(in oklab, var(--bg) 94%, transparent);
+  -webkit-backdrop-filter: saturate(120%);
+  backdrop-filter: saturate(120%);
 }
 
+/* ---- Capsule button ---- */
 .capsule-btn {
-  display: flex;
+  --pad-y: 6px;
+  --pad-x: 10px;
+  appearance: none;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 10px;
+  padding: var(--pad-y) var(--pad-x);
   border-radius: 999px;
   background: transparent;
-  border: 0;
+  border: 1px solid transparent;
   color: var(--text);
+  min-height: calc(var(--cap-h) - 8px);
+  /* هدف لمسی مناسب */
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background .18s ease, border-color .18s ease, box-shadow .18s ease, transform .06s ease;
 }
 
 .capsule-btn:hover {
+  background: var(--bg-soft);
+  /* fallback */
   background: color-mix(in oklab, var(--bg-soft) 70%, transparent);
   border-color: var(--border);
 }
 
 .capsule-btn:active {
-  transform: scale(.98);
+  transform: scale(.985);
+}
+
+.capsule-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 22%, transparent);
+  border-color: color-mix(in oklab, var(--primary) 55%, var(--border));
+}
+
+.capsule-btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
 }
 
 /* آیکن‌ها کمی ریزتر تا تیترها توی چشم باشند */
 .capsule-btn i {
-  font-size: 0.95em;
+  font-size: .95em;
   opacity: .9;
 }
 
+/* ریسپانسیو متن‌های کم‌اهمیت */
 .hide-sm {
   display: inline;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 56.25rem) {
+
+  /* 900px */
   .hide-sm {
     display: none;
   }
 }
 
-/* THEME SWITCH (scoped, stable) */
+/* ---- Theme Switch (scoped) ----
+   ساختار HTML:
+   <label class="switch">
+     <input type="checkbox" aria-label="Toggle theme">
+     <span class="slider">
+       <span class="sun">☀</span>
+       <span class="moon">🌙</span>
+     </span>
+   </label>
+*/
 .switch {
   --w: 56px;
   --h: 30px;
   --knob: 24px;
   --gap: 3px;
   --shift: calc(var(--w) - var(--knob) - var(--gap) * 2);
-  /* wave origin along the track (percent) */
-  --x: 10%;
+  /* wave origin (٪) — توسط JS روی :root یا خود .switch ست می‌کنی */
+  --x: 50%;
+
   position: relative;
   display: inline-block;
   width: var(--w);
@@ -340,15 +424,18 @@ body {
   isolation: isolate;
 }
 
+/* خود ورودی */
 .switch input {
   position: absolute;
   inset: 0;
   opacity: 0;
   width: 100%;
   height: 100%;
+  margin: 0;
   cursor: pointer;
 }
 
+/* ریل (slider) */
 .switch .slider {
   position: relative;
   display: block;
@@ -360,10 +447,10 @@ body {
       color-mix(in oklab, var(--primary) 18%, var(--bg-soft)),
       var(--bg-soft));
   overflow: hidden;
-  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
 
-/* knob */
+/* هاله/ناب (knob) — روی ::before */
 .switch .slider::before {
   content: "";
   position: absolute;
@@ -372,24 +459,31 @@ body {
   width: var(--knob);
   height: var(--knob);
   border-radius: 50%;
+  transform: translate(0, -50%);
   background: var(--card);
   border: 1px solid var(--border);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 0 0 0 rgba(124, 92, 255, 0);
-  transform: translate(0, -50%);
-  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.2s,
-    border-color 0.2s;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, .25),
+    0 0 0 6px color-mix(in oklab, var(--primary) 10%, transparent);
+  transition: transform .26s cubic-bezier(.25, .85, .25, 1),
+    background .2s, border-color .2s, box-shadow .26s;
+  z-index: 2;
+  /* بالاتر از موج */
 }
 
+/* آیکن‌ها */
 .switch .sun,
 .switch .moon {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) scale(.92);
   font-size: 12px;
   color: var(--muted);
+  opacity: .55;
   pointer-events: none;
-  opacity: 0.8;
-  transition: transform 0.35s ease, opacity 0.25s ease;
+  transition: transform .25s ease, opacity .25s ease, color .25s ease;
+  z-index: 3;
+  /* بالاتر از هاله */
 }
 
 .switch .sun {
@@ -398,66 +492,129 @@ body {
 
 .switch .moon {
   right: 9px;
-  opacity: 0.45;
 }
 
+/* فوکوس کیبورد */
 .switch input:focus-visible+.slider {
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 25%, transparent);
 }
 
-/* wave glow – class .wave is added to the .switch wrapper */
+/* موج (ripple/glow) — روی ::after */
 .switch .slider::after {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 999px;
+  border-radius: inherit;
   pointer-events: none;
   background: radial-gradient(circle at var(--x) 50%,
-      rgba(124, 92, 255, 0.25),
-      transparent 45%);
+      rgba(124, 92, 255, .25) 0%,
+      rgba(124, 92, 255, .18) 22%,
+      transparent 48%);
   opacity: 0;
-  transition: opacity 0.28s ease;
+  transition: opacity .32s ease;
+  z-index: 1;
+  /* زیر ناب/آیکن‌ها */
 }
 
-.switch.wave .slider::after {
+@supports (color: color-mix(in oklab, white, black)) {
+  .switch .slider::after {
+    background: radial-gradient(circle at var(--x) 50%,
+        color-mix(in oklab, var(--primary) 30%, transparent) 0%,
+        color-mix(in oklab, var(--primary) 18%, transparent) 22%,
+        transparent 48%);
+  }
+}
+
+/* وضعیت‌ها */
+.switch input:not(:checked)+.slider .sun {
   opacity: 1;
+  color: var(--text);
+  transform: translateY(-50%) scale(1);
 }
 
-@keyframes knob-pop {
-  0% {
-    transform: translate(0, -50%) scale(1);
-  }
-
-  60% {
-    transform: translate(var(--shift), -50%) scale(1.08);
-  }
-
-  100% {
-    transform: translate(var(--shift), -50%) scale(1);
-  }
+.switch input:checked+.slider .moon {
+  opacity: 1;
+  color: var(--text);
+  transform: translateY(-50%) scale(1);
 }
 
 .switch input:checked+.slider::before {
-  animation: knob-pop 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translate(var(--shift), -50%);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, .25),
+    0 0 0 6px color-mix(in oklab, var(--primary) 16%, transparent);
 }
 
+/* Wave trigger: وقتی کلاس .wave روی .slider اضافه می‌شود */
+.switch .slider.wave::after {
+  opacity: 1;
+}
+
+.switch .slider.wave {
+  animation: slider-pulse .32s ease-out;
+}
+
+@keyframes slider-pulse {
+  0% {
+    box-shadow: inset 0 0 0 0 rgba(124, 92, 255, 0);
+  }
+
+  40% {
+    box-shadow: inset 0 0 0 4px rgba(124, 92, 255, .22);
+  }
+
+  100% {
+    box-shadow: inset 0 0 0 0 rgba(124, 92, 255, 0);
+  }
+}
+
+/* Reduced motion احترام */
 @media (prefers-reduced-motion: reduce) {
 
+  .capsule-btn,
   .switch .slider,
+  .switch .slider::before,
+  .switch .slider::after,
+  .switch .sun,
+  .switch .moon {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .switch .slider::after {
+    display: none;
+  }
+}
+
+/* High-contrast/forced colors (Windows) */
+@media (forced-colors: active) {
+  .capsule {
+    border-color: CanvasText;
+  }
+
+  .capsule-btn:focus-visible {
+    box-shadow: 0 0 0 2px Highlight;
+  }
+
+  .switch .slider {
+    border-color: CanvasText;
+    background: Canvas;
+  }
+
   .switch .slider::before {
-    transition: none;
+    background: CanvasText;
+    border-color: Canvas;
+    box-shadow: 0 0 0 4px Canvas;
   }
 
   .switch .sun,
   .switch .moon {
-    transition: none;
-  }
-
-  .switch .slider::before {
-    animation: none !important;
+    color: CanvasText;
+    opacity: 1;
   }
 }
 
+/* دسترسی کمکی */
 .sr-only {
   position: absolute !important;
   width: 1px;
@@ -470,344 +627,237 @@ body {
   border: 0;
 }
 
-/* ---------- FIX: layer order & stop the old double animation ---------- */
-/* Stop the old pop that ran on every :checked state; we pop only on .wave */
-.switch input:checked+.slider::before {
-  animation: none !important;
-}
 
-/* Make sure we have a clear stacking order */
-.switch .slider {
-  position: relative;
-  overflow: hidden;
-}
-
-.switch .slider::after {
-  z-index: 1;
-}
-
-/* ripple layer */
-.switch .sun,
-.switch .moon {
-  z-index: 2;
-  position: absolute;
-}
-
-.switch .slider::before {
-  z-index: 3;
-}
-
-/* knob above all */
-
-/* ---------- nice ripple tied to .slider.wave ---------- */
-.switch .slider {
-  --wave-dur: 320ms;
-  --wave-x: var(--x, 50%);
-  /* set via JS; keyboard -> center */
-  will-change: box-shadow, background;
-}
-
-/* fallback wave for all browsers */
-.switch .slider::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  pointer-events: none;
-  background: radial-gradient(circle at var(--wave-x) 50%,
-      rgba(124, 92, 255, 0.25) 0%,
-      rgba(124, 92, 255, 0.18) 22%,
-      transparent 48%);
-  opacity: 0;
-  transition: opacity var(--wave-dur) ease;
-}
-
-/* nicer tone with color-mix if supported */
-@supports (color: color-mix(in oklab, white, black)) {
-  .switch .slider::after {
-    background: radial-gradient(circle at var(--wave-x) 50%,
-        color-mix(in oklab, var(--primary) 30%, transparent) 0%,
-        color-mix(in oklab, var(--primary) 18%, transparent) 22%,
-        transparent 48%);
-  }
-}
-
-/* show the wave when toggled */
-.switch .slider.wave::after {
-  opacity: 1;
-}
-
-/* gentle rail pulse when toggled */
-.switch .slider.wave {
-  animation: slider-pulse var(--wave-dur) ease-out;
-}
-
-@keyframes slider-pulse {
-  0% {
-    box-shadow: inset 0 0 0 0 rgba(124, 92, 255, 0);
-  }
-
-  40% {
-    box-shadow: inset 0 0 0 4px rgba(124, 92, 255, 0.22);
-  }
-
-  100% {
-    box-shadow: inset 0 0 0 0 rgba(124, 92, 255, 0);
-  }
-}
-
-/* the knob pop (only when .wave is applied) */
-@keyframes knob-pop {
-  0% {
-    transform: translate(0, -50%) scale(1);
-  }
-
-  60% {
-    transform: translate(var(--shift), -50%) scale(1.08);
-  }
-
-  100% {
-    transform: translate(var(--shift), -50%) scale(1);
-  }
-}
-
-.switch .slider.wave::before {
-  animation: knob-pop 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-/* reduced motion */
-@media (prefers-reduced-motion: reduce) {
-
-  .switch .slider,
-  .switch .slider::before,
-  .switch .slider::after {
-    transition: none !important;
-    animation: none !important;
-  }
-
-  .switch .slider::after {
-    display: none;
-  }
-}
-
-/* === Switch with "halo behind the active icon" === */
-
-/* توقف پاپ خودکار قبلی؛ فقط هنگام .wave پاپ می‌زنیم */
-.switch input:checked+.slider::before {
-  animation: none !important;
-}
-
-/* لایه‌بندی صحیح: موج < هاله (knob) < آیکن‌ها */
-.switch .slider {
-  position: relative;
-  overflow: hidden;
-}
-
-.switch .slider::after {
-  z-index: 0;
-}
-
-/* ripple */
-.switch .slider::before {
-  z-index: 1;
-}
-
-/* halo/knob */
-.switch .sun,
-.switch .moon {
-  z-index: 2;
-  position: absolute;
-  pointer-events: none;
-}
-
-/* هاله (knob) پشت آیکن‌ها */
-.switch .slider::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: var(--gap);
-  width: var(--knob);
-  height: var(--knob);
-  transform: translate(0, -50%);
-  border-radius: 50%;
-  /* رنگ هاله با تم هماهنگ */
-  background: color-mix(in oklab, var(--primary) 14%, var(--card));
-  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25),
-    0 0 0 6px color-mix(in oklab, var(--primary) 10%, transparent);
-  transition: transform 0.26s cubic-bezier(0.25, 0.85, 0.25, 1),
-    box-shadow 0.26s ease, background 0.26s ease, border-color 0.26s ease;
-}
-
-/* جابه‌جایی نرم هاله به سمت ماه */
-.switch input:checked+.slider::before {
-  transform: translate(var(--shift), -50%);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25),
-    0 0 0 6px color-mix(in oklab, var(--primary) 16%, transparent);
-}
-
-/* آیکن‌ها: پیش‌فرض کمی ضعیف */
-.switch .sun,
-.switch .moon {
-  top: 50%;
-  transform: translateY(-50%) scale(0.92);
-  font-size: 12px;
-  color: var(--muted);
-  opacity: 0.55;
-  transition: transform 0.25s ease, opacity 0.25s ease, color 0.25s ease;
-}
-
-.switch .sun {
-  left: 9px;
-}
-
-.switch .moon {
-  right: 9px;
-}
-
-/* وقتی «روز» است → خورشید برجسته */
-.switch input:not(:checked)+.slider .sun {
-  opacity: 1;
-  color: var(--text);
-  transform: translateY(-50%) scale(1);
-}
-
-/* وقتی «شب» است → ماه برجسته */
-.switch input:checked+.slider .moon {
-  opacity: 1;
-  color: var(--text);
-  transform: translateY(-50%) scale(1);
-}
-
-/* Ripple/glow قبلی؛ اگر داری بگذار بماند.
-   اگر از نسخهٔ من استفاده می‌کنی، فقط مطمئن شو کلاس .wave روی .slider ست می‌شود. */
-.switch .slider.wave::after {
-  opacity: 1;
-}
-
-.switch .slider.wave {
-  animation: slider-pulse 320ms ease-out;
-}
-
-@keyframes slider-pulse {
-  0% {
-    box-shadow: inset 0 0 0 0 rgba(124, 92, 255, 0);
-  }
-
-  40% {
-    box-shadow: inset 0 0 0 4px rgba(124, 92, 255, 0.22);
-  }
-
-  100% {
-    box-shadow: inset 0 0 0 0 rgba(124, 92, 255, 0);
-  }
-}
-
-/* پاپ اختیاری هنگام wave (نه همیشه) */
-@keyframes knob-pop {
-  0% {
-    transform: translate(0, -50%) scale(1);
-  }
-
-  60% {
-    transform: translate(var(--shift), -50%) scale(1.08);
-  }
-
-  100% {
-    transform: translate(var(--shift), -50%) scale(1);
-  }
-}
-
-.switch .slider.wave::before {
-  animation: knob-pop 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-/* احترام به reduced motion */
-@media (prefers-reduced-motion: reduce) {
-
-  .switch .slider,
-  .switch .slider::before,
-  .switch .slider::after {
-    transition: none !important;
-    animation: none !important;
-  }
-
-  .switch .slider::after {
-    display: none;
-  }
-}
-
-/* header buttons */
+/* ============================
+   Header Icon Buttons (clean)
+============================ */
 .icon-btn,
 .only-sm {
+  --btn-size: 40px;
   display: inline-grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: var(--btn-size);
+  height: var(--btn-size);
   border-radius: 12px;
   background: var(--bg-soft);
   border: 1px solid var(--border);
   color: var(--text);
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition:
+    background .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    transform .06s ease;
 }
 
+.icon-btn:hover,
+.only-sm:hover {
+  background: color-mix(in oklab, var(--bg-soft) 78%, transparent);
+  border-color: color-mix(in oklab, var(--border) 70%, transparent);
+}
+
+.icon-btn:active,
+.only-sm:active {
+  transform: translateY(1px) scale(.99);
+}
+
+/* دسترس‌پذیری با کیبورد */
+.icon-btn:focus-visible,
+.only-sm:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 24%, transparent);
+  border-color: color-mix(in oklab, var(--primary) 55%, var(--border));
+}
+
+/* آیکن‌ها کمی نرم‌تر */
+.icon-btn i,
+.only-sm i {
+  font-size: 1rem;
+  opacity: .9;
+}
+
+/* فقط موبایل/کوچک */
 .only-sm {
   display: none;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 56.25rem) {
+
+  /* 900px */
   .only-sm {
     display: inline-grid;
   }
 }
 
-/* ==================== NAV (Desktop + Mobile Drawer) ==================== */
-:root {
-  --nav-bp: 900px;
-}
+/* احترام به کاهش حرکت */
+@media (prefers-reduced-motion: reduce) {
 
-@media (min-width: 900px) {
-  .main-nav {
-    display: flex;
-    gap: 1%;
-    padding: 1% 0 10px;
+  .icon-btn,
+  .only-sm {
+    transition: none;
   }
 
+  .icon-btn:active,
+  .only-sm:active {
+    transform: none;
+  }
+}
+
+/* high-contrast */
+@media (forced-colors: active) {
+
+  .icon-btn,
+  .only-sm {
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+  }
+
+  .icon-btn:focus-visible,
+  .only-sm:focus-visible {
+    box-shadow: 0 0 0 2px Highlight;
+  }
+}
+
+
+/* ==================== NAV (Desktop + Mobile Drawer) ==================== */
+/* -------------------------------
+   Nav (Pills) — Clean & Accessible
+----------------------------------*/
+
+:root {
+  /* 900px برای رفرنس انسانی — توجه: فعلاً نمی‌شه var() رو مستقیم توی media query استفاده کرد */
+  --nav-bp: 56.25rem;
+  /* 900px */
+}
+
+/* کانتینر ناوبری */
+.main-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(8px, 1.2vw, 12px);
+  padding-block: 8px;
+  padding-inline: 0;
+}
+
+/* دسکتاپ */
+@media (min-width: 56.25rem) {
+  .main-nav {
+    flex-wrap: nowrap;
+    gap: 0.75rem;
+    padding-block: 10px;
+  }
+}
+
+/* لینک‌ها (قرص‌ها) */
 .main-nav .nav-link {
+  --pill-pad-y: 0.5rem;
+  --pill-pad-x: 1rem;
+  --pill-radius: 12px;
+
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 6px 10px;
-  border-radius: 12px;
+  gap: 0.6rem;
+
+  padding: var(--pill-pad-y) var(--pill-pad-x);
+  border-radius: var(--pill-radius);
+  min-block-size: 40px;
+  /* حداقل هدف لمسی مناسب */
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
   color: var(--muted);
   text-decoration: none;
   border: 1px solid transparent;
-  transition: background .18s, color .18s, border-color .18s, transform .06s;
+  background: transparent;
+
+  transition:
+    background-color .18s ease,
+    color .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    transform .06s ease;
 }
 
+/* Hover */
 .main-nav .nav-link:hover {
   color: var(--text);
-  background: var(--bg-soft);
+  background-color: var(--bg-soft);
 }
 
+/* Focus visible (کیبورد/دسترس‌پذیری) */
+.main-nav .nav-link:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px color-mix(in oklab, var(--primary) 35%, transparent),
+    0 6px 14px color-mix(in oklab, var(--primary) 20%, transparent);
+  border-color: color-mix(in oklab, var(--primary) 60%, transparent);
+}
+
+/* Active press */
 .main-nav .nav-link:active {
   transform: translateY(1px);
 }
 
-/* Active: قرصِ واضح ولی مینیمال */
-.main-nav .nav-link.is-active {
+/* حالت فعال — قرص واضح ولی مینیمال */
+.main-nav .nav-link.is-active,
+.main-nav .nav-link[aria-current="page"] {
   color: #fff;
-  background: linear-gradient(180deg, var(--primary), color-mix(in oklab, var(--primary) 88%, #000));
+  background: var(--primary);
+  /* fallback */
   border-color: var(--primary);
-  box-shadow: 0 6px 18px color-mix(in oklab, var(--primary) 26%, transparent);
+  box-shadow: 0 8px 22px color-mix(in oklab, var(--primary) 26%, transparent);
 }
 
-@media (max-width: 900px) {
+/* اگر مرورگر color-mix/gradation رو پشتیبانی کنه، فعال رو جذاب‌تر کن */
+@supports (color: color-mix(in oklab, #000, #fff)) {
+
+  .main-nav .nav-link.is-active,
+  .main-nav .nav-link[aria-current="page"] {
+    background:
+      linear-gradient(180deg,
+        var(--primary),
+        color-mix(in oklab, var(--primary) 88%, #000));
+  }
+}
+
+/* کاهش حرکت برای کاربران حساس به انیمیشن */
+@media (prefers-reduced-motion: reduce) {
+  .main-nav .nav-link {
+    transition: none;
+  }
+
+  .main-nav .nav-link:active {
+    transform: none;
+  }
+}
+
+/* حالت forced-colors (های‌کنتراست ویندوز) */
+@media (forced-colors: active) {
+  .main-nav .nav-link {
+    border-color: CanvasText;
+  }
+
+  .main-nav .nav-link.is-active,
+  .main-nav .nav-link[aria-current="page"] {
+    forced-color-adjust: none;
+    background: Highlight;
+    color: HighlightText;
+    border-color: Highlight;
+  }
+}
+
+/* لاک موبایل هنگام باز بودن منو */
+@media (max-width: 56.25rem) {
   body.nav-locked {
     overflow: hidden;
     touch-action: none;
+    overscroll-behavior: contain;
   }
 }
+
 
 /* ==================== Mobile Drawer ==================== */
 /* ============== NAV: RTL-safe mobile drawer ============== */
@@ -975,8 +1025,9 @@ body.nav-lock {
 }
 
 .card-body {
-  padding: 16px;
+  padding: clamp(14px, 2.2vw, 18px);
 }
+
 
 .card-footer {
   padding: 10px 14px;
@@ -1040,32 +1091,95 @@ body.nav-lock {
   font-size: 12px;
 }
 
+/* Tabs: اسکرول نرم و اسنپ برای ردیف طولانی */
 .tabs {
-  display: flex;
-  gap: 6px;
+  overflow: auto hidden;
+  scroll-snap-type: x proximity;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .tab {
+  scroll-snap-align: start;
+}
+
+/* Panels: رندر سریع‌تر در صفحات طولانی */
+.tab-panel {
+  content-visibility: auto;
+  /* بهبود پرِف */
+  contain-intrinsic-size: 1px 400px;
+  /* ارتفاع تخمینی */
+}
+
+/* Accordion: حلقه فوکوس واضح‌تر (با ساختار فعلی) */
+.acc-head:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 24%, transparent);
+  border-radius: 8px;
+}
+
+/* Tiles: تراکم بهتر و رندر بهینه */
+/* --- Tiles (cities/attractions) --- */
+.tiles {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.tiles li {
   background: var(--bg-soft);
   border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
   color: var(--text);
-  padding: 6px 10px;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 44px;
+  text-align: center;
+  transition: transform .12s ease, box-shadow .15s ease, border-color .15s ease;
 }
 
-.tab.active {
-  background: color-mix(in oklab, var(--primary) 15%, var(--bg-soft));
-  border-color: var(--primary);
+.tiles li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px color-mix(in oklab, #000 18%, transparent);
+  border-color: color-mix(in oklab, var(--primary) 55%, var(--border));
 }
 
+.tiles .tile-text {
+  line-height: 1.35;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* پنل‌ها: فقط فعال دیده شود (امنِ تب‌ها) */
 .tab-panel {
   display: none;
 }
 
 .tab-panel.active {
   display: block;
+}
+
+@media (max-width: 600px) {
+  .tiles {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 8px;
+  }
+}
+
+.tiles a:focus-visible,
+.tiles button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 24%, transparent);
+  border-radius: 10px;
 }
 
 /* accordion */
@@ -1098,23 +1212,6 @@ body.nav-lock {
 
 .acc-item.open .acc-body {
   display: block;
-}
-
-/* tiles */
-.tiles {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-}
-
-.tiles li {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 8px;
-  background: rgba(255, 255, 255, 0.02);
 }
 
 /* hero image */
@@ -1177,9 +1274,9 @@ body.nav-lock {
 }
 
 /* HEADER: remove container's vertical padding inside header */
-.site-header .container {
+/* .site-header .container {
   padding: 1%;
-}
+} */
 
 
 
@@ -1202,4 +1299,72 @@ body.nav-lock {
 .icon-btn {
   width: 40px;
   height: 40px;
+}
+
+/* ===== Toast enter/leave (RTL: از راست) ===== */
+.toast-host {
+  /* اگر نداری، بهتره باشه */
+  position: fixed;
+  inset: auto 16px 16px auto;
+  display: grid;
+  gap: 8px;
+  z-index: 2000;
+}
+
+/* حالت پایه: آماده‌ی ورود از راست */
+.toast {
+  transform: translateX(16px);
+  opacity: 0;
+  transform-origin: center right;
+  /* برای RTL طبیعی‌تره */
+  will-change: transform, opacity, height, margin, padding;
+}
+
+/* نمایش (enter) */
+.toast--show {
+  transition: transform 280ms cubic-bezier(.2, .8, .2, 1),
+    opacity 280ms cubic-bezier(.2, .8, .2, 1);
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* شروع خروج: معکوسِ ورود (به سمت راست) */
+.toast--leaving {
+  transition: transform 220ms cubic-bezier(.2, .8, .2, 1),
+    opacity 220ms cubic-bezier(.2, .8, .2, 1);
+  transform: translateX(16px);
+  opacity: 0;
+}
+
+/* جمع‌شدن ارتفاع برای جا‌به‌جایی نرم آیتم‌های بعدی */
+.toast--collapse {
+  overflow: hidden;
+  transition: height 220ms cubic-bezier(.2, .8, .2, 1),
+    margin 220ms cubic-bezier(.2, .8, .2, 1),
+    padding 220ms cubic-bezier(.2, .8, .2, 1),
+    border-width 220ms cubic-bezier(.2, .8, .2, 1);
+}
+
+/* احترام به کاهش حرکت */
+@media (prefers-reduced-motion: reduce) {
+
+  .toast,
+  .toast--show,
+  .toast--leaving,
+  .toast--collapse {
+    transition: none !important;
+  }
+}
+
+/* Tab panels: only active one is visible */
+.tab-panel {
+  display: none;
+  content-visibility: auto;
+  /* Pref improvement */
+  contain-intrinsic-size: 1px 400px;
+  /* Estimated height */
+}
+
+.tab-panel.active {
+  display: block;
 }

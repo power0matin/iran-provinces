@@ -30,16 +30,55 @@
   // --- rendering ---
   function renderTabs() {
     const tabs = $$(".tab");
-    tabs.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        tabs.forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-        const name = btn.dataset.tab;
-        $$(".tab-panel").forEach((p) =>
-          p.classList.toggle("active", p.id === `panel-${name}`)
-        );
+    const panels = $$(".tab-panel");
+
+    const activate = (btn) => {
+      const name = btn?.dataset.tab;
+      if (!name) return;
+
+      // کلاس قدیمی/جدید هر دو پاک شوند
+      tabs.forEach((b) => {
+        b.classList.remove("active", "is-active");
+        b.setAttribute("aria-selected", "false");
+        b.setAttribute("tabindex", "-1");
+      });
+      panels.forEach((p) => p.classList.remove("active"));
+
+      // فعال‌سازی
+      btn.classList.add("is-active");
+      btn.setAttribute("aria-selected", "true");
+      btn.removeAttribute("tabindex");
+      const panel = $(`#panel-${name}`);
+      if (panel) panel.classList.add("active");
+    };
+
+    // کلیک
+    tabs.forEach((btn) => btn.addEventListener("click", () => activate(btn)));
+
+    // کیبورد (ArrowLeft/Right + Home/End)
+    const order = tabs;
+    tabs.forEach((btn, idx) => {
+      btn.addEventListener("keydown", (e) => {
+        const key = e.key;
+        let next = null;
+        if (key === "ArrowRight" || key === "ArrowLeft") {
+          const dir = (document.dir || "rtl") === "rtl" ? -1 : 1;
+          const step = key === "ArrowRight" ? dir : -dir;
+          next = order[(idx + step + order.length) % order.length];
+        } else if (key === "Home") next = order[0];
+        else if (key === "End") next = order[order.length - 1];
+
+        if (next) {
+          e.preventDefault();
+          next.focus();
+          activate(next);
+        }
       });
     });
+
+    // وضعیت اولیه: اگر جایی کلاس old `active` گذاشته‌ای، همان را تبدیل کن
+    const current = $(".tab.is-active") || $(".tab.active") || tabs[0];
+    activate(current);
   }
 
   function setYear() {
@@ -113,12 +152,24 @@
   }
 
   function renderTiles(list, el) {
+    if (!el) return;
+    // اطمینان: کلاس tiles روی UL باشد (اگر در HTML نباشد)
+    el.classList.add("tiles");
+    el.setAttribute("role", "list");
+
+    const items = Array.isArray(list) ? list : [];
+    const frag = document.createDocumentFragment();
     el.innerHTML = "";
-    (Array.isArray(list) ? list : []).forEach((name) => {
+
+    items.forEach((name) => {
       const li = document.createElement("li");
-      li.textContent = name;
-      el.appendChild(li);
+      li.setAttribute("role", "listitem");
+      // طراحی ساده و تمیزِ کارت‌مانند
+      li.innerHTML = `<span class="tile-text">${name}</span>`;
+      frag.appendChild(li);
     });
+
+    el.appendChild(frag);
   }
 
   function renderNotFound() {

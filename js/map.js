@@ -104,10 +104,84 @@
     return _neatEN(props.nameEn || props.name_en || props.NAME_1 || "");
   }
 
-  function navigateTo(props) {
-    if (!props?.id) return;
-    const url = `province.html?id=${encodeURIComponent(props.id)}`;
-    window.location.href = url;
+  // --- رزولور شناسه بر اساس GeoJSON + نگاشت‌های شما ---
+  const ID = {
+    ready: false,
+    map: new Map(), // normalizedName -> id
+  };
+
+  function normalizeEn(s = "") {
+    return String(s)
+      .toLowerCase()
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "") // حذف اکسنت
+      .replace(/[_-]+/g, " ")
+      .replace(/[^a-z\s]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  async function buildIdResolver() {
+    if (ID.ready) return;
+    try {
+      // 1) نگاشت‌های دستیِ اسلاگ‌ها
+      const slugRes = await fetch("data/slug-map.json", { cache: "no-store" });
+      const slugList = await slugRes.json();
+
+      // 2) منبع اصلی صفحات (idهای معتبر)
+      const idxRes = await fetch("data/index.json", { cache: "no-store" });
+      const idx = await idxRes.json();
+
+      // 3) پرکردن map با انگلیسی/فارسی
+      slugList.forEach((it) => {
+        ID.map.set(normalizeEn(it.matchEn), it.id);
+        ID.map.set(normalizeEn(it.nameEn), it.id);
+      });
+      (idx.provinces || []).forEach((p) => {
+        ID.map.set(normalizeEn(p.nameEn || p.nameFa), p.id);
+        // ناسازگاری‌های رایج
+        if (p.id === "azarbaijan-east") ID.map.set("east azerbaijan", p.id);
+        if (p.id === "azarbaijan-west") ID.map.set("west azerbaijan", p.id);
+        if (p.id === "kohgiluyeh-boyerahmad")
+          ID.map.set("kohgiluyeh and boyer ahmad", p.id);
+        if (p.id === "khorasan-razavi") ID.map.set("razavi khorasan", p.id);
+        if (p.id === "khorasan-south") ID.map.set("south khorasan", p.id);
+        if (p.id === "khorasan-north") ID.map.set("north khorasan", p.id);
+      });
+
+      ID.ready = true;
+    } catch (e) {
+      console.error("ID resolver build failed:", e);
+    }
+  }
+
+  function resolveIdFromProps(props = {}) {
+    // اگر خودِ id بود که عالی
+    if (props.id) return props.id;
+    // فیلدهای متداول GeoJSON
+    const candidates = [
+      props.nameEn,
+      props.name_en,
+      props.NAME_1,
+      props.NAME,
+      props.Prov_EN,
+      props.en_name,
+      props.EngName,
+    ].filter(Boolean);
+    for (const c of candidates) {
+      const k = normalizeEn(c);
+      if (ID.map.has(k)) return ID.map.get(k);
+    }
+    return null;
+  }
+
+  function navigateToByProps(props) {
+    const id = resolveIdFromProps(props);
+    if (!id) {
+      console.warn("No province id matched for feature:", props);
+      return;
+    }
+    window.location.href = `province.html?id=${encodeURIComponent(id)}`;
   }
 
   function wireInteractions(layer, feature) {
@@ -148,6 +222,101 @@
         y: cy / (3 * twiceArea),
         area: Math.abs(A),
       };
+    }
+    // --- helpers: نرمال‌سازی نام‌ها ---
+    function normEn(s = "") {
+      return String(s)
+        .toLowerCase()
+        .normalize("NFKD")
+        .replace(/[\u0300-\u036f]/g, "") // remove accents
+        .replace(/[_-]+/g, " ")
+        .replace(/[^a-z\s]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+    function normFa(s = "") {
+      return String(s).replace(/\s+/g, " ").trim();
+    }
+
+    // --- نگاشت شناسه‌ها از فایل‌های پروژه ---
+    const IdResolver = {
+      ready: false,
+      en: new Map(), // key: normalized english -> id
+      fa: new Map(), // key: normalized persian -> id
+    };
+
+    async function loadIdMaps() {
+      if (IdResolver.ready) return;
+      // مسیرها را مقاوم بنویس: اول روت، اگر نبود /data/
+      async function loadJsonTry(paths) {
+        for (const p of paths) {
+          try {
+            const res = await fetch(p, { cache: "no-store" });
+            if (res.ok) return res.json();
+          } catch {}
+        }
+        return null;
+      }
+
+      const slugMap =
+        (await loadJsonTry(["slug-map.json", "data/slug-map.json"])) || [];
+      const index = (await loadJsonTry(["index.json", "data/index.json"])) || {
+        provinces: [],
+      };
+
+      // از slug-map هر دو نام انگلیسی و matchEn را به id نگاشت کن
+      for (const it of slugMap) {
+        if (it.nameEn) IdResolver.en.set(normEn(it.nameEn), it.id);
+        if (it.matchEn) IdResolver.en.set(normEn(it.matchEn), it.id);
+        if (it.nameFa) IdResolver.fa.set(normFa(it.nameFa), it.id);
+      }
+      // از index.json هم نگاشت‌های مکمل
+      for (const p of index.provinces) {
+        if (p.nameEn) IdResolver.en.set(normEn(p.nameEn), p.id);
+        if (p.nameFa) IdResolver.fa.set(normFa(p.nameFa), p.id);
+      }
+
+      // چند ناسازگاری رایج
+      IdResolver.en.set("east azerbaijan", "azarbaijan-east");
+      IdResolver.en.set("west azerbaijan", "azarbaijan-west");
+      IdResolver.en.set("razavi khorasan", "khorasan-razavi");
+      IdResolver.en.set("south khorasan", "khorasan-south");
+      IdResolver.en.set("north khorasan", "khorasan-north");
+      IdResolver.en.set("kohgiluyeh and boyer ahmad", "kohgiluyeh-boyerahmad");
+
+      IdResolver.ready = true;
+    }
+
+    // از props روی فیچر، id معتبری بساز
+    function resolveIdFromProps(props = {}) {
+      if (props.id) return props.id;
+
+      // کاندیداهای متداول در GeoJSON
+      const enCandidates = [
+        props.NAME_1,
+        props.NAME,
+        props.nameEn,
+        props.name_en,
+        props.Prov_EN,
+      ];
+      const faCandidates = [props.name_fa, props.NAME_FA, props.Prov_FA];
+
+      for (const c of enCandidates) {
+        if (!c) continue;
+        const k = normEn(c);
+        if (IdResolver.en.has(k)) return IdResolver.en.get(k);
+      }
+      for (const c of faCandidates) {
+        if (!c) continue;
+        const k = normFa(c);
+        if (IdResolver.fa.has(k)) return IdResolver.fa.get(k);
+      }
+      return null;
+    }
+
+    function goProvince(id) {
+      if (!id) return;
+      window.location.href = `province.html?id=${encodeURIComponent(id)}`;
     }
 
     function featureCenterLatLng(feature) {
@@ -208,10 +377,10 @@
 
     layer.on("mouseout", hide);
 
-    layer.on("click", () => navigateTo(props));
+    layer.on("click", () => navigateToByProps(props));
     layer.on("keypress", (e) => {
-      if (e.originalEvent.key === "Enter" || e.originalEvent.key === " ")
-        navigateTo(props);
+      const k = e.originalEvent.key;
+      if (k === "Enter" || k === " ") navigateToByProps(props);
     });
 
     if (layer.getElement) {

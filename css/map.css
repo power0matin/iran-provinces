@@ -1,5 +1,4 @@
 /* ===================== Leaflet Map ===================== */
-/* فقط یکی از این دو ست ارتفاع را داشته باش—ترجیحاً همین */
 :root {
   --map-min-h: 320px;
   --map-ideal-h: 58vh;
@@ -14,30 +13,20 @@
   overflow: hidden;
   isolation: isolate;
   touch-action: manipulation;
-  -webkit-overflow-scrolling: touch;
-  /* اسکرول لایه‌های کنترل نرم‌تر */
 }
 
-.leaflet-tooltip.prov-tip {
-  font-weight: 700;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  color: var(--text);
-  box-shadow: var(--shadow);
-  padding: 6px 10px;
-  user-select: none;
-  pointer-events: none;
-  /* روی نقشه کلیک را نبُرد */
+.leaflet-interactive {
+  cursor: pointer;
 }
 
+/* tooltip فارسی تمیز */
+.prov-tip {
+  direction: rtl;
+  font-weight: 600;
+}
 
-
-
-/* Tooltip: JS مختصات را با left/top تنظیم می‌کند */
 .map-tooltip {
   position: fixed;
-  /* کلیدِ «همیشه روی موس» */
   pointer-events: none;
   background: var(--card);
   color: var(--text);
@@ -50,6 +39,16 @@
   z-index: 9999;
   opacity: 0;
   transition: opacity .12s ease;
+  /* اطمینان از کامل بودن ترنزیشن */
+}
+
+.map-tooltip[aria-hidden="false"] {
+  opacity: 1;
+}
+
+.leaflet-control-zoom a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 30%, transparent);
 }
 
 .map-tooltip[aria-hidden="false"] {

@@ -20,6 +20,20 @@
   --bp-xxs: 380px;
 }
 
+/* ... تمام ریسپانسیو فعلی‌ات ... */
+
+/* بهبود خوانایی تیترها روی عرض‌های کم (در مرورگرهای پشتیبان) */
+@supports (text-wrap: balance) {
+
+  h1,
+  h2,
+  h3,
+  .brand-text {
+    text-wrap: balance;
+  }
+}
+
+
 /* Avoid accidental sideways scroll on phones */
 html,
 body {
@@ -40,8 +54,10 @@ body {
   /* لوگو | جستجو (کشسان) | اکشن‌ها */
 }
 
-@media (max-width: 1000px){
-  .topbar{ grid-template-columns: auto 1fr auto; }
+@media (max-width: 1000px) {
+  .topbar {
+    grid-template-columns: auto 1fr auto;
+  }
 }
 
 /* <=780px: همچنان یک ردیف پایدار */
@@ -58,14 +74,25 @@ body {
   }
 }
 
-@media (max-width: 600px){
-  .topbar{
+@media (max-width: 600px) {
+  .topbar {
     grid-template-columns: 1fr;
     row-gap: 10px;
   }
-  .brand{ justify-self: start; }
-  .actions{ justify-self: end; order: -1; }
-  .searchbox{ justify-self: stretch; width: 100%; }
+
+  .brand {
+    justify-self: start;
+  }
+
+  .actions {
+    justify-self: end;
+    order: -1;
+  }
+
+  .searchbox {
+    justify-self: stretch;
+    width: 100%;
+  }
 }
 
 
@@ -229,6 +256,7 @@ html[lang="en"] .province-list {
    =================================================================== */
 .tabs {
   overflow: auto hidden;
+  scroll-snap-type: x proximity;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -237,9 +265,25 @@ html[lang="en"] .province-list {
   display: none;
 }
 
+.tab {
+  scroll-snap-align: start;
+}
+
+/* Tabs: در عرض‌های خیلی کم، فاصله‌ها فشرده‌تر */
+@media (max-width: 480px) {
+  .tabs {
+    gap: 4px;
+  }
+
+  .tab {
+    padding-inline: .65rem;
+  }
+}
+
+/* Hero: کمی کوچک‌تر برای هدر چسبان بلند */
 @media (max-width: 900px) {
   .hero {
-    max-height: 260px;
+    max-height: 240px;
   }
 }
 

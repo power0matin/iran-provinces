@@ -82,16 +82,20 @@
         </div>
 
         <div class="tabs" role="tablist" aria-label="Tabs">
-          <button class="tab active" data-tab="intro" data-i18n="province.intro" role="tab" aria-selected="true">
+          <button id="tab-intro" class="tab active" data-tab="intro" data-i18n="province.intro" role="tab" type="button"
+            aria-selected="true" aria-controls="panel-intro">
             معرفی
           </button>
-          <button class="tab" data-tab="counties" data-i18n="province.counties" role="tab" aria-selected="false">
+          <button id="tab-counties" class="tab" data-tab="counties" data-i18n="province.counties" role="tab"
+            type="button" aria-selected="false" aria-controls="panel-counties">
             شهرستان‌ها
           </button>
-          <button class="tab" data-tab="cities" data-i18n="province.cities" role="tab" aria-selected="false">
+          <button id="tab-cities" class="tab" data-tab="cities" data-i18n="province.cities" role="tab" type="button"
+            aria-selected="false" aria-controls="panel-cities">
             شهرها
           </button>
-          <button class="tab" data-tab="attractions" data-i18n="province.attractions" role="tab" aria-selected="false">
+          <button id="tab-attractions" class="tab" data-tab="attractions" data-i18n="province.attractions" role="tab"
+            type="button" aria-selected="false" aria-controls="panel-attractions">
             دیدنی‌ها
           </button>
         </div>
@@ -99,13 +103,12 @@
 
       <div class="card-body">
         <!-- معرفی -->
-        <div id="panel-intro" class="tab-panel active" role="tabpanel">
-          <h2 id="introTitle" data-i18n="province.aboutTitle">
-            درباره استان
-          </h2>
+        <div id="panel-intro" class="tab-panel active" role="tabpanel" tabindex="0" aria-labelledby="tab-intro">
+          <h2 id="introTitle" data-i18n="province.aboutTitle">درباره استان</h2>
           <p id="introText" class="muted"></p>
           <figure class="hero-wrap">
-            <img id="heroImage" src="" alt="" class="hero" />
+            <img id="heroImage" src="" alt="" class="hero" loading="lazy" decoding="async" fetchpriority="low"
+              sizes="(max-width: 900px) 100vw, 960px" />
           </figure>
         </div>
 

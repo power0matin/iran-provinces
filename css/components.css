@@ -1,15 +1,23 @@
-/* برچسب‌های کوچک بالای کارت‌ها/تب‌ها */
+/* ==================== Pills & Tabs ==================== */
 .pill {
+  --pill-py: .35rem;
+  --pill-px: .7rem;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 0.35rem 0.7rem;
+  padding: var(--pill-py) var(--pill-px);
   border: 1px solid var(--border);
   border-radius: 999px;
   color: var(--muted);
   background: var(--bg-soft);
-  font-size: 0.85rem;
+  font-size: .85rem;
   font-weight: 600;
+  min-block-size: 34px;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.pill:hover {
+  background: color-mix(in oklab, var(--bg-soft) 78%, transparent);
 }
 
 .tabbar {
@@ -19,25 +27,48 @@
 }
 
 .tab {
-  padding: 0.45rem 0.9rem;
+  --tab-py: .45rem;
+  --tab-px: .9rem;
+  padding: var(--tab-py) var(--tab-px);
   border: 1px solid var(--border);
   border-radius: 999px;
   color: var(--muted);
   background: transparent;
   cursor: pointer;
+  min-block-size: 36px;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background .15s ease, border-color .15s ease, color .15s ease, transform .06s ease;
 }
 
-.tab.is-active {
+.tab:hover {
+  background: var(--bg-soft);
+  color: var(--text);
+}
+
+.tab:active {
+  transform: translateY(1px);
+}
+
+.tab:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 24%, transparent);
+  border-color: color-mix(in oklab, var(--primary) 55%, var(--border));
+}
+
+/* فعال: هم کلاس، هم ARIA */
+.tab.is-active,
+.tab[aria-selected="true"] {
   color: #fff;
   background: var(--primary);
   border-color: var(--primary);
 }
 
-/* ---------- Forms ---------- */
+/* ==================== Forms ==================== */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: clamp(10px, 2vw, 16px);
 }
 
 .field {
@@ -65,9 +96,15 @@ select.input {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 10px 12px;
+  min-block-size: 44px;
+  /* هدف لمسی مناسب */
   outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease,
-    background 0.15s ease;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: color-mix(in oklab, var(--muted) 85%, transparent);
 }
 
 .input:focus,
@@ -78,19 +115,31 @@ select.input:focus,
   box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 18%, transparent);
 }
 
+.input:disabled,
+.textarea:disabled,
+select.input:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.input[readonly],
+.textarea[readonly] {
+  background: color-mix(in oklab, var(--bg-soft) 85%, transparent);
+}
+
 .input.invalid,
 .textarea.invalid,
 select.input.invalid {
-  border-color: #ef4444;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+  border-color: color-mix(in oklab, #ef4444 86%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, #ef4444 25%, transparent);
 }
 
-.help {
+.help,
+.counter {
   color: var(--muted);
 }
 
 .counter {
-  color: var(--muted);
   font-variant-numeric: tabular-nums;
 }
 
@@ -99,7 +148,7 @@ select.input.invalid {
   min-height: 140px;
 }
 
-/* drag & drop */
+/* ---- drag & drop ---- */
 .dropzone {
   display: grid;
   place-items: center;
@@ -113,11 +162,18 @@ select.input.invalid {
   border-color: var(--primary);
 }
 
+.dropzone:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 22%, transparent);
+  border-color: color-mix(in oklab, var(--primary) 55%, var(--border));
+}
+
 .dropzone.drag {
   background: color-mix(in oklab, var(--primary) 10%, var(--bg-soft));
   border-color: var(--primary);
 }
 
+/* ---- file list ---- */
 .file-list {
   list-style: none;
   margin: 8px 0 0;
@@ -133,21 +189,25 @@ select.input.invalid {
   border: 1px dashed var(--border);
   border-radius: 8px;
   color: var(--muted);
+  word-break: break-word;
 }
 
-/* Buttons */
+/* ==================== Buttons ==================== */
 .btn {
+  --btn-py: 10px;
+  --btn-px: 14px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 14px;
+  padding: var(--btn-py) var(--btn-px);
   border-radius: 12px;
   background: var(--bg-soft);
   color: var(--text);
   border: 1px solid var(--border);
   cursor: pointer;
-  transition: transform 0.06s ease, background 0.15s ease,
-    border-color 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .06s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
 }
 
 .btn:hover {
@@ -155,7 +215,13 @@ select.input.invalid {
 }
 
 .btn:active {
-  transform: translateY(1px);
+  transform: translateY(1px) scale(.995);
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 22%, transparent);
+  border-color: color-mix(in oklab, var(--primary) 55%, var(--border));
 }
 
 .btn.primary {
@@ -165,25 +231,29 @@ select.input.invalid {
 }
 
 .btn.primary:hover {
-  filter: brightness(0.98);
+  filter: brightness(.98);
 }
 
 .btn.ghost {
   background: transparent;
 }
 
+.btn.ghost:hover {
+  background: var(--bg-soft);
+}
+
 .btn[disabled] {
-  opacity: 0.6;
+  opacity: .6;
   cursor: not-allowed;
 }
 
 .icon-btn.xs {
-  width: 32px;
-  height: 32px;
+  inline-size: 32px;
+  block-size: 32px;
   border-radius: 10px;
 }
 
-/* Layout helpers */
+/* ==================== Layout helpers ==================== */
 .row {
   display: flex;
   align-items: center;
@@ -203,7 +273,7 @@ select.input.invalid {
   margin-top: 12px;
 }
 
-/* Sidebar */
+/* ==================== Sidebar ==================== */
 .contact-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -250,7 +320,7 @@ select.input.invalid {
   gap: 8px;
 }
 
-/* FAQ */
+/* ==================== FAQ ==================== */
 .faq {
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -268,12 +338,18 @@ select.input.invalid {
   color: var(--text);
 }
 
+.faq summary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 24%, transparent);
+  border-radius: 6px;
+}
+
 .faq p {
   color: var(--muted);
   margin: 8px 0 0;
 }
 
-/* Toasts */
+/* ==================== Toasts ==================== */
 .toast-host {
   position: fixed;
   inset: auto 16px 16px auto;
@@ -292,7 +368,7 @@ select.input.invalid {
   box-shadow: var(--shadow);
   background: var(--card);
   color: var(--text);
-  animation: toastIn 0.22s ease both;
+  animation: toastIn .22s ease both;
 }
 
 .toast.success {
@@ -306,7 +382,7 @@ select.input.invalid {
 .toast .close {
   margin-inline-start: 6px;
   cursor: pointer;
-  opacity: 0.8;
+  opacity: .85;
 }
 
 @keyframes toastIn {
@@ -316,59 +392,57 @@ select.input.invalid {
   }
 }
 
-/* Honeypot */
+/* ==================== Honeypot ==================== */
 .hp {
   position: absolute !important;
   left: -10000px !important;
   opacity: 0 !important;
 }
 
-/* ========= Smooth Theme Transition ========= */
-:root {
-  --theme-xdur: 280ms;
-}
-
-/* ---------- global theme fade (optional but recommended) ---------- */
+/* ==================== Smooth Theme Transition (unified) ==================== */
 :root {
   --theme-xdur: 240ms;
 }
 
+/* تک‌تعریف (تکرار حذف شد) */
+
+/* دامنه‌ی ترنزیشن به عناصر کلیدی محدود شد تا سبک‌تر باشد */
 html,
 body,
 .site-header,
 .main-nav,
 .card,
-.card *,
 .searchbox,
 .province-list a,
-.chip,
+.pill,
 .tab,
-.acc-item,
-.tiles li,
-.hero,
 .badge,
 .icon-btn,
+.btn,
 .capsule,
 .brand-icon,
 .switch .slider,
 .switch .slider::before {
-  transition: background-color var(--theme-xdur) ease,
-    color var(--theme-xdur) ease, border-color var(--theme-xdur) ease,
-    box-shadow var(--theme-xdur) ease, outline-color var(--theme-xdur) ease,
-    fill var(--theme-xdur) ease, stroke var(--theme-xdur) ease;
+  transition:
+    background-color var(--theme-xdur) ease,
+    color var(--theme-xdur) ease,
+    border-color var(--theme-xdur) ease,
+    box-shadow var(--theme-xdur) ease,
+    outline-color var(--theme-xdur) ease,
+    fill var(--theme-xdur) ease,
+    stroke var(--theme-xdur) ease;
 }
 
-/* ---------- toggle ripple / glow (class is added to .slider by JS) ---------- */
+/* ==================== Switch / Wave (بدون تغییر API) ==================== */
 .switch .slider {
   --wave-dur: 320ms;
-  /* JS sets --x on the .slider; fallback to center when keyboard toggles */
   --wave-x: var(--x, 50%);
+  /* JS ست می‌کند؛ کیبورد → وسط */
   position: relative;
   overflow: hidden;
   will-change: background, box-shadow;
 }
 
-/* fallback radial wave (works everywhere) */
 .switch .slider::after {
   content: "";
   position: absolute;
@@ -383,7 +457,6 @@ body,
   transition: opacity var(--wave-dur) ease;
 }
 
-/* prefer color-mix if supported (nicer tone using --primary) */
 @supports (color: color-mix(in oklab, white, black)) {
   .switch .slider::after {
     background: radial-gradient(circle at var(--wave-x) 50%,
@@ -393,13 +466,11 @@ body,
   }
 }
 
-/* JS toggles .wave on the .slider (legacy .input-wave on .switch still works) */
 .switch .slider.wave::after,
 .switch.input-wave .slider::after {
   opacity: 1;
 }
 
-/* gentle rail pulse */
 .switch .slider.wave,
 .switch.input-wave .slider {
   animation: slider-pulse var(--wave-dur) ease-out;
@@ -419,53 +490,19 @@ body,
   }
 }
 
-/* knob pop when toggled */
-@keyframes knob-pop {
-  0% {
-    transform: translate(0, -50%) scale(1);
-  }
-
-  60% {
-    transform: translate(var(--shift), -50%) scale(1.08);
-  }
-
-  100% {
-    transform: translate(var(--shift), -50%) scale(1);
-  }
-}
-
-.switch .slider.wave::before,
-.switch.input-wave .slider::before {
-  animation: knob-pop 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-/* reduced motion: no animations */
-@media (prefers-reduced-motion: reduce) {
-
-  .switch .slider,
-  .switch .slider::before,
-  .switch .slider::after {
-    transition: none !important;
-    animation: none !important;
-  }
-
-  .switch .slider::after {
-    display: none;
-  }
-}
-
-/* ---- Prose helpers (moved from about.html) ---- */
+/* ==================== Prose helpers ==================== */
 .prose p {
   line-height: 1.9;
 }
 
 .kbd {
-  border: 1px solid #aaa;
+  border: 1px solid var(--border);
   border-bottom-width: 2px;
   padding: 0 .4rem;
   border-radius: .4rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: .85em;
+  background: color-mix(in oklab, var(--bg-soft) 85%, transparent);
 }
 
 .list-check {
@@ -517,4 +554,43 @@ body,
   background: #0001;
   padding: .15rem .35rem;
   border-radius: .35rem;
+}
+
+/* ==================== Reduced motion & High Contrast ==================== */
+@media (prefers-reduced-motion: reduce) {
+
+  .tab,
+  .btn,
+  .pill,
+  .toast,
+  .switch .slider,
+  .switch .slider::before,
+  .switch .slider::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+
+  .tab,
+  .btn,
+  .pill,
+  .input,
+  .textarea,
+  .dropzone,
+  .aside-card,
+  .faq,
+  .toast {
+    forced-color-adjust: auto;
+    border-color: CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .tab:focus-visible,
+  .btn:focus-visible,
+  .dropzone:focus-visible {
+    box-shadow: 0 0 0 2px Highlight;
+  }
 }
