@@ -128,33 +128,59 @@
       .trim();
   }
 
+  function normalizeFaRaw(s = "") {
+    return String(s).replace(/\s+/g, " ").trim();
+  }
+  // حذف «استان» (با/بی نیم‌فاصله)، یکسان‌سازی ی/ي و ک/ك، و فشرده‌سازی فاصله‌ها
+  function normalizeFaStrong(s = "") {
+    return String(s)
+      .replace(/\u200c/g, " ") // ZWNJ -> space
+      .replace(/^\s*استان[\s\u200c]+/g, "") // drop leading "استان "
+      .replace(/ي/g, "ی") // Arabic Yeh -> Persian Yeh
+      .replace(/ك/g, "ک") // Arabic Kaf  -> Persian Kaf
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
   async function buildIdResolver() {
     if (ID.ready) return;
     try {
-      // 1) نگاشت‌های دستیِ اسلاگ‌ها
       const slugRes = await fetch("data/slug-map.json", { cache: "no-store" });
       const slugList = await slugRes.json();
 
-      // 2) منبع اصلی صفحات (idهای معتبر)
       const idxRes = await fetch("data/index.json", { cache: "no-store" });
       const idx = await idxRes.json();
 
-      // 3) پرکردن map با انگلیسی/فارسی
-      slugList.forEach((it) => {
-        ID.map.set(normalizeEn(it.matchEn), it.id);
-        ID.map.set(normalizeEn(it.nameEn), it.id);
-      });
-      (idx.provinces || []).forEach((p) => {
-        ID.map.set(normalizeEn(p.nameEn || p.nameFa), p.id);
-        // ناسازگاری‌های رایج
-        if (p.id === "azarbaijan-east") ID.map.set("east azerbaijan", p.id);
-        if (p.id === "azarbaijan-west") ID.map.set("west azerbaijan", p.id);
-        if (p.id === "kohgiluyeh-boyerahmad")
-          ID.map.set("kohgiluyeh and boyer ahmad", p.id);
-        if (p.id === "khorasan-razavi") ID.map.set("razavi khorasan", p.id);
-        if (p.id === "khorasan-south") ID.map.set("south khorasan", p.id);
-        if (p.id === "khorasan-north") ID.map.set("north khorasan", p.id);
-      });
+      const addKeys = (fa, en, id) => {
+        if (en) ID.map.set(normalizeEn(en), id); // EN normalized
+
+        if (fa) {
+          const faRaw = normalizeFaRaw(fa);
+          const faNorm = normalizeFaStrong(fa); // بدون «استان»
+
+          // نسخه‌های خام و نرمال‌شده
+          ID.map.set(faRaw, id);
+          ID.map.set(faNorm, id);
+
+          // اگر در دادهٔ فارسی «استان …» بود، نسخهٔ بدون آن هم اضافه شود؛
+          // اگر نبود، نسخهٔ با «استان …» هم اضافه شود تا هر دو حالت resolve شوند.
+          const withOstan = "استان " + faNorm;
+          ID.map.set(withOstan, id);
+        }
+      };
+
+      slugList.forEach((it) =>
+        addKeys(it.nameFa, it.nameEn || it.matchEn, it.id)
+      );
+      (idx.provinces || []).forEach((p) => addKeys(p.nameFa, p.nameEn, p.id));
+
+      // ناسازگاری‌های رایج انگلیسی
+      ID.map.set("east azerbaijan", "azarbaijan-east");
+      ID.map.set("west azerbaijan", "azarbaijan-west");
+      ID.map.set("razavi khorasan", "khorasan-razavi");
+      ID.map.set("south khorasan", "khorasan-south");
+      ID.map.set("north khorasan", "khorasan-north");
+      ID.map.set("kohgiluyeh and boyer ahmad", "kohgiluyeh-boyerahmad");
 
       ID.ready = true;
     } catch (e) {
@@ -163,10 +189,10 @@
   }
 
   function resolveIdFromProps(props = {}) {
-    // اگر خودِ id بود که عالی
     if (props.id) return props.id;
-    // فیلدهای متداول GeoJSON
-    const candidates = [
+
+    // EN candidates (normalized)
+    const enCandidates = [
       props.nameEn,
       props.name_en,
       props.NAME_1,
@@ -175,10 +201,23 @@
       props.en_name,
       props.EngName,
     ].filter(Boolean);
-    for (const c of candidates) {
+
+    for (const c of enCandidates) {
       const k = normalizeEn(c);
       if (ID.map.has(k)) return ID.map.get(k);
     }
+
+    const fa = props.nameFa || props.name_fa || props.NAME_FA || props.Prov_FA;
+    if (fa) {
+      const faRaw = normalizeFaRaw(fa);
+      const faNorm = normalizeFaStrong(fa); // بدون «استان»
+      const faWith = "استان " + faNorm;
+
+      if (ID.map.has(faRaw)) return ID.map.get(faRaw);
+      if (ID.map.has(faNorm)) return ID.map.get(faNorm);
+      if (ID.map.has(faWith)) return ID.map.get(faWith);
+    }
+
     return null;
   }
 
@@ -278,65 +317,9 @@
       IdResolver.ready = true;
     }
 
-    function resolveIdFromProps(props = {}) {
-      if (props.id) return props.id;
-
-      const enCandidates = [
-        props.NAME_1,
-        props.NAME,
-        props.nameEn,
-        props.name_en,
-        props.Prov_EN,
-      ];
-      const faCandidates = [props.name_fa, props.NAME_FA, props.Prov_FA];
-
-      for (const c of enCandidates) {
-        if (!c) continue;
-        const k = normEn(c);
-        if (IdResolver.en.has(k)) return IdResolver.en.get(k);
-      }
-      for (const c of faCandidates) {
-        if (!c) continue;
-        const k = normFa(c);
-        if (IdResolver.fa.has(k)) return IdResolver.fa.get(k);
-      }
-      return null;
-    }
-
     function goProvince(id) {
       if (!id) return;
       window.location.href = `province.html?id=${encodeURIComponent(id)}`;
-    }
-    const tipEl = document.createElement("div");
-    tipEl.className = "map-tooltip";
-    tipEl.setAttribute("aria-hidden", "true");
-    document.body.appendChild(tipEl);
-
-    function positionTip(e) {
-      // نقطه‌ی ماوس در مختصات کانتینر نقشه
-      const p = map.latLngToContainerPoint(e.latlng);
-      const rect = el.getBoundingClientRect();
-      // مختصات نهایی نسبت به صفحه (viewport)
-      const x = rect.left + p.x;
-      const y = rect.top + p.y;
-      tipEl.style.left = x + "px";
-      tipEl.style.top = y + "px";
-    }
-
-    function showTip(text, e) {
-      tipEl.textContent = text;
-      tipEl.dir = document.dir || "ltr";
-      tipEl.classList.toggle("rtl", (document.dir || "ltr") === "rtl");
-      positionTip(e);
-      tipEl.setAttribute("aria-hidden", "false");
-    }
-
-    function moveTip(e) {
-      if (tipEl.getAttribute("aria-hidden") === "false") positionTip(e);
-    }
-
-    function hideTip() {
-      tipEl.setAttribute("aria-hidden", "true");
     }
 
     function featureCenterLatLng(feature) {
@@ -357,6 +340,31 @@
       }
       return null;
     }
+    // === tooltip singleton (global) ===
+    const tipEl = document.createElement("div");
+    tipEl.className = "map-tooltip";
+    tipEl.setAttribute("aria-hidden", "true");
+    document.body.appendChild(tipEl);
+
+    function positionTip(e) {
+      const p = map.latLngToContainerPoint(e.latlng);
+      const rect = el.getBoundingClientRect();
+      tipEl.style.left = rect.left + p.x + "px";
+      tipEl.style.top = rect.top + p.y + "px";
+    }
+    function showTip(text, e) {
+      tipEl.textContent = text;
+      tipEl.dir = document.dir || "ltr";
+      tipEl.classList.toggle("rtl", (document.dir || "ltr") === "rtl");
+      positionTip(e);
+      tipEl.setAttribute("aria-hidden", "false");
+    }
+    function moveTip(e) {
+      if (tipEl.getAttribute("aria-hidden") === "false") positionTip(e);
+    }
+    function hideTip() {
+      tipEl.setAttribute("aria-hidden", "true");
+    }
 
     function centerOf(layer, feature) {
       if (layer && typeof layer.getCenter === "function") {
@@ -373,9 +381,8 @@
     const show = (e) => {
       layer.setStyle(hoverStyle);
       layer.bringToFront?.();
-      showTip(label, e); // تولتیپ سفارشی
+      showTip(label, e);
     };
-
     const move = (e) => moveTip(e);
     const hide = () => {
       geojson.resetStyle(layer);
@@ -407,6 +414,7 @@
   async function loadGeo() {
     try {
       status && (status.textContent = "Loading…");
+      await buildIdResolver();
       const res = await fetch("data/geo/iran-provinces.geojson", {
         cache: "no-store",
       });
@@ -425,13 +433,8 @@
   }
 
   window.addEventListener("langchange", () => {
-    if (!geojson) return;
-    geojson.eachLayer((layer) => {
-      const f = layer.feature && layer.feature.properties;
-      if (f && layer.getTooltip && layer.getTooltip()) {
-        layer.setTooltipContent(nameFor(f));
-      }
-    });
+    // تولتیپ سفارشی جهت (dir) را از document می‌گیرد؛
+    // نیازی به بازسازی لایه یا تغییر محتوای تولتیپ نیست.
   });
 
   loadGeo();

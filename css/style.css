@@ -27,6 +27,13 @@ html {
   --font: "Vazirmatn", system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
+  --nav-bp: 56.25rem;
+  --sb-max: 720px;
+  --sb-h: 44px;
+  --sb-pad-i: 12px;
+  --sb-gap: 10px;
+  --sb-radius: 14px;
+  --sb-ring: color-mix(in oklab, var(--primary) 18%, transparent);
 }
 
 [data-theme="light"] {
@@ -265,36 +272,87 @@ body {
 .searchbox {
   display: flex;
   align-items: center;
-  gap: 10px;
-  width: 100% !important;
-  min-height: 44px;
-  max-width: 720px;
-  /* جلوگیری از زوم اجباری */
-  border: 1px solid var(--border);
-  padding: 0 12px;
-  border-radius: 14px;
+  gap: var(--sb-gap);
+  inline-size: min(100%, var(--sb-max));
+  block-size: var(--sb-h);
+  padding-inline: var(--sb-pad-i);
+  border-radius: var(--sb-radius);
   background: color-mix(in oklab, var(--bg-soft) 94%, transparent);
+  border: 1px solid var(--border);
   justify-self: center;
-}
-
-.searchbox input {
-  all: unset;
-  flex: 1;
-  color: var(--text);
-  -webkit-appearance: none;
-  font-size: 16px;
-  /* iOS no-zoom */
-  direction: inherit;
-  text-align: start;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color .15s, box-shadow .15s, background .15s;
 }
 
 .searchbox:focus-within {
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 18%, transparent);
+  box-shadow: 0 0 0 4px var(--sb-ring);
+}
+
+.searchbox input {
+  /* base */
+  appearance: none;
+  -webkit-appearance: none;
+  /* 🔧 kill WebKit search capsule */
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  /* 🔧 remove UA radius */
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--text);
+  font: inherit;
+  font-size: 16px;
+  /* iOS no-zoom */
+  line-height: 1.35;
+  direction: inherit;
+  text-align: start;
+  outline: none;
+  caret-color: var(--primary);
+  block-size: 100%;
+  /* align with container height */
+}
+
+/* 🔧 remove all WebKit search decorations (the inner rounded box/shadow) */
+.searchbox input::-webkit-search-decoration,
+.searchbox input::-webkit-search-cancel-button,
+.searchbox input::-webkit-search-results-button,
+.searchbox input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+/* اختیاری: حالت فوکوس داخل input بدون رینگ داخلی */
+.searchbox input:focus {
+  box-shadow: none;
 }
 
 .searchbox i {
+  inline-size: 18px;
+  block-size: 18px;
   opacity: .75;
+  display: grid;
+  place-items: center;
+}
+
+
+.sb-clear {
+  inline-size: 28px;
+  block-size: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  background: color-mix(in oklab, var(--card) 70%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .12s, transform .12s;
+}
+
+.searchbox:has(input:not(:placeholder-shown)) .sb-clear {
+  opacity: .9;
+  pointer-events: auto;
 }
 
 @media (max-width: 900px) {
@@ -736,7 +794,6 @@ body {
 
 :root {
   /* 900px برای رفرنس انسانی — توجه: فعلاً نمی‌شه var() رو مستقیم توی media query استفاده کرد */
-  --nav-bp: 56.25rem;
   /* 900px */
 }
 

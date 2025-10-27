@@ -35,13 +35,22 @@
         <strong class="brand-text" data-i18n="brand.title">استان‌های ایران</strong>
       </a>
 
-      <!-- جستجو -->
-      <form class="searchbox" role="search" onsubmit="return false;">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input id="searchInput" type="search" data-i18n-placeholder="search.placeholder"
-          placeholder="... جستجوی استان" />
-        <kbd class="kbd">/</kbd>
+      <!-- Search -->
+      <form id="siteSearch" class="searchbox" role="search" aria-label="Search provinces">
+        <label for="searchInput" class="sr-only">Search</label>
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+
+        <input id="searchInput" type="search" name="q" inputmode="search" autocomplete="off" enterkeyhint="search"
+          spellcheck="false" dir="auto" data-i18n-placeholder="search.placeholder" placeholder="جستجوی استان…"
+          aria-controls="results" />
+
+        <button type="button" class="sb-clear" id="searchClear" hidden aria-label="Clear search">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+
+        <kbd class="kbd" aria-hidden="true">/</kbd>
       </form>
+
 
       <!-- اکشن‌ها -->
       <div class="actions">
@@ -149,6 +158,7 @@
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
   <script src="js/map.js" defer></script>
   <script src="js/nav.js" defer></script>
+  <script src="js/search-global.js" defer></script>
 </body>
 
 </html>

@@ -92,19 +92,25 @@ body {
     justify-self: end;
   }
 
+  .topbar {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 6px;
+    padding: 6px 8px;
+    align-items: center;
+  }
+
   .searchbox {
-    max-width: none;
-    min-height: 38px;
-    /* از 44→38 */
-    padding-inline: 10px;
-    gap: 8px;
+    inline-size: 100%;
+    --sb-h: 38px;
+    --sb-pad-i: 10px;
+    --sb-gap: 8px;
+    --sb-radius: 12px;
   }
 
-  .searchbox input {
-    font-size: 16px;
+  .sb-clear {
+    inline-size: 26px;
+    block-size: 26px;
   }
-
-  /* جلوگیری از زوم iOS */
 }
 
 
@@ -392,20 +398,6 @@ html[lang="en"] .province-list {
   .brand-text {
     font-size: .95rem;
   }
-
-  /* تیتر کوچکتر */
-  .searchbox {
-    min-height: 34px;
-    padding-inline: 10px;
-    gap: 8px;
-  }
-
-  .searchbox input {
-    font-size: 16px;
-  }
-
-  /* جلوگیری از زوم iOS */
-
   .capsule {
     height: 32px;
     padding: 3px 6px;
