@@ -5,7 +5,6 @@
 
   const $ = (s, r = document) => r.querySelector(s);
 
-  // --- providers / theme (همان کد قبلی شما) ---
   const providers = {
     light: {
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -31,11 +30,9 @@
   }
   ensureHeight();
 
-  // --- init map ---
   const map = L.map(el, { zoomControl: true, attributionControl: true });
   map.setView([32.4279, 53.688], 5);
 
-  // --- tiles with fallback + theme switch ---
   let currentLayer,
     errorCount = 0;
   function onTileError() {
@@ -61,7 +58,6 @@
     useLayer(t === "dark" ? "dark" : "light");
     requestAnimationFrame(() => map.invalidateSize());
   });
-  // --- reflow guards (همان کد قبلی) ---
   const invalidate = () => map.invalidateSize(true);
   window.addEventListener("resize", () => setTimeout(invalidate, 120));
   window.addEventListener("orientationchange", () =>
@@ -99,9 +95,20 @@
     s = s.replace(/([a-z])([A-Z])/g, "$1 $2");
     return s.replace(/\s{2,}/g, " ").trim();
   }
-  function nameFor(props) {
-    if (props.nameFa) return props.nameFa;
-    return _neatEN(props.nameEn || props.name_en || props.NAME_1 || "");
+  function nameFor(props = {}) {
+    // پوشش همه‌ی کلیدهای رایج فارسی
+    const fa = props.nameFa || props.name_fa || props.NAME_FA || props.Prov_FA;
+    if (fa) return String(fa).trim();
+
+    // پوشش کامل انگلیسی
+    return _neatEN(
+      props.nameEn ||
+        props.name_en ||
+        props.NAME_1 ||
+        props.NAME ||
+        props.Prov_EN ||
+        ""
+    );
   }
 
   // --- رزولور شناسه بر اساس GeoJSON + نگاشت‌های شما ---
@@ -186,16 +193,6 @@
 
   function wireInteractions(layer, feature) {
     const props = feature.properties || {};
-    const label = nameFor(props);
-
-    layer.bindTooltip(label, {
-      direction: "top",
-      sticky: false, // به موس نچسبد
-      permanent: false,
-      opacity: 1,
-      offset: L.point(0, -10), // کمی بالاتر
-      className: "prov-tip",
-    });
 
     function _ringCentroidArea(coords) {
       let twiceArea = 0,
@@ -237,8 +234,6 @@
     function normFa(s = "") {
       return String(s).replace(/\s+/g, " ").trim();
     }
-
-    // --- نگاشت شناسه‌ها از فایل‌های پروژه ---
     const IdResolver = {
       ready: false,
       en: new Map(), // key: normalized english -> id
@@ -247,7 +242,6 @@
 
     async function loadIdMaps() {
       if (IdResolver.ready) return;
-      // مسیرها را مقاوم بنویس: اول روت، اگر نبود /data/
       async function loadJsonTry(paths) {
         for (const p of paths) {
           try {
@@ -264,19 +258,16 @@
         provinces: [],
       };
 
-      // از slug-map هر دو نام انگلیسی و matchEn را به id نگاشت کن
       for (const it of slugMap) {
         if (it.nameEn) IdResolver.en.set(normEn(it.nameEn), it.id);
         if (it.matchEn) IdResolver.en.set(normEn(it.matchEn), it.id);
         if (it.nameFa) IdResolver.fa.set(normFa(it.nameFa), it.id);
       }
-      // از index.json هم نگاشت‌های مکمل
       for (const p of index.provinces) {
         if (p.nameEn) IdResolver.en.set(normEn(p.nameEn), p.id);
         if (p.nameFa) IdResolver.fa.set(normFa(p.nameFa), p.id);
       }
 
-      // چند ناسازگاری رایج
       IdResolver.en.set("east azerbaijan", "azarbaijan-east");
       IdResolver.en.set("west azerbaijan", "azarbaijan-west");
       IdResolver.en.set("razavi khorasan", "khorasan-razavi");
@@ -287,11 +278,9 @@
       IdResolver.ready = true;
     }
 
-    // از props روی فیچر، id معتبری بساز
     function resolveIdFromProps(props = {}) {
       if (props.id) return props.id;
 
-      // کاندیداهای متداول در GeoJSON
       const enCandidates = [
         props.NAME_1,
         props.NAME,
@@ -318,6 +307,37 @@
       if (!id) return;
       window.location.href = `province.html?id=${encodeURIComponent(id)}`;
     }
+    const tipEl = document.createElement("div");
+    tipEl.className = "map-tooltip";
+    tipEl.setAttribute("aria-hidden", "true");
+    document.body.appendChild(tipEl);
+
+    function positionTip(e) {
+      // نقطه‌ی ماوس در مختصات کانتینر نقشه
+      const p = map.latLngToContainerPoint(e.latlng);
+      const rect = el.getBoundingClientRect();
+      // مختصات نهایی نسبت به صفحه (viewport)
+      const x = rect.left + p.x;
+      const y = rect.top + p.y;
+      tipEl.style.left = x + "px";
+      tipEl.style.top = y + "px";
+    }
+
+    function showTip(text, e) {
+      tipEl.textContent = text;
+      tipEl.dir = document.dir || "ltr";
+      tipEl.classList.toggle("rtl", (document.dir || "ltr") === "rtl");
+      positionTip(e);
+      tipEl.setAttribute("aria-hidden", "false");
+    }
+
+    function moveTip(e) {
+      if (tipEl.getAttribute("aria-hidden") === "false") positionTip(e);
+    }
+
+    function hideTip() {
+      tipEl.setAttribute("aria-hidden", "true");
+    }
 
     function featureCenterLatLng(feature) {
       const geom = feature && feature.geometry;
@@ -338,43 +358,32 @@
       return null;
     }
 
-    // اگر لایه center نداشت، از مرکز «هندسی» فیچر استفاده کن و در نهایت fallback به bounds
     function centerOf(layer, feature) {
       if (layer && typeof layer.getCenter === "function") {
         try {
           return layer.getCenter();
-        } catch (e) {
-          /* fallback */
-        }
+        } catch (e) {}
       }
       const c = featureCenterLatLng(feature);
       return c || layer.getBounds().getCenter();
     }
 
-    const show = () => {
+    const label = nameFor(props);
+
+    const show = (e) => {
       layer.setStyle(hoverStyle);
-      layer.openTooltip(centerOf(layer, feature)); // ← مرکز دقیق‌تر
       layer.bringToFront?.();
+      showTip(label, e); // تولتیپ سفارشی
     };
 
-    layer.on("mousemove", () => {
-      // اگر استان کشیده است، جای تولتیپ را روی همان مرکز نگه دار
-      const tip = layer.getTooltip();
-      if (tip && tip.isOpen()) tip.setLatLng(centerOf(layer, feature));
-    });
-
+    const move = (e) => moveTip(e);
     const hide = () => {
       geojson.resetStyle(layer);
-      layer.closeTooltip();
+      hideTip();
     };
 
     layer.on("mouseover", show);
-
-    layer.on("mousemove", () => {
-      const tip = layer.getTooltip();
-      if (tip && tip.isOpen()) tip.setLatLng(centerOf(layer, feature));
-    });
-
+    layer.on("mousemove", move);
     layer.on("mouseout", hide);
 
     layer.on("click", () => navigateToByProps(props));
@@ -415,9 +424,14 @@
     }
   }
 
-  // re-render names when language changes (tooltip content)
   window.addEventListener("langchange", () => {
-    // فقط تولتیپ و کپشن‌ها به زبان جدید می‌روند؛ نیازی به باز-ساخت لایه نیست.
+    if (!geojson) return;
+    geojson.eachLayer((layer) => {
+      const f = layer.feature && layer.feature.properties;
+      if (f && layer.getTooltip && layer.getTooltip()) {
+        layer.setTooltipContent(nameFor(f));
+      }
+    });
   });
 
   loadGeo();

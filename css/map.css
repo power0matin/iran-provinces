@@ -19,31 +19,46 @@
   cursor: pointer;
 }
 
-/* tooltip فارسی تمیز */
 .prov-tip {
+  direction: ltr;
+}
+
+.prov-tip.rtl {
   direction: rtl;
-  font-weight: 600;
 }
 
 .map-tooltip {
   position: fixed;
   pointer-events: none;
-  background: var(--card);
+  z-index: 9999;
+
+  /* شیشه‌ای */
+  background: color-mix(in oklab, var(--card) 60%, transparent);
+  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+
   color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 6px 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
   font-weight: 700;
   font-size: 13px;
-  box-shadow: var(--shadow);
-  z-index: 9999;
+  box-shadow:
+    0 8px 24px color-mix(in oklab, var(--shadow) 60%, transparent),
+    0 1px 0 color-mix(in oklab, #fff 30%, transparent) inset;
+
+  /* دقیقا بالای نشانگر: مبنا وسط-پایین */
+  transform: translate(-50%, calc(-100% - 10px));
   opacity: 0;
-  transition: opacity .12s ease;
-  /* اطمینان از کامل بودن ترنزیشن */
+  transition: opacity .12s ease, transform .12s ease;
 }
 
 .map-tooltip[aria-hidden="false"] {
   opacity: 1;
+}
+
+.map-tooltip.rtl {
+  direction: rtl;
 }
 
 .leaflet-control-zoom a:focus-visible {
@@ -51,12 +66,19 @@
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 30%, transparent);
 }
 
-.map-tooltip[aria-hidden="false"] {
-  opacity: 1;
-}
-
 .map-tooltip[aria-hidden="true"] {
   opacity: 0;
+}
+
+.map-tooltip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: color-mix(in oklab, var(--card) 60%, transparent);
+  filter: drop-shadow(0 1px 0 color-mix(in oklab, var(--border) 70%, transparent));
 }
 
 
