@@ -1,110 +1,51 @@
-/* ===================== Leaflet Map ===================== */
+/* =============== Leaflet Map (senior-tuned) =============== */
 :root {
+  /* Map sizing */
   --map-min-h: 320px;
   --map-ideal-h: 58vh;
   --map-max-h: 760px;
+
+  /* Tooltip design tokens */
+  --tip-radius: 12px;
+  --tip-pad-y: 8px;
+  --tip-pad-x: 12px;
+  --tip-font: 13px;
+  --tip-gap: 10px;
+  /* distance above cursor */
+
+  /* Fallback-friendly tokens (computed below with @supports) */
+  --tip-bg: rgba(255, 255, 255, 0.65);
+  --tip-border: rgba(0, 0, 0, 0.12);
+  --tip-shadow:
+    0 8px 24px rgba(0, 0, 0, .16),
+    0 1px 0 rgba(255, 255, 255, .25) inset;
 }
 
+/* Prefer logical sizing & isolation for GPU-friendly panning */
 .leaflet-map {
   inline-size: 100%;
   block-size: clamp(var(--map-min-h), var(--map-ideal-h), var(--map-max-h));
   border-radius: 14px;
   border: 1px solid var(--border);
-  overflow: hidden;
+  overflow: clip;
   isolation: isolate;
   touch-action: manipulation;
 }
 
-.leaflet-interactive {
-  cursor: pointer;
-}
-
-.prov-tip {
-  direction: ltr;
-}
-
-.prov-tip.rtl {
-  direction: rtl;
-}
-
-.map-tooltip {
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-
-  /* شیشه‌ای */
-  background: color-mix(in oklab, var(--card) 60%, transparent);
-  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
-  backdrop-filter: blur(10px) saturate(140%);
-  -webkit-backdrop-filter: blur(10px) saturate(140%);
-
-  color: var(--text);
-  padding: 8px 12px;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 13px;
-  box-shadow:
-    0 8px 24px color-mix(in oklab, var(--shadow) 60%, transparent),
-    0 1px 0 color-mix(in oklab, #fff 30%, transparent) inset;
-
-  /* دقیقا بالای نشانگر: مبنا وسط-پایین */
-  transform: translate(-50%, calc(-100% - 10px));
-  opacity: 0;
-  transition: opacity .12s ease, transform .12s ease;
-}
-
-.map-tooltip[aria-hidden="false"] {
-  opacity: 1;
-}
-
-.map-tooltip.rtl {
-  direction: rtl;
-}
-
-.leaflet-control-zoom a:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 30%, transparent);
-}
-
-.map-tooltip[aria-hidden="true"] {
-  opacity: 0;
-}
-
-.map-tooltip::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -6px;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-top-color: color-mix(in oklab, var(--card) 60%, transparent);
-  filter: drop-shadow(0 1px 0 color-mix(in oklab, var(--border) 70%, transparent));
-}
-
-
-/* Province polygons (use Leaflet's class) */
+/* Polygons */
 .leaflet-container .leaflet-interactive {
   cursor: pointer;
   transition: fill .15s ease, stroke .15s ease, filter .15s ease;
   outline: none;
 }
 
-/* فوکوس کیبورد برای دسترسی‌پذیری */
-.leaflet-container path[tabindex="0"]:focus {
-  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--primary) 35%, transparent));
-}
-
-/* Hover fallback (JS هم در رویداد mouseover استایل می‌دهد) */
 .leaflet-container .leaflet-interactive:hover {
   filter: drop-shadow(0 0 4px color-mix(in oklab, var(--primary) 25%, transparent));
 }
 
-/* Attribution unobtrusive */
-.leaflet-control-attribution {
-  background: color-mix(in oklab, var(--card) 75%, transparent);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding-inline: 8px;
+/* Keyboard focus */
+.leaflet-container path[tabindex="0"]:focus-visible {
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--primary) 35%, transparent));
 }
 
 /* Zoom controls */
@@ -117,4 +58,112 @@
 .leaflet-control-zoom a:hover {
   background: color-mix(in oklab, var(--primary) 12%, var(--bg-soft));
   border-color: color-mix(in oklab, var(--primary) 30%, var(--border));
+}
+
+.leaflet-control-zoom a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 30%, transparent);
+}
+
+/* Attribution chip */
+.leaflet-control-attribution {
+  background: color-mix(in oklab, var(--card) 75%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding-inline: 8px;
+}
+
+/* =================== Floating Glass Tooltip =================== */
+/* Progressive enhancement for color-mix/backdrop-filter */
+@supports (color: color-mix(in oklab, white, black)) {
+  :root {
+    --tip-bg: color-mix(in oklab, var(--card) 60%, transparent);
+    --tip-border: color-mix(in oklab, var(--border) 70%, transparent);
+    --tip-shadow:
+      0 8px 24px color-mix(in oklab, var(--shadow) 60%, transparent),
+      0 1px 0 color-mix(in oklab, #fff 30%, transparent) inset;
+  }
+}
+
+.map-tooltip {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+
+  /* Layout */
+  display: inline-block;
+  padding: var(--tip-pad-y) var(--tip-pad-x);
+  border-radius: var(--tip-radius);
+  text-align: center;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: var(--tip-font);
+  color: var(--text);
+
+  /* Glass look + fallback */
+  background: var(--tip-bg);
+  border: 1px solid var(--tip-border);
+  box-shadow: var(--tip-shadow);
+}
+
+@supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+  .map-tooltip {
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    backdrop-filter: blur(10px) saturate(140%);
+  }
+}
+
+/* Anchor exactly ABOVE the pointer (center-bottom origin) */
+.map-tooltip {
+  transform: translate(-50%, calc(-100% - var(--tip-gap))) translate3d(0, 0, 0);
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity .12s ease, transform .12s ease;
+}
+
+.map-tooltip[aria-hidden="false"] {
+  opacity: 1;
+}
+
+/* RTL without extra classes: rely on document direction */
+[dir="rtl"] .map-tooltip {
+  direction: rtl;
+}
+
+/* Optional tiny arrow */
+.map-tooltip::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-end: -6px;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-block-start-color: var(--tip-bg);
+  /* subtle outline for contrast on busy maps */
+  filter: drop-shadow(0 1px 0 var(--tip-border));
+}
+
+/* Reduce motion when requested */
+@media (prefers-reduced-motion: reduce) {
+
+  .leaflet-container .leaflet-interactive,
+  .map-tooltip {
+    transition: none;
+  }
+}
+
+/* Touch ergonomics: a bit more gap so the chip doesn’t overlap the finger */
+@media (pointer: coarse) {
+  :root {
+    --tip-gap: 14px;
+  }
+}
+
+/* Old helper classes kept for backward compatibility (no-op now) */
+.prov-tip {
+  direction: ltr;
+}
+
+[dir="rtl"] .prov-tip {
+  direction: rtl;
 }
