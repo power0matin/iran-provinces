@@ -1458,3 +1458,11 @@ body.nav-lock {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 }
+
+/* Show slash key hint only on laptops/desktops */
+@media (max-width: 900px),
+(any-pointer: coarse) {
+  .searchbox .kbd {
+    display: none !important;
+  }
+}
