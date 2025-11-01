@@ -31,7 +31,7 @@ html {
     "Segoe UI Symbol";
   --nav-bp: 56.25rem;
   --sb-max: 720px;
-  --sb-h: 44px;
+  --sb-h: 38px;
   --sb-pad-i: 12px;
   --sb-gap: 10px;
   --sb-radius: 14px;
@@ -64,6 +64,7 @@ html {
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(8px);
   padding-block: 4px;
+  padding: 2px 0 !important;
   /* 8→4 برای کاهش ارتفاع کلی */
 }
 
@@ -221,9 +222,9 @@ body {
 .topbar {
   display: grid;
   align-items: center;
-  gap: 16px;
-  padding: 10px 14px;
   min-width: 0;
+  padding: 6px 10px !important;
+  gap: 10px;
 }
 
 .topbar>* {
@@ -258,8 +259,8 @@ body {
 .brand-icon {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   border-radius: 10px;
   background: color-mix(in oklab, var(--primary) 20%, var(--bg));
   color: var(--primary);
@@ -398,14 +399,14 @@ body {
   background: color-mix(in oklab, var(--bg) 94%, transparent);
   -webkit-backdrop-filter: saturate(120%);
   backdrop-filter: saturate(120%);
-  height: 36px;
-  padding: 3px 6px;
+  height: 34px;
+  padding: 2px 4px;
 }
 
 /* ---- Capsule button ---- */
 .capsule-btn {
-  --pad-y: 6px;
-  --pad-x: 10px;
+  --pad-y: 4px;
+  --pad-x: 8px;
   appearance: none;
   display: inline-flex;
   align-items: center;
@@ -700,7 +701,7 @@ body {
 ============================ */
 .icon-btn,
 .only-sm {
-  --btn-size: 40px;
+  --btn-size: 34px;
   display: inline-grid;
   place-items: center;
   width: var(--btn-size);
@@ -829,7 +830,7 @@ body {
 
   padding: var(--pill-pad-y) var(--pill-pad-x);
   border-radius: var(--pill-radius);
-  min-block-size: 40px;
+  min-block-size: 34px;
   /* حداقل هدف لمسی مناسب */
   user-select: none;
   -webkit-tap-highlight-color: transparent;

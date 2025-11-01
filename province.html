@@ -4,19 +4,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>استان</title>
 
-  <!-- Fonts -->
+  <!-- عنوان و توضیح پویا (JS مقداردهی کند) -->
+  <title id="metaTitle">استان | معرفی و اطلاعات</title>
+  <meta id="metaDescription" name="description"
+    content="معرفی استان: تاریخچه، جمعیت، مساحت، شهرستان‌ها، شهرها و دیدنی‌ها." />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+  <link id="canonicalLink" rel="canonical" href="https://your-domain.ir/province.html" />
+
+  <!-- Open Graph (پویا) -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="استان‌های ایران" />
+  <meta property="og:locale" content="fa_IR" />
+  <meta id="ogTitle" property="og:title" content="استان | معرفی و اطلاعات" />
+  <meta id="ogDescription" property="og:description" content="نمای کلی استان، تقسیمات و جاذبه‌ها." />
+  <meta id="ogUrl" property="og:url" content="https://your-domain.ir/province.html" />
+  <meta id="ogImage" property="og:image" content="https://your-domain.ir/assets/og-default.jpg" />
+  <meta id="ogImageAlt" property="og:image:alt" content="نمایی از استان" />
+
+  <!-- Twitter (پویا) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta id="twTitle" name="twitter:title" content="استان | معرفی و اطلاعات" />
+  <meta id="twDesc" name="twitter:description" content="نمای کلی استان، تقسیمات و جاذبه‌ها." />
+  <meta id="twImage" name="twitter:image" content="https://your-domain.ir/assets/og-default.jpg" />
+
+  <!-- Structured Data (پویا) -->
+  <script id="provinceLd" type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Place",
+    "name": "استان",
+    "image": "https://your-domain.ir/assets/og-default.jpg",
+    "address": { "@type": "PostalAddress", "addressCountry": "IR" },
+    "url": "https://your-domain.ir/province.html",
+    "inLanguage": "fa"
+  }
+  </script>
+
+  <!-- PWA / Theme -->
+  <meta name="theme-color" content="#0ea5e9" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/icons/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/responsive.css" />
-
-  <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 </head>
+
 
 <body class="theme-auto">
   <!-- Header -->

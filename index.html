@@ -4,25 +4,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title data-i18n="header.title">استان‌های ایران</title>
 
-  <!-- Fonts -->
+  <title>استان‌های ایران | جستجو و نقشه تعاملی</title>
+  <meta name="description"
+    content="معرفی جامع استان‌های ایران با جستجوی سریع، نقشه تعاملی، حالت تیره/روشن و پشتیبانی چندزبانه." />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+  <link rel="canonical" href="https://your-domain.ir/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="استان‌های ایران" />
+  <meta property="og:locale" content="fa_IR" />
+  <meta property="og:title" content="استان‌های ایران | جستجو و نقشه تعاملی" />
+  <meta property="og:description" content="فهرست کامل استان‌ها، جستجو و نقشه تعاملی برای مرور سریع اطلاعات هر استان." />
+  <meta property="og:url" content="https://your-domain.ir/" />
+  <meta property="og:image" content="https://your-domain.ir/assets/og-default.jpg" />
+  <meta property="og:image:alt" content="نقشه ایران - استان‌ها" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="استان‌های ایران | جستجو و نقشه تعاملی" />
+  <meta name="twitter:description" content="مرجع سبک و سریع برای مرور استان‌های ایران." />
+  <meta name="twitter:image" content="https://your-domain.ir/assets/og-default.jpg" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "استان‌های ایران",
+    "url": "https://your-domain.ir/",
+    "inLanguage": "fa",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://your-domain.ir/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- PWA / Theme -->
+  <meta name="theme-color" content="#0ea5e9" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/icons/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Base styles (yours) -->
+  <!-- Styles -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/responsive.css" />
-
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-
-  <!-- Leaflet -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-
-  <!-- Map styles -->
   <link rel="stylesheet" href="css/map.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
 </head>
 
 <body class="theme-auto">
