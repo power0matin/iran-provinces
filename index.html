@@ -201,6 +201,70 @@
   <script src="js/nav.js" defer></script>
   <script src="js/search-global.js" defer></script>
   <script src="js/theme-sync.js" defer></script>
+  <script>
+    (function () {
+      const mq = window.matchMedia('(max-width: 700px)');
+      const form = document.getElementById('siteSearch');
+      const input = document.getElementById('searchInput');
+      const clearBtn = document.getElementById('searchClear');
+      const icon = form?.querySelector('.fa-magnifying-glass');
+
+      if (!form || !icon || !input) return;
+
+      function openSearch() {
+        form.classList.add('searchbox--open');
+        form.setAttribute('aria-expanded', 'true');
+        // defer focus so CSS can apply first
+        setTimeout(() => input.focus(), 0);
+      }
+      function closeSearch() {
+        if (!mq.matches) return;               // desktop unaffected
+        if (input.value.trim()) return;        // don't close if has text
+        form.classList.remove('searchbox--open');
+        form.setAttribute('aria-expanded', 'false');
+      }
+
+      // Tap on icon opens (only on mobile)
+      icon.addEventListener('click', (e) => {
+        if (mq.matches && !form.classList.contains('searchbox--open')) {
+          e.preventDefault();
+          openSearch();
+        }
+      });
+
+      // ESC closes when empty
+      form.addEventListener('keydown', (e) => {
+        if (mq.matches && e.key === 'Escape') {
+          input.value = '';
+          closeSearch();
+        }
+      });
+
+      // Clear button
+      clearBtn?.addEventListener('click', () => {
+        input.value = '';
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        closeSearch();
+      });
+
+      // Click outside closes (وقتی خالی است)
+      document.addEventListener('click', (e) => {
+        if (!mq.matches) return;
+        if (!form.classList.contains('searchbox--open')) return;
+        if (!form.contains(e.target)) closeSearch();
+      });
+
+      // Blur closes اگر خالی باشد
+      input.addEventListener('blur', closeSearch);
+
+      // Ensure proper state on resize
+      mq.addEventListener?.('change', () => {
+        form.classList.remove('searchbox--open');
+        form.removeAttribute('aria-expanded');
+      });
+    })();
+  </script>
+
 </body>
 
 </html>

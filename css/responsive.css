@@ -421,3 +421,60 @@ html[lang="en"] .province-list {
 
   /* فقط آیکن برند بماند */
 }
+/* === Mobile: collapse search to icon, expand on tap === */
+@media (max-width: 700px) {
+  /* حالت بسته (پیش‌فرض در موبایل) */
+  .searchbox {
+    order: 2 !important;
+    flex: 0 0 auto !important;
+    max-width: none !important;
+    margin-top: 6px !important;
+    block-size: 36px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    gap: 0;
+  }
+  .searchbox input,
+  .searchbox .sb-clear,
+  .searchbox .kbd {
+    display: none !important;
+  }
+  .searchbox i.fa-magnifying-glass {
+    display: grid;
+    place-items: center;
+    inline-size: 36px;
+    block-size: 36px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: color-mix(in oklab, var(--bg-soft) 92%, transparent);
+    opacity: 1;
+  }
+
+  /* حالت باز (پس از کلیک روی آیکون) */
+  .searchbox.searchbox--open {
+    flex: 0 0 100% !important;
+    block-size: 38px;
+    padding-inline: 10px;
+    gap: var(--sb-gap);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: color-mix(in oklab, var(--bg-soft) 94%, transparent);
+  }
+  .searchbox.searchbox--open i.fa-magnifying-glass {
+    inline-size: 18px;
+    block-size: 18px;
+    border: 0;
+    background: transparent;
+  }
+  .searchbox.searchbox--open input {
+    display: block !important;
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 15px;
+  }
+  .searchbox.searchbox--open .sb-clear {
+    display: grid !important;
+  }
+}
