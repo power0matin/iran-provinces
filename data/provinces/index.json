@@ -70,7 +70,7 @@
       ]
     },
     {
-      "id": "azarbaijan-east",
+      "id": "east-azerbaijan",
       "nameFa": "آذربایجان شرقی",
       "nameEn": "East Azerbaijan",
       "capital": "تبریز",
@@ -108,7 +108,7 @@
       ]
     },
     {
-      "id": "azarbaijan-west",
+      "id": "west-azarbaijan",
       "nameFa": "آذربایجان غربی",
       "nameEn": "West Azerbaijan",
       "capital": "ارومیه",
@@ -169,7 +169,7 @@
       ]
     },
     {
-      "id": "chaharmahal-bakhtiari",
+      "id": "chaharmahal-and-bakhtiari",
       "nameFa": "چهارمحال و بختیاری",
       "nameEn": "Chaharmahal and Bakhtiari",
       "capital": "شهرکرد",
@@ -488,9 +488,9 @@
       ]
     },
     {
-      "id": "kohgiluyeh-boyerahmad",
+      "id": "Kohgiluyeh-and-Boyer-Ahmad",
       "nameFa": "کهگیلویه و بویراحمد",
-      "nameEn": "Kohgiluyeh and Boyer-Ahmad",
+      "nameEn": "Kohgiluyeh and Boyer Ahmad",
       "capital": "یاسوج",
       "capitalEn": "Yasuj",
       "population": 723000,
@@ -507,7 +507,7 @@
       "attractions": ["آبشار یاسوج", "کوه دنا", "دریاچه کوه‌گل"]
     },
     {
-      "id": "kordestan",
+      "id": "kurdistan",
       "nameFa": "کردستان",
       "nameEn": "Kurdistan",
       "capital": "سنندج",

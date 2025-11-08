@@ -17,15 +17,15 @@ html {
 /* ==================== TOKENS / THEME ==================== */
 :root {
   /* dark (default) */
-  --bg: #0b0f16;
-  --bg-soft: #0f1520;
-  --card: #0e1420;
+  --bg: #070a12;
+  --bg-soft: #0c1220;
+  --card: #141b2a;
   --text: #e6e9ef;
   --muted: #93a1bb;
   --primary: #7c5cff;
   --primary-700: #6b4cff;
-  --border: #1b2231;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --border: #24314a;
+  --shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
   --font: "Vazirmatn", system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
@@ -39,18 +39,28 @@ html {
 }
 
 [data-theme="light"] {
-  --bg: #f7f8fb;
-  --bg-soft: #ffffff;
+  --bg: #f3eef8;
+  --bg-soft: #fcf9ff;
   --card: #ffffff;
   --text: #1b2130;
   --muted: #5f6b85;
   --primary: #6f48ff;
   --primary-700: #5c38ff;
-  --border: #e6e8ef;
-  --shadow: 0 10px 30px rgba(22, 30, 50, 0.08);
+  --border: #dfd7ea;
+  --shadow: 0 12px 28px rgba(22, 30, 50, 0.10);
 }
 
-
+[data-theme="dark"] {
+  --bg: #060913;
+  --bg-soft: #0b1222;
+  --card: #16233a;
+  --text: #eef2f8;
+  --muted: #9fb0cc;
+  --primary: #8a6bff;
+  --primary-700: #7256ff;
+  --border: #2c3a55;
+  --shadow: 0 14px 36px rgba(0, 0, 0, .55);
+}
 
 html {
   font-family: var(--font);
@@ -60,16 +70,14 @@ html {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: var(--bg-soft);
+  background: color-mix(in oklab, var(--bg) 92%, transparent);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(8px);
   padding-block: 4px;
   padding: 2px 0 !important;
-  /* 8→4 برای کاهش ارتفاع کلی */
 }
 
 .province-list {
-  /* قبلاً: grid-template-columns: 1fr 1fr; */
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
@@ -193,7 +201,6 @@ body {
   width: min(1280px, 100% - 32px);
   margin-inline: auto;
   padding-block: clamp(12px, 2.4vw, 24px);
-  /* یکنواخت در همهٔ عرض‌ها */
 }
 
 .kbd {
@@ -1084,6 +1091,11 @@ body.nav-lock {
   border-bottom: 1px solid var(--border);
 }
 
+.card-header,
+.card-footer {
+  border-color: var(--border);
+}
+
 .card-title {
   display: flex;
   align-items: center;
@@ -1112,6 +1124,19 @@ body.nav-lock {
   min-height: 220px;
 }
 
+/* Elevation + contrast on key components */
+.card,
+.tiles li,
+.icon-btn,
+.only-sm,
+.badge,
+.chip,
+.province-list a {
+  background: var(--card);
+  border-color: var(--border);
+  box-shadow: var(--shadow);
+}
+
 .province-list a {
   display: block;
   text-align: center;
@@ -1120,13 +1145,12 @@ body.nav-lock {
   border-radius: 12px;
   color: var(--text);
   text-decoration: none;
-  background: linear-gradient(180deg,
-      rgba(255, 255, 255, 0.02),
-      rgba(255, 255, 255, 0.01));
-  transition: border-color 0.2s, box-shadow 0.2s;
+  background: color-mix(in oklab, var(--card) 92%, transparent);
+  transition: transform .12s ease, border-color .15s ease, box-shadow .15s ease, background .15s ease;
 }
 
 .province-list a:hover {
+  transform: translateY(-2px);
   border-color: var(--primary);
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 30%, transparent);
 }
@@ -1209,7 +1233,7 @@ body.nav-lock {
 }
 
 .tiles li {
-  background: var(--bg-soft);
+  background: color-mix(in oklab, var(--card) 96%, transparent);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 10px 12px;
@@ -1360,6 +1384,12 @@ body.nav-lock {
     min-height: var(--topbar-h-desktop);
     gap: 18px;
   }
+}
+
+.searchbox,
+.capsule {
+  background: var(--bg-soft);
+  border-color: var(--border);
 }
 
 .capsule {

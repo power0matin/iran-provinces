@@ -274,6 +274,10 @@ select.input.invalid {
 }
 
 /* ==================== Sidebar ==================== */
+.contact-aside .aside-card+.aside-card {
+  margin-top: 12px;
+}
+
 .contact-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -298,6 +302,10 @@ select.input.invalid {
   align-items: center;
   gap: 8px;
   margin: 0 0 8px;
+}
+
+.aside-card .faq+.faq {
+  margin-top: 10px;
 }
 
 .link-list {
@@ -328,9 +336,7 @@ select.input.invalid {
   background: var(--bg-soft);
 }
 
-.faq+.faq {
-  margin-top: 8px;
-}
+
 
 .faq summary {
   cursor: pointer;

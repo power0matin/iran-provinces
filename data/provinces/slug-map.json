@@ -1,37 +1,37 @@
 [
   {
     "matchEn": "Alborz",
-    "id": "alborz",
+    "id": "Alborz",
     "nameFa": "البرز",
     "nameEn": "Alborz"
   },
   {
     "matchEn": "Ardabil",
-    "id": "ardabil",
+    "id": "Ardabil",
     "nameFa": "اردبیل",
     "nameEn": "Ardabil"
   },
   {
     "matchEn": "East Azerbaijan",
-    "id": "azarbaijan-east",
+    "id": "East-Azerbaijan",
     "nameFa": "آذربایجان شرقی",
     "nameEn": "East Azerbaijan"
   },
   {
     "matchEn": "West Azerbaijan",
-    "id": "azarbaijan-west",
+    "id": "West-Azerbaijan",
     "nameFa": "آذربایجان غربی",
     "nameEn": "West Azerbaijan"
   },
   {
     "matchEn": "Bushehr",
-    "id": "bushehr",
+    "id": "Bushehr",
     "nameFa": "بوشهر",
     "nameEn": "Bushehr"
   },
   {
     "matchEn": "Chaharmahal and Bakhtiari",
-    "id": "chaharmahal-bakhtiari",
+    "id": "Chaharmahal-and-Bakhtiari",
     "nameFa": "چهارمحال و بختیاری",
     "nameEn": "Chaharmahal and Bakhtiari"
   },
@@ -81,16 +81,16 @@
     "nameEn": "Khuzestan"
   },
   {
-    "matchEn": "Kohgiluyeh and Boyer-Ahmad",
-    "id": "kohgiluyeh-boyerahmad",
+    "matchEn": "Kohgiluyeh and Boyer Ahmad",
+    "id": "Kohgiluyeh-and-Buyer-Ahmad",
     "nameFa": "کهگیلویه و بویراحمد",
-    "nameEn": "Kohgiluyeh and Boyer-Ahmad"
+    "nameEn": "Kohgiluyeh and Boyer Ahmad"
   },
   {
-    "matchEn": "Kurdistan",
-    "id": "kurdistan",
+    "matchEn": "Kordestan",
+    "id": "Kordestan",
     "nameFa": "کردستان",
-    "nameEn": "Kurdistan"
+    "nameEn": "Kordestan"
   },
   {
     "matchEn": "Lorestan",

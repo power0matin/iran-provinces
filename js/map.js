@@ -96,11 +96,9 @@
     return s.replace(/\s{2,}/g, " ").trim();
   }
   function nameFor(props = {}) {
-    // پوشش همه‌ی کلیدهای رایج فارسی
     const fa = props.nameFa || props.name_fa || props.NAME_FA || props.Prov_FA;
     if (fa) return String(fa).trim();
 
-    // پوشش کامل انگلیسی
     return _neatEN(
       props.nameEn ||
         props.name_en ||
@@ -111,7 +109,7 @@
     );
   }
 
-  // --- رزولور شناسه بر اساس GeoJSON + نگاشت‌های شما ---
+  // ---  GeoJSON  ---
   const ID = {
     ready: false,
     map: new Map(), // normalizedName -> id
@@ -131,7 +129,6 @@
   function normalizeFaRaw(s = "") {
     return String(s).replace(/\s+/g, " ").trim();
   }
-  // حذف «استان» (با/بی نیم‌فاصله)، یکسان‌سازی ی/ي و ک/ك، و فشرده‌سازی فاصله‌ها
   function normalizeFaStrong(s = "") {
     return String(s)
       .replace(/\u200c/g, " ") // ZWNJ -> space
@@ -145,10 +142,14 @@
   async function buildIdResolver() {
     if (ID.ready) return;
     try {
-      const slugRes = await fetch("data/slug-map.json", { cache: "no-store" });
+      const slugRes = await fetch("data/provinces/slug-map.json", {
+        cache: "no-store",
+      });
       const slugList = await slugRes.json();
 
-      const idxRes = await fetch("data/index.json", { cache: "no-store" });
+      const idxRes = await fetch("data/provinces/index.json", {
+        cache: "no-store",
+      });
       const idx = await idxRes.json();
 
       const addKeys = (fa, en, id) => {
@@ -156,14 +157,9 @@
 
         if (fa) {
           const faRaw = normalizeFaRaw(fa);
-          const faNorm = normalizeFaStrong(fa); // بدون «استان»
-
-          // نسخه‌های خام و نرمال‌شده
+          const faNorm = normalizeFaStrong(fa);
           ID.map.set(faRaw, id);
           ID.map.set(faNorm, id);
-
-          // اگر در دادهٔ فارسی «استان …» بود، نسخهٔ بدون آن هم اضافه شود؛
-          // اگر نبود، نسخهٔ با «استان …» هم اضافه شود تا هر دو حالت resolve شوند.
           const withOstan = "استان " + faNorm;
           ID.map.set(withOstan, id);
         }
@@ -174,7 +170,6 @@
       );
       (idx.provinces || []).forEach((p) => addKeys(p.nameFa, p.nameEn, p.id));
 
-      // ناسازگاری‌های رایج انگلیسی
       ID.map.set("east azerbaijan", "azarbaijan-east");
       ID.map.set("west azerbaijan", "azarbaijan-west");
       ID.map.set("razavi khorasan", "khorasan-razavi");
@@ -210,7 +205,7 @@
     const fa = props.nameFa || props.name_fa || props.NAME_FA || props.Prov_FA;
     if (fa) {
       const faRaw = normalizeFaRaw(fa);
-      const faNorm = normalizeFaStrong(fa); // بدون «استان»
+      const faNorm = normalizeFaStrong(fa);
       const faWith = "استان " + faNorm;
 
       if (ID.map.has(faRaw)) return ID.map.get(faRaw);
@@ -259,7 +254,7 @@
         area: Math.abs(A),
       };
     }
-    // --- helpers: نرمال‌سازی نام‌ها ---
+    // --- helpers---
     function normEn(s = "") {
       return String(s)
         .toLowerCase()
@@ -292,8 +287,14 @@
       }
 
       const slugMap =
-        (await loadJsonTry(["slug-map.json", "data/slug-map.json"])) || [];
-      const index = (await loadJsonTry(["index.json", "data/index.json"])) || {
+        (await loadJsonTry([
+          "slug-map.json",
+          "data/provinces/slug-map.json",
+        ])) || [];
+      const index = (await loadJsonTry([
+        "index.json",
+        "data/provinces/index.json",
+      ])) || {
         provinces: [],
       };
 
@@ -432,10 +433,7 @@
     }
   }
 
-  window.addEventListener("langchange", () => {
-    // تولتیپ سفارشی جهت (dir) را از document می‌گیرد؛
-    // نیازی به بازسازی لایه یا تغییر محتوای تولتیپ نیست.
-  });
+  window.addEventListener("langchange", () => {});
 
   loadGeo();
 })();
