@@ -18,15 +18,12 @@ html {
 :root {
   color-scheme: light dark;
 
-  /* Brand axis (یک منبع برای مشتق‌ها) */
+  /* Brand axis */
   --brand-h: 300;
-  /* Hue: بنفش مایل به آبی */
   --brand-c: 0.20;
-  /* Chroma: شدت رنگ */
   --brand-l: 0.62;
-  /* Lightness برای حالت پیش‌فرض */
 
-  /* Grays (خنثی‌های یکنواخت برای متن/پس‌زمینه) */
+  /* Grays */
   --gray-1: oklch(0.99 0.01 250);
   --gray-2: oklch(0.97 0.01 250);
   --gray-3: oklch(0.93 0.01 250);
@@ -37,17 +34,17 @@ html {
   --gray-8: oklch(0.28 0.01 250);
   --gray-9: oklch(0.20 0.01 250);
 
-  /* Semantic (از برند مشتق می‌شوند) */
+  /* Semantic */
   --primary: oklch(var(--brand-l) var(--brand-c) var(--brand-h));
   --primary-700: oklch(calc(var(--brand-l) - 0.07) var(--brand-c) var(--brand-h));
   --primary-200: oklch(calc(var(--brand-l) + 0.14) calc(var(--brand-c) - 0.05) var(--brand-h));
 
-  /* وضعیت‌ها: سبز/زرد/قرمز با L/C امن برای WCAG */
+  /* WCAG */
   --success: oklch(0.70 0.14 150);
   --warning: oklch(0.85 0.12 95);
   --danger: oklch(0.65 0.16 28);
 
-  /* Surfaces + text (Dark = پیش‌فرض) */
+  /* Surfaces + text */
   --bg: oklch(0.15 0.02 250);
   --bg-soft: oklch(0.18 0.02 250);
   --card: oklch(0.22 0.02 250);
@@ -55,7 +52,7 @@ html {
   --text: oklch(0.97 0.01 250);
   --muted: oklch(0.80 0.02 250);
 
-  /* Focus/Ring (با mix قابل‌تعدیل) */
+  /* Focus/Ring */
   --ring: color-mix(in oklab, var(--primary) 24%, transparent);
   --shadow: 0 14px 36px rgba(0, 0, 0, .55);
 
@@ -148,7 +145,6 @@ textarea {
   opacity: 0.8;
 }
 
-/* برای اطمینان از خوانایی در همه اعداد */
 body,
 input,
 button,
@@ -158,7 +154,6 @@ textarea {
   font-feature-settings: "kern", "liga";
 }
 
-/* تب‌ها/چیپس/بدج‌ها حتماً از فونت ارث ببرند */
 .tab,
 .badge,
 .nav-link,
@@ -174,13 +169,11 @@ textarea {
   font-family: inherit;
 }
 
-/* جهت متن placeholder انگلیسی در حالت RTL */
 html[dir="rtl"] input::placeholder,
 html[dir="rtl"] textarea::placeholder {
   direction: rtl;
 }
 
-/* فرم‌ها – یکدست و خوانا */
 input[type="text"],
 input[type="email"],
 input[type="search"],
@@ -204,7 +197,7 @@ textarea:focus {
   outline: none;
 }
 
-/* Select – فلش شخصی */
+/* Select */
 select {
   background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
     linear-gradient(135deg, var(--muted) 50%, transparent 50%);
@@ -374,7 +367,6 @@ body {
   display: none;
 }
 
-/* اختیاری: حالت فوکوس داخل input بدون رینگ داخلی */
 .searchbox input:focus {
   box-shadow: none;
 }
@@ -416,8 +408,6 @@ body {
   .searchbox {
     max-width: none;
   }
-
-  /* موبایل: تمام عرض */
 }
 
 /* ============================
@@ -465,7 +455,6 @@ body {
   border: 1px solid transparent;
   color: var(--text);
   min-height: calc(var(--cap-h) - 8px);
-  /* هدف لمسی مناسب */
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -494,13 +483,11 @@ body {
   cursor: not-allowed;
 }
 
-/* آیکن‌ها کمی ریزتر تا تیترها توی چشم باشند */
 .capsule-btn i {
   font-size: .95em;
   opacity: .9;
 }
 
-/* ریسپانسیو متن‌های کم‌اهمیت */
 .hide-sm {
   display: inline;
 }
@@ -514,7 +501,7 @@ body {
 }
 
 /* ---- Theme Switch (scoped) ----
-   ساختار HTML:
+    HTML Structure :
    <label class="switch">
      <input type="checkbox" aria-label="Toggle theme">
      <span class="slider">
@@ -529,7 +516,7 @@ body {
   --knob: 24px;
   --gap: 3px;
   --shift: calc(var(--w) - var(--knob) - var(--gap) * 2);
-  /* wave origin (٪) — توسط JS روی :root یا خود .switch ست می‌کنی */
+  /* wave origin */
   --x: 50%;
 
   position: relative;
@@ -540,7 +527,6 @@ body {
   isolation: isolate;
 }
 
-/* خود ورودی */
 .switch input {
   position: absolute;
   inset: 0;
@@ -551,7 +537,7 @@ body {
   cursor: pointer;
 }
 
-/* ریل (slider) */
+/* (slider) */
 .switch .slider {
   position: relative;
   display: block;
@@ -566,7 +552,6 @@ body {
   transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
 
-/* هاله/ناب (knob) — روی ::before */
 .switch .slider::before {
   content: "";
   position: absolute;
@@ -584,10 +569,8 @@ body {
   transition: transform .26s cubic-bezier(.25, .85, .25, 1),
     background .2s, border-color .2s, box-shadow .26s;
   z-index: 2;
-  /* بالاتر از موج */
 }
 
-/* آیکن‌ها */
 .switch .sun,
 .switch .moon {
   position: absolute;
@@ -599,7 +582,6 @@ body {
   pointer-events: none;
   transition: transform .25s ease, opacity .25s ease, color .25s ease;
   z-index: 3;
-  /* بالاتر از هاله */
 }
 
 .switch .sun {
@@ -610,12 +592,10 @@ body {
   right: 9px;
 }
 
-/* فوکوس کیبورد */
 .switch input:focus-visible+.slider {
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 25%, transparent);
 }
 
-/* موج (ripple/glow) — روی ::after */
 .switch .slider::after {
   content: "";
   position: absolute;
@@ -629,7 +609,6 @@ body {
   opacity: 0;
   transition: opacity .32s ease;
   z-index: 1;
-  /* زیر ناب/آیکن‌ها */
 }
 
 @supports (color: color-mix(in oklab, white, black)) {
@@ -641,7 +620,6 @@ body {
   }
 }
 
-/* وضعیت‌ها */
 .switch input:not(:checked)+.slider .sun {
   opacity: 1;
   color: var(--text);
@@ -661,7 +639,6 @@ body {
     0 0 0 6px color-mix(in oklab, var(--primary) 16%, transparent);
 }
 
-/* Wave trigger: وقتی کلاس .wave روی .slider اضافه می‌شود */
 .switch .slider.wave::after {
   opacity: 1;
 }
@@ -681,24 +658,6 @@ body {
 
   100% {
     box-shadow: inset 0 0 0 0 rgba(124, 92, 255, 0);
-  }
-}
-
-/* Reduced motion احترام */
-@media (prefers-reduced-motion: reduce) {
-
-  .capsule-btn,
-  .switch .slider,
-  .switch .slider::before,
-  .switch .slider::after,
-  .switch .sun,
-  .switch .moon {
-    transition: none !important;
-    animation: none !important;
-  }
-
-  .switch .slider::after {
-    display: none;
   }
 }
 
@@ -730,7 +689,6 @@ body {
   }
 }
 
-/* دسترسی کمکی */
 .sr-only {
   position: absolute !important;
   width: 1px;
@@ -779,7 +737,6 @@ body {
   transform: translateY(1px) scale(.99);
 }
 
-/* دسترس‌پذیری با کیبورد */
 .icon-btn:focus-visible,
 .only-sm:focus-visible {
   outline: none;
@@ -787,14 +744,12 @@ body {
   border-color: color-mix(in oklab, var(--primary) 55%, var(--border));
 }
 
-/* آیکن‌ها کمی نرم‌تر */
 .icon-btn i,
 .only-sm i {
   font-size: 1rem;
   opacity: .9;
 }
 
-/* فقط موبایل/کوچک */
 .only-sm {
   display: none;
 }
@@ -804,20 +759,6 @@ body {
   /* 900px */
   .only-sm {
     display: inline-grid;
-  }
-}
-
-/* احترام به کاهش حرکت */
-@media (prefers-reduced-motion: reduce) {
-
-  .icon-btn,
-  .only-sm {
-    transition: none;
-  }
-
-  .icon-btn:active,
-  .only-sm:active {
-    transform: none;
   }
 }
 
