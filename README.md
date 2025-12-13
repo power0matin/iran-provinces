@@ -242,6 +242,15 @@ jobs:
 Released under the **MIT License**.
 See [LICENSE](LICENSE) for details.
 
+## 📬 Contact
+
+**Matin Shahabadi (متین شاه‌آبادی / متین شاه آبادی)**
+
+* Website: [matinshahabadi.ir](https://matinshahabadi.ir)
+* Email: [me@matinshahabadi.ir](mailto:me@matinshahabadi.ir)
+* GitHub: [power0matin](https://github.com/power0matin)
+* LinkedIn: [matin-shahabadi](https://www.linkedin.com/in/matin-shahabadi)
+
 ## 🙌 Credits
 
 Designed & developed by **[@power0matin](https://github.com/power0matin)**.
