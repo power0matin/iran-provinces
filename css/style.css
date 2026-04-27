@@ -1,6 +1,7 @@
 /* ==========================================================================
    style.css
-   Base, theme, header, nav, layout, split-screen map/provinces, cards, global UX
+   AAA UI/UX CSS
+   Base, theme, header, nav, split home layout, cards, province page, map, UX
    Supports: index.html, contact.html, about.html, province.html
    ========================================================================== */
 
@@ -9,15 +10,10 @@
 :root {
   color-scheme: light dark;
 
-  /* Brand axis (یک منبع برای مشتق‌ها) */
   --brand-h: 300;
-  /* Hue: بنفش مایل به آبی */
-  --brand-c: 0.20;
-  /* Chroma: شدت رنگ */
+  --brand-c: 0.2;
   --brand-l: 0.62;
-  /* Lightness برای حالت پیش‌فرض */
 
-  /* Grays (خنثی‌های یکنواخت برای متن/پس‌زمینه) */
   --gray-1: oklch(0.99 0.01 250);
   --gray-2: oklch(0.97 0.01 250);
   --gray-3: oklch(0.93 0.01 250);
@@ -26,30 +22,24 @@
   --gray-6: oklch(0.58 0.01 250);
   --gray-7: oklch(0.42 0.01 250);
   --gray-8: oklch(0.28 0.01 250);
-  --gray-9: oklch(0.20 0.01 250);
+  --gray-9: oklch(0.2 0.01 250);
 
-  /* Semantic (از برند مشتق می‌شوند) */
   --primary: oklch(var(--brand-l) var(--brand-c) var(--brand-h));
   --primary-700: oklch(calc(var(--brand-l) - 0.07) var(--brand-c) var(--brand-h));
   --primary-200: oklch(calc(var(--brand-l) + 0.14) calc(var(--brand-c) - 0.05) var(--brand-h));
 
-  /* وضعیت‌ها: سبز/زرد/قرمز با L/C امن برای WCAG */
-  --success: oklch(0.70 0.14 150);
+  --success: oklch(0.7 0.14 150);
   --warning: oklch(0.85 0.12 95);
   --danger: oklch(0.65 0.16 28);
 
-  /* Surfaces + text (Dark = پیش‌فرض) */
-  --bg: oklch(0.15 0.02 250);
-  --bg-soft: oklch(0.18 0.02 250);
-  --card: oklch(0.22 0.02 250);
-  --border: oklch(0.34 0.02 250);
-  --text: oklch(0.97 0.01 250);
-  --muted: oklch(0.8 0.02 250);
+  --bg: oklch(0.13 0.024 280);
+  --bg-soft: oklch(0.17 0.024 280);
+  --card: oklch(0.215 0.025 280);
+  --border: oklch(0.36 0.025 280);
+  --text: oklch(0.985 0.008 280);
+  --muted: oklch(0.78 0.025 280);
 
-  /* Focus/Ring (با mix قابل‌تعدیل) */
-  --ring: color-mix(in oklab, var(--primary) 24%, transparent);
-  --shadow: 0 14px 36px rgb(0 0 0 / 0.55);
-  --shadow-soft: 0 10px 24px rgb(0 0 0 / 0.22);
+  --ring: color-mix(in oklab, var(--primary) 28%, transparent);
 
   --font: "Vazirmatn", "IRANSans", system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif;
@@ -88,20 +78,26 @@
   --text-strong: color-mix(in oklab, var(--text) 96%, white);
   --text-soft: color-mix(in oklab, var(--muted) 88%, var(--text));
 
+  --shadow: 0 20px 60px rgb(0 0 0 / 0.28);
+  --shadow-soft: 0 12px 32px rgb(0 0 0 / 0.16);
+  --shadow-card: 0 22px 60px rgb(0 0 0 / 0.38);
+  --shadow-card-hover: 0 28px 80px rgb(0 0 0 / 0.46);
+  --shadow-control: 0 8px 18px rgb(0 0 0 / 0.12);
+
   --glow-primary:
     0 0 0 1px color-mix(in oklab, var(--primary) 18%, transparent),
     0 18px 48px color-mix(in oklab, var(--primary) 15%, transparent);
 
-  --shadow-card: 0 18px 46px rgb(0 0 0 / 0.14);
-  --shadow-card-hover: 0 24px 70px rgb(0 0 0 / 0.18);
-  --shadow-control: 0 8px 18px rgb(0 0 0 / 0.1);
-
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-spring: cubic-bezier(0.2, 0.9, 0.22, 1);
 
-  --header-h: 126px;
-  --split-min-h: calc(100dvh - var(--header-h) - 44px);
-  --split-max-h: calc(100dvh - var(--header-h) - 28px);
+  --real-header-h: 132px;
+  --app-max: 1440px;
+  --app-pad-x: clamp(16px, 3.2vw, 36px);
+  --app-pad-y: clamp(14px, 2.2vh, 24px);
+  --app-gap: clamp(14px, 2vw, 24px);
+  --home-min-h: calc(100dvh - var(--real-header-h) - var(--app-pad-y) * 2);
+  --home-card-radius: 22px;
 }
 
 [data-theme="light"] {
@@ -121,6 +117,7 @@
   --shadow-soft: 0 12px 32px rgb(40 28 70 / 0.08);
   --shadow-card: 0 18px 46px rgb(38 28 66 / 0.1);
   --shadow-card-hover: 0 26px 76px rgb(38 28 66 / 0.16);
+  --shadow-control: 0 8px 18px rgb(38 28 66 / 0.08);
 }
 
 [data-theme="dark"] {
@@ -136,9 +133,6 @@
   --primary: oklch(0.67 0.2 var(--brand-h));
   --primary-700: oklch(0.58 0.2 var(--brand-h));
   --primary-200: oklch(0.78 0.1 var(--brand-h));
-
-  --shadow-card: 0 22px 60px rgb(0 0 0 / 0.38);
-  --shadow-card-hover: 0 28px 80px rgb(0 0 0 / 0.46);
 }
 
 /* ==================== Reset / Base ==================== */
@@ -239,15 +233,15 @@ textarea {
   letter-spacing: normal;
 }
 
-::placeholder {
-  font: inherit;
-  color: var(--muted);
-  opacity: 0.8;
-}
-
-/* برای اطمینان از خوانایی در همه اعداد */
 body,
 input,
+button,
+select,
+textarea {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "kern", "liga";
+}
+
 button,
 a,
 input,
@@ -256,14 +250,8 @@ textarea {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* تب‌ها/چیپس/بدج‌ها حتماً از فونت ارث ببرند */
-.tab,
-.badge,
-.nav-link,
-.capsule-btn,
-.switch,
-.kbd {
-  font-family: inherit;
+button {
+  cursor: pointer;
 }
 
 p {
@@ -279,13 +267,58 @@ h4 {
   letter-spacing: -0.015em;
 }
 
-/* جهت متن placeholder انگلیسی در حالت RTL */
+::placeholder {
+  color: var(--muted);
+  opacity: 0.8;
+}
+
 html[dir="rtl"] input::placeholder,
 html[dir="rtl"] textarea::placeholder {
   direction: rtl;
 }
 
-/* فرم‌ها – یکدست و خوانا */
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+::selection {
+  background: color-mix(in oklab, var(--primary) 32%, transparent);
+  color: var(--text);
+}
+
+/* ==================== Scrollbar ==================== */
+
+::-webkit-scrollbar {
+  inline-size: 11px;
+  block-size: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: color-mix(in oklab, var(--bg) 94%, black);
+}
+
+::-webkit-scrollbar-thumb {
+  min-block-size: 48px;
+  border: 3px solid color-mix(in oklab, var(--bg) 94%, black);
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg,
+      color-mix(in oklab, var(--primary) 72%, var(--border)),
+      color-mix(in oklab, var(--primary-700) 72%, var(--border)));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--primary) 72%, var(--border)) var(--bg);
+}
+
+/* ==================== Forms ==================== */
+
 input[type="text"],
 input[type="email"],
 input[type="search"],
@@ -326,7 +359,6 @@ textarea:focus {
   outline: none;
 }
 
-/* Select – فلش شخصی */
 select {
   background-image:
     linear-gradient(45deg, transparent 50%, var(--muted) 50%),
@@ -419,6 +451,7 @@ select {
 .site-header {
   position: sticky;
   inset-block-start: 0;
+  top: 0;
   z-index: var(--header-z);
   padding-block: 0;
   padding-inline: max(0px, env(safe-area-inset-left)) max(0px, env(safe-area-inset-right));
@@ -439,6 +472,7 @@ select {
   align-items: center;
   gap: clamp(10px, 2vw, 22px);
   min-width: 0;
+  min-height: 48px;
   padding: 0;
 }
 
@@ -569,11 +603,8 @@ select {
 .searchbox input::-webkit-search-results-button,
 .searchbox input::-webkit-search-results-decoration {
   display: none;
-}
-
-/* اختیاری: حالت فوکوس داخل input بدون رینگ داخلی */
-.searchbox input:focus {
-  box-shadow: none;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
 .searchbox i {
@@ -604,7 +635,8 @@ select {
   transition:
     opacity 0.12s ease,
     transform 0.12s ease,
-    background 0.12s ease;
+    background 0.12s ease,
+    color 0.12s ease;
 }
 
 .sb-clear:hover {
@@ -618,24 +650,7 @@ select {
   pointer-events: auto;
 }
 
-@media (max-width: 900px) {
-  .searchbox {
-    max-width: 560px;
-  }
-}
-
-@media (max-width: 600px) {
-  .searchbox {
-    max-width: none;
-  }
-
-  /* موبایل: تمام عرض */
-}
-
-/* ============================
-   Actions + Capsule + Switch
-   (clean, accessible, minimal)
-============================ */
+/* ==================== Actions / Capsule / Switch ==================== */
 
 .actions {
   display: flex;
@@ -676,17 +691,15 @@ select {
   border: 1px solid transparent;
   border-radius: 999px;
   background: transparent;
-  border: 1px solid transparent;
-  color: var(--text);
-  min-height: calc(var(--cap-h) - 8px);
-  /* هدف لمسی مناسب */
-  cursor: pointer;
+  color: var(--text-soft);
+  font-weight: 800;
   user-select: none;
   transition:
     background 0.18s ease,
     border-color 0.18s ease,
     box-shadow 0.18s ease,
-    transform 0.06s ease;
+    transform 0.06s ease,
+    color 0.18s ease;
 }
 
 .capsule-btn:hover {
@@ -718,31 +731,14 @@ select {
   display: inline;
 }
 
-@media (max-width: 56.25rem) {
+/* ==================== Theme Switch ==================== */
 
-  /* 900px */
-  .hide-sm {
-    display: none;
-  }
-}
-
-/* ---- Theme Switch (scoped) ----
-   ساختار HTML:
-   <label class="switch">
-     <input type="checkbox" aria-label="Toggle theme">
-     <span class="slider">
-       <span class="sun">☀</span>
-       <span class="moon">🌙</span>
-     </span>
-   </label>
-*/
 .switch {
   --w: 58px;
   --h: 32px;
   --knob: 26px;
   --gap: 3px;
   --shift: calc(var(--w) - var(--knob) - var(--gap) * 2);
-  /* wave origin (٪) — توسط JS روی :root یا خود .switch ست می‌کنی */
   --x: 50%;
 
   position: relative;
@@ -763,7 +759,6 @@ select {
   cursor: pointer;
 }
 
-/* ریل (slider) */
 .switch .slider {
   position: relative;
   display: block;
@@ -799,13 +794,30 @@ select {
   box-shadow:
     0 4px 12px rgb(0 0 0 / 0.25),
     0 0 0 6px color-mix(in oklab, var(--primary) 10%, transparent);
-  transition: transform .26s cubic-bezier(.25, .85, .25, 1),
-    background .2s, border-color .2s, box-shadow .26s;
-  z-index: 2;
-  /* بالاتر از موج */
+  transform: translate(0, -50%);
+  transition:
+    transform 0.26s cubic-bezier(0.25, 0.85, 0.25, 1),
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.26s ease;
 }
 
-/* آیکن‌ها */
+.switch .slider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at var(--x) 50%,
+      color-mix(in oklab, var(--primary) 30%, transparent) 0%,
+      color-mix(in oklab, var(--primary) 18%, transparent) 22%,
+      transparent 48%);
+  opacity: 0;
+  transition: opacity 0.32s ease;
+}
+
 .switch .sun,
 .switch .moon {
   position: absolute;
@@ -815,9 +827,11 @@ select {
   font-size: 12px;
   opacity: 0.55;
   pointer-events: none;
-  transition: transform .25s ease, opacity .25s ease, color .25s ease;
-  z-index: 3;
-  /* بالاتر از هاله */
+  transform: translateY(-50%) scale(0.92);
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease,
+    color 0.25s ease;
 }
 
 .switch .sun {
@@ -829,42 +843,10 @@ select {
 }
 
 .switch input:focus-visible+.slider {
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 25%, transparent);
+  box-shadow: 0 0 0 3px var(--ring);
 }
 
-/* موج (ripple/glow) — روی ::after */
-.switch .slider::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: radial-gradient(circle at var(--x) 50%,
-      rgba(124, 92, 255, .25) 0%,
-      rgba(124, 92, 255, .18) 22%,
-      transparent 48%);
-  opacity: 0;
-  transition: opacity .32s ease;
-  z-index: 1;
-  /* زیر ناب/آیکن‌ها */
-}
-
-@supports (color: color-mix(in oklab, white, black)) {
-  .switch .slider::after {
-    background: radial-gradient(circle at var(--x) 50%,
-        color-mix(in oklab, var(--primary) 30%, transparent) 0%,
-        color-mix(in oklab, var(--primary) 18%, transparent) 22%,
-        transparent 48%);
-  }
-}
-
-/* وضعیت‌ها */
-.switch input:not(:checked)+.slider .sun {
-  opacity: 1;
-  color: var(--text);
-  transform: translateY(-50%) scale(1);
-}
-
+.switch input:not(:checked)+.slider .sun,
 .switch input:checked+.slider .moon {
   color: var(--text);
   opacity: 1;
@@ -878,8 +860,8 @@ select {
     0 0 0 6px color-mix(in oklab, var(--primary) 16%, transparent);
 }
 
-/* Wave trigger: وقتی کلاس .wave روی .slider اضافه می‌شود */
-.switch .slider.wave::after {
+.switch .slider.wave::after,
+.switch.input-wave .slider::after {
   opacity: 1;
 }
 
@@ -898,69 +880,9 @@ select {
   }
 
   100% {
-    box-shadow: inset 0 0 0 0 rgba(124, 92, 255, 0);
+    box-shadow: inset 0 0 0 0 rgb(124 92 255 / 0);
   }
 }
-
-/* Reduced motion احترام */
-@media (prefers-reduced-motion: reduce) {
-
-  .capsule-btn,
-  .switch .slider,
-  .switch .slider::before,
-  .switch .slider::after,
-  .switch .sun,
-  .switch .moon {
-    transition: none !important;
-    animation: none !important;
-  }
-
-  .switch .slider::after {
-    display: none;
-  }
-}
-
-/* High-contrast/forced colors (Windows) */
-@media (forced-colors: active) {
-  .capsule {
-    border-color: CanvasText;
-  }
-
-  .capsule-btn:focus-visible {
-    box-shadow: 0 0 0 2px Highlight;
-  }
-
-  .switch .slider {
-    border-color: CanvasText;
-    background: Canvas;
-  }
-
-  .switch .slider::before {
-    background: CanvasText;
-    border-color: Canvas;
-    box-shadow: 0 0 0 4px Canvas;
-  }
-
-  .switch .sun,
-  .switch .moon {
-    color: CanvasText;
-    opacity: 1;
-  }
-}
-
-/* دسترسی کمکی */
-.sr-only {
-  position: absolute !important;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 
 /* ==================== Icon Buttons ==================== */
 
@@ -1017,76 +939,52 @@ select {
   display: none;
 }
 
-@media (max-width: 56.25rem) {
+/* ==================== Navigation ==================== */
 
-  /* 900px */
-  .only-sm {
-    display: inline-grid;
-  }
-}
-
-/* احترام به کاهش حرکت */
-@media (prefers-reduced-motion: reduce) {
-
-  .icon-btn,
-  .only-sm {
-    transition: none;
-  }
-
-  .icon-btn:active,
-  .only-sm:active {
-    transform: none;
-  }
-}
-
-/* high-contrast */
-@media (forced-colors: active) {
-
-  .icon-btn,
-  .only-sm {
-    background: Canvas;
-    color: CanvasText;
-    border-color: CanvasText;
-  }
-
-  .icon-btn:focus-visible,
-  .only-sm:focus-visible {
-    box-shadow: 0 0 0 2px Highlight;
-  }
-}
-
-
-/* ==================== NAV (Desktop + Mobile Drawer) ==================== */
-/* -------------------------------
-   Nav (Pills) — Clean & Accessible
-----------------------------------*/
-
-:root {
-  /* 900px برای رفرنس انسانی — توجه: فعلاً نمی‌شه var() رو مستقیم توی media query استفاده کرد */
-  /* 900px */
-}
-
-/* کانتینر ناوبری */
 .main-nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  width: 100%;
   gap: 8px;
-  padding-block: 8px;
+  padding-block: 6px 10px;
   padding-inline: 0;
 }
 
 .nav-inner {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   gap: 8px;
+  inline-size: min(var(--container), 100% - var(--page-pad));
+  margin-inline: auto;
+  padding-block: 0;
+}
+
+/* Persian / RTL: nav items on right */
+html[dir="rtl"] .main-nav,
+html[dir="rtl"] .nav-inner {
+  direction: rtl;
+}
+
+html[dir="rtl"] .nav-inner {
+  justify-content: flex-start;
+}
+
+/* English / LTR: nav items on left */
+html[dir="ltr"] .main-nav,
+html[dir="ltr"] .nav-inner {
+  direction: ltr;
+}
+
+html[dir="ltr"] .nav-inner {
+  justify-content: flex-start;
 }
 
 .main-nav .nav-link {
   display: inline-flex;
   align-items: center;
+  flex-direction: row;
   gap: 0.6rem;
+  inline-size: auto;
   min-block-size: 40px;
   padding: 0.55rem 1.05rem;
   border: 1px solid transparent;
@@ -1158,10 +1056,16 @@ body.nav-lock {
   overscroll-behavior: contain;
 }
 
-/* ==================== Layout / Split Screen / Cards ==================== */
+/* ==================== Layout / Split Screen ==================== */
 
 main.container {
   padding-block: clamp(18px, 2.4vw, 28px);
+}
+
+.home-main {
+  inline-size: min(var(--app-max), 100% - var(--app-pad-x) * 2);
+  margin-inline: auto;
+  padding-block: var(--app-pad-y);
 }
 
 .grid {
@@ -1173,29 +1077,37 @@ main.container {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-/*
-  Main home split-screen:
-  Your HTML already has:
-  <section class="grid">
-    <section class="card list-card">...</section>
-    <section class="card map-card">...</section>
-  </section>
-*/
+.home-split,
 .grid:has(.list-card):has(.map-card) {
   display: grid;
-  grid-template-columns: minmax(360px, 0.9fr) minmax(520px, 1.25fr);
+  grid-template-columns: minmax(390px, 0.92fr) minmax(560px, 1.28fr);
+  gap: var(--app-gap);
   align-items: stretch;
-  gap: var(--page-gap);
-  min-block-size: min(780px, var(--split-min-h));
+  min-block-size: var(--home-min-h);
+  block-size: var(--home-min-h);
 }
 
+html[dir="rtl"] .home-split,
 html[dir="rtl"] .grid:has(.list-card):has(.map-card) {
   direction: rtl;
 }
 
+html[dir="rtl"] .home-split>*,
 html[dir="rtl"] .grid:has(.list-card):has(.map-card)>* {
   direction: rtl;
 }
+
+html[dir="ltr"] .home-split,
+html[dir="ltr"] .grid:has(.list-card):has(.map-card) {
+  direction: ltr;
+}
+
+html[dir="ltr"] .home-split>*,
+html[dir="ltr"] .grid:has(.list-card):has(.map-card)>* {
+  direction: ltr;
+}
+
+/* ==================== Cards ==================== */
 
 .card {
   position: relative;
@@ -1240,10 +1152,14 @@ html[dir="rtl"] .grid:has(.list-card):has(.map-card)>* {
   box-shadow: var(--shadow-card-hover);
 }
 
+.home-split .card,
 .grid:has(.list-card):has(.map-card) .card {
-  min-block-size: min(780px, var(--split-min-h));
-  max-block-size: var(--split-max-h);
-  margin-block-end: 0;
+  min-width: 0;
+  min-height: 0;
+  block-size: 100%;
+  max-block-size: 100%;
+  margin: 0;
+  border-radius: var(--home-card-radius);
 }
 
 .card-header {
@@ -1279,44 +1195,30 @@ html[dir="rtl"] .grid:has(.list-card):has(.map-card)>* {
 }
 
 .card-footer {
+  flex: 0 0 auto;
   padding: 13px 18px;
   border-top: 1px solid var(--border-soft);
   background: color-mix(in oklab, var(--bg-soft) 28%, transparent);
   color: var(--text-soft);
 }
 
-.list-card {
-  min-width: 0;
+.home-split .card-header,
+.grid:has(.list-card):has(.map-card) .card-header {
+  flex: 0 0 auto;
 }
 
+.home-split .card-body,
+.grid:has(.list-card):has(.map-card) .card-body {
+  flex: 1 1 auto;
+  min-block-size: 0;
+}
+
+/* ==================== Province List Panel ==================== */
+
+.list-card,
 .map-card {
   min-width: 0;
 }
-
-.list-card .hint,
-.hint {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 16px;
-  border-top: 1px solid var(--border-soft);
-  color: var(--text-soft);
-  font-size: 0.92rem;
-  text-align: center;
-}
-
-.hint i {
-  color: var(--primary);
-}
-
-.map-card .card-body {
-  display: flex;
-  min-block-size: 0;
-  padding: 14px;
-}
-
-/* ==================== Province List ==================== */
 
 .province-list {
   list-style: none;
@@ -1327,10 +1229,11 @@ html[dir="rtl"] .grid:has(.list-card):has(.map-card)>* {
   flex: 1 1 auto;
   min-block-size: 0;
   margin: 0;
-  padding: 10px;
-  overflow: auto;
+  padding: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
   overscroll-behavior: contain;
-  scroll-padding: 10px;
+  scroll-padding: 12px;
 }
 
 .province-list a {
@@ -1420,24 +1323,94 @@ html[dir="rtl"] .grid:has(.list-card):has(.map-card)>* {
   box-shadow: 0 0 0 3px var(--ring);
 }
 
-/* ==================== Map Sizing Inside Split Screen ==================== */
+.province-name {
+  display: inline-block;
+}
+
+.province-empty {
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  min-block-size: 120px;
+  padding: 1rem;
+  border: 1px dashed var(--border-soft);
+  border-radius: 16px;
+  color: var(--muted);
+  text-align: center;
+  background: color-mix(in oklab, var(--bg-soft) 70%, transparent);
+}
+
+.province-loading {
+  position: relative;
+}
+
+.province-loading::after {
+  content: "";
+  inline-size: 22px;
+  block-size: 22px;
+  margin-block-start: 10px;
+  border: 3px solid color-mix(in oklab, var(--primary) 25%, transparent);
+  border-block-start-color: var(--primary);
+  border-radius: 999px;
+  animation: provinceSpin 700ms linear infinite;
+}
+
+@keyframes provinceSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.list-card .hint,
+.hint {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-block-size: 48px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--border-soft);
+  color: var(--text-soft);
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+.hint i {
+  color: var(--primary);
+}
+
+/* ==================== Map Panel ==================== */
+
+.map-card .card-body {
+  display: flex;
+  min-block-size: 0;
+  padding: 14px;
+}
 
 .leaflet-map,
-#map {
+#map,
+.map-card .leaflet-map,
+.map-card #map {
   inline-size: 100%;
   flex: 1 1 auto;
-  min-block-size: 420px;
-  block-size: auto;
+  min-block-size: 0 !important;
+  block-size: 100% !important;
+  max-block-size: none !important;
   border-radius: 16px;
 }
 
-.grid:has(.list-card):has(.map-card) .leaflet-map,
-.grid:has(.list-card):has(.map-card) #map {
-  min-block-size: 0;
-  block-size: 100%;
+.map-card .card-footer {
+  min-block-size: 48px;
+  padding-block: 10px;
+  line-height: 1.55;
 }
 
-/* ==================== Chips / Tiles / Tabs Panel ==================== */
+.leaflet-container {
+  border-radius: inherit;
+}
+
+/* ==================== Chips / Tabs / Tiles ==================== */
 
 .chips {
   display: flex;
@@ -1458,9 +1431,14 @@ html[dir="rtl"] .grid:has(.list-card):has(.map-card)>* {
   color: var(--text-soft);
   font-size: 12px;
   font-weight: 750;
+  font-family: inherit;
 }
 
 .tabs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
   overflow: auto hidden;
   scroll-snap-type: x proximity;
   -ms-overflow-style: none;
@@ -1528,18 +1506,11 @@ html[dir="rtl"] .grid:has(.list-card):has(.map-card)>* {
   hyphens: auto;
 }
 
-.tiles a:focus-visible,
-.tiles button:focus-visible {
-  border-radius: 10px;
-  box-shadow: 0 0 0 3px var(--ring);
-}
-
 /* ==================== Accordion ==================== */
 
 .accordion {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: grid;
+  gap: 12px;
 }
 
 .acc-item {
@@ -1553,40 +1524,91 @@ html[dir="rtl"] .grid:has(.list-card):has(.map-card)>* {
 }
 
 .acc-head {
+  appearance: none;
+  -webkit-appearance: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 10px 12px;
+  inline-size: 100%;
+  min-block-size: 56px;
+  padding: 12px 16px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
   font-weight: 800;
+  text-align: start;
   cursor: pointer;
 }
 
+html[dir="rtl"] .acc-head {
+  direction: rtl;
+}
+
+html[dir="ltr"] .acc-head {
+  direction: ltr;
+}
+
+.acc-head strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.acc-head i {
+  flex: 0 0 auto;
+  color: var(--muted);
+  transition:
+    transform 180ms ease,
+    color 180ms ease;
+}
+
+.acc-head:hover {
+  background: color-mix(in oklab, var(--primary) 7%, transparent);
+}
+
+.acc-head:hover i {
+  color: var(--primary);
+}
+
 .acc-head:focus-visible {
-  border-radius: 8px;
-  box-shadow: 0 0 0 3px var(--ring);
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 3px var(--ring);
+}
+
+.acc-item.open .acc-head {
+  background: color-mix(in oklab, var(--primary) 9%, transparent);
+}
+
+.acc-item.open .acc-head i {
+  color: var(--primary);
+  transform: rotate(180deg);
 }
 
 .acc-body {
-  display: none;
-  padding: 12px;
+  display: block;
+  padding: 0 16px 16px;
   border-top: 1px dashed color-mix(in oklab, var(--border) 66%, transparent);
   color: var(--text-soft);
 }
 
-.acc-item.open .acc-body {
-  display: block;
+.acc-body[hidden],
+.acc-item:not(.open) .acc-body {
+  display: none !important;
 }
 
-/* ==================== Media / Footer / Toast Base ==================== */
+/* ==================== Media / Footer / Toast ==================== */
 
 .hero-wrap {
   margin-block: 14px;
 }
 
 .hero {
+  display: block;
   inline-size: 100%;
-  max-block-size: 360px;
+  max-block-size: 440px;
   object-fit: cover;
   border: 1px solid var(--border-soft);
   border-radius: 20px;
@@ -1774,15 +1796,53 @@ body,
   }
 }
 
-/* ==================== Responsive ==================== */
+/* ==================== Desktop App Behavior ==================== */
 
-@media (max-width: 1180px) {
-  :root {
-    --header-h: 122px;
+@media (min-width: 901px) {
+
+  body:has(.home-split),
+  body:has(.list-card):has(.map-card) {
+    overflow-y: hidden;
   }
 
+  .home-split,
+  .home-split .card,
+  .grid:has(.list-card):has(.map-card),
+  .grid:has(.list-card):has(.map-card) .card,
+  .map-card .card-body,
+  .list-card .province-list {
+    scrollbar-gutter: stable;
+  }
+
+  body:has(.home-split) .site-footer,
+  body:has(.list-card):has(.map-card) .site-footer {
+    display: none;
+  }
+
+  .main-nav .nav-link {
+    inline-size: auto;
+  }
+}
+
+/* ==================== Responsive ==================== */
+
+@media (min-width: 1201px) {
+  .list-card .province-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1500px) {
+  .list-card .province-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1180px) {
+
+  .home-split,
   .grid:has(.list-card):has(.map-card) {
-    grid-template-columns: minmax(320px, 0.95fr) minmax(460px, 1.05fr);
+    grid-template-columns: minmax(330px, 0.95fr) minmax(440px, 1.05fr);
   }
 
   .province-list {
@@ -1791,8 +1851,10 @@ body,
 }
 
 @media (max-width: 900px) {
-  :root {
-    --header-h: 112px;
+
+  body:has(.home-split),
+  body:has(.list-card):has(.map-card) {
+    overflow-y: auto;
   }
 
   .site-header .container {
@@ -1807,49 +1869,65 @@ body,
     display: inline-grid;
   }
 
+  .nav-inner {
+    inline-size: min(var(--container), 100% - 20px);
+  }
+
   .main-nav .nav-link {
     justify-content: flex-start;
-    inline-size: 100%;
+    inline-size: auto;
     min-block-size: 44px;
     border-radius: 14px;
     font-size: 0.96rem;
   }
 
-  #navLayer>.main-nav {
-    background:
-      radial-gradient(circle at 30% 0%, color-mix(in oklab, var(--primary) 12%, transparent), transparent 18rem),
-      var(--card);
+  .home-main {
+    inline-size: min(100% - 20px, var(--app-max));
+    padding-block: 16px 28px;
   }
 
+  .home-split,
   .grid:has(.list-card):has(.map-card) {
+    block-size: auto;
+    min-block-size: 0;
     grid-template-columns: 1fr;
-    min-block-size: auto;
-  }
-
-  .grid:has(.list-card):has(.map-card) .card {
-    min-block-size: auto;
-    max-block-size: none;
-  }
-
-  .list-card {
-    order: 1;
+    gap: 16px;
   }
 
   .map-card {
+    order: 1;
+  }
+
+  .list-card {
     order: 2;
   }
 
+  .home-split .card,
+  .grid:has(.list-card):has(.map-card) .card {
+    block-size: auto;
+    min-block-size: 0;
+    max-block-size: none;
+    margin: 0;
+  }
+
   .map-card .card-body {
-    min-block-size: 420px;
+    min-block-size: clamp(340px, 55vh, 540px);
   }
 
-  .leaflet-map,
-  #map {
-    min-block-size: 420px;
+  .map-card .leaflet-map,
+  .map-card #map {
+    min-block-size: clamp(320px, 52vh, 520px) !important;
+    block-size: auto !important;
   }
 
-  .province-list {
-    max-block-size: 420px;
+  .list-card .province-list {
+    max-block-size: 460px;
+    overflow-y: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .site-footer {
+    display: block;
   }
 }
 
@@ -1901,12 +1979,29 @@ body,
     inline-size: min(100% - 20px, var(--container));
   }
 
+  .home-main {
+    inline-size: min(100% - 16px, var(--app-max));
+    padding-block: 12px 22px;
+  }
+
+  .home-split,
+  .grid:has(.list-card):has(.map-card) {
+    gap: 14px;
+  }
+
   .card {
     border-radius: 18px;
     margin-block-end: 18px;
   }
 
-  .card-header {
+  .home-split .card,
+  .grid:has(.list-card):has(.map-card) .card {
+    border-radius: 18px;
+  }
+
+  .card-header,
+  .home-split .card-header,
+  .grid:has(.list-card):has(.map-card) .card-header {
     min-block-size: 52px;
     padding: 12px 14px;
   }
@@ -1920,29 +2015,39 @@ body,
   }
 
   .map-card .card-body {
+    padding: 10px;
     min-block-size: 360px;
   }
 
+  .map-card .leaflet-map,
+  .map-card #map,
   .leaflet-map,
   #map {
-    min-block-size: 360px;
+    min-block-size: 340px !important;
     border-radius: 14px;
   }
 
-  .province-list {
+  .province-list,
+  .list-card .province-list {
     grid-template-columns: 1fr;
-    max-block-size: 430px;
+    max-block-size: 440px;
     gap: 10px;
-    padding: 8px;
+    padding: 10px;
   }
 
-  .province-list a {
+  .province-list a,
+  .list-card .province-list a {
     min-block-size: 54px;
     border-radius: 15px;
   }
 
   .tiles {
     grid-template-columns: 1fr;
+  }
+
+  .list-card .hint,
+  .map-card .card-footer {
+    font-size: 0.9rem;
   }
 
   .toast-host {
@@ -1975,7 +2080,7 @@ body,
 
   .leaflet-map,
   #map {
-    min-block-size: 330px;
+    min-block-size: 330px !important;
   }
 }
 
@@ -1985,7 +2090,7 @@ body,
   }
 }
 
-/* ==================== Accessibility / Performance ==================== */
+/* ==================== Forced Colors / High Contrast ==================== */
 
 @media (forced-colors: active) {
 
@@ -2001,7 +2106,14 @@ body,
   .only-sm,
   .main-nav .nav-link,
   .card,
-  .province-list a {
+  .province-list a,
+  .acc-item,
+  .acc-head,
+  .tiles li,
+  .badge,
+  .chip {
+    background: Canvas;
+    color: CanvasText;
     border-color: CanvasText;
   }
 
@@ -2029,508 +2141,4 @@ body,
     color: CanvasText;
     opacity: 1;
   }
-}
-
-/* ==========================================================================
-   final-layout-fix.css
-   Final layout correction for split-screen province list + map page.
-   Must be loaded AFTER style.css, components.css, responsive.css and map.css.
-   ========================================================================== */
-
-/* ==================== Real App Shell Variables ==================== */
-
-:root {
-  --app-max: 1440px;
-  --app-pad-x: clamp(16px, 3.2vw, 36px);
-  --app-pad-y: clamp(14px, 2.2vh, 24px);
-  --app-gap: clamp(14px, 2vw, 24px);
-
-  /*
-    Header is sticky and variable-height.
-    This value is only fallback; JS below can set --real-header-h.
-  */
-  --real-header-h: 132px;
-
-  --home-min-h: calc(100dvh - var(--real-header-h) - var(--app-pad-y) * 2);
-  --home-card-radius: 22px;
-}
-
-/* ==================== Global Page Behavior ==================== */
-
-html,
-body {
-  min-width: 0;
-  overflow-x: clip;
-}
-
-body {
-  min-height: 100dvh;
-}
-
-/*
-  On desktop, the home screen behaves like an app:
-  header stays above, main split fills remaining viewport.
-*/
-@media (min-width: 901px) {
-  body:has(.home-split) {
-    overflow-y: hidden;
-  }
-}
-
-/* ==================== Header Height Stability ==================== */
-
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: var(--header-z, 1003);
-}
-
-.site-header .container {
-  padding-block: 8px;
-}
-
-/* Keep topbar compact and predictable */
-.topbar {
-  min-height: 48px;
-}
-
-/* Keep nav compact */
-.main-nav {
-  padding-block: 6px 10px;
-}
-
-.nav-inner {
-  padding-block: 0;
-}
-
-/* ==================== Main Split Shell ==================== */
-
-.home-main {
-  width: min(var(--app-max), 100% - var(--app-pad-x) * 2);
-  margin-inline: auto;
-  padding-block: var(--app-pad-y);
-}
-
-/*
-  The important part:
-  one side provinces, one side map.
-*/
-.home-split {
-  display: grid;
-  grid-template-columns: minmax(390px, 0.92fr) minmax(560px, 1.28fr);
-  gap: var(--app-gap);
-  align-items: stretch;
-  min-height: var(--home-min-h);
-  height: var(--home-min-h);
-}
-
-/*
-  RTL:
-  Because the HTML order is list first, map second,
-  RTL naturally places provinces on the right and map on the left.
-*/
-html[dir="rtl"] .home-split {
-  direction: rtl;
-}
-
-html[dir="rtl"] .home-split>* {
-  direction: rtl;
-}
-
-/*
-  LTR:
-  Provinces left, map right.
-*/
-html[dir="ltr"] .home-split {
-  direction: ltr;
-}
-
-html[dir="ltr"] .home-split>* {
-  direction: ltr;
-}
-
-/* ==================== Cards In Split ==================== */
-
-.home-split .card {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  min-height: 0;
-  height: 100%;
-  max-height: 100%;
-  margin: 0;
-  overflow: hidden;
-  border-radius: var(--home-card-radius);
-}
-
-.home-split .card-header {
-  flex: 0 0 auto;
-  min-height: 56px;
-}
-
-.home-split .card-body {
-  flex: 1 1 auto;
-  min-height: 0;
-}
-
-.home-split .card-footer,
-.home-split .hint {
-  flex: 0 0 auto;
-}
-
-/* ==================== Province Panel ==================== */
-
-.list-card {
-  min-width: 0;
-}
-
-.list-card .province-list {
-  flex: 1 1 auto;
-  min-height: 0;
-  height: auto;
-  max-height: none;
-  overflow-y: auto;
-  overflow-x: hidden;
-  overscroll-behavior: contain;
-  padding: 12px;
-  scroll-padding: 12px;
-}
-
-/* Better desktop density */
-@media (min-width: 1201px) {
-  .list-card .province-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1500px) {
-  .list-card .province-list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-.list-card .province-list a {
-  min-height: 58px;
-}
-
-/* Keep hint readable and not oversized */
-.list-card .hint {
-  min-height: 48px;
-  padding: 10px 14px;
-}
-
-/* ==================== Map Panel ==================== */
-
-.map-card {
-  min-width: 0;
-}
-
-.map-card .card-body {
-  display: flex;
-  min-height: 0;
-  padding: 14px;
-}
-
-/*
-  Force Leaflet to fill the remaining card body.
-  This overrides map.css because this file is loaded last.
-*/
-.map-card .leaflet-map,
-.map-card #map {
-  flex: 1 1 auto;
-  width: 100%;
-  height: 100% !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  border-radius: 16px;
-}
-
-/* Map footer should not consume too much height */
-.map-card .card-footer {
-  min-height: 48px;
-  padding-block: 10px;
-  line-height: 1.55;
-}
-
-/* Leaflet should not leak outside rounded map */
-.leaflet-container {
-  border-radius: inherit;
-}
-
-/* ==================== Prevent Double Scroll Weirdness ==================== */
-
-@media (min-width: 901px) {
-
-  .home-split,
-  .home-split .card,
-  .map-card .card-body,
-  .list-card .province-list {
-    scrollbar-gutter: stable;
-  }
-
-  .site-footer {
-    display: none;
-  }
-}
-
-/* ==================== Tablet Layout ==================== */
-
-@media (max-width: 1100px) {
-  .home-split {
-    grid-template-columns: minmax(330px, 0.95fr) minmax(440px, 1.05fr);
-  }
-
-  .list-card .province-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-/* ==================== Mobile / Tablet Stacked Layout ==================== */
-
-@media (max-width: 900px) {
-  body:has(.home-split) {
-    overflow-y: auto;
-  }
-
-  .home-main {
-    width: min(100% - 20px, var(--app-max));
-    padding-block: 16px 28px;
-  }
-
-  .home-split {
-    height: auto;
-    min-height: 0;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  /*
-    Mobile order:
-    map first is usually better for a map app.
-    Change these two numbers if you want provinces first.
-  */
-  .map-card {
-    order: 1;
-  }
-
-  .list-card {
-    order: 2;
-  }
-
-  .home-split .card {
-    height: auto;
-    min-height: 0;
-    max-height: none;
-    margin: 0;
-  }
-
-  .map-card .card-body {
-    min-height: clamp(340px, 55vh, 540px);
-  }
-
-  .map-card .leaflet-map,
-  .map-card #map {
-    min-height: clamp(320px, 52vh, 520px) !important;
-    height: auto !important;
-  }
-
-  .list-card .province-list {
-    max-height: 460px;
-    overflow-y: auto;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .site-footer {
-    display: block;
-  }
-}
-
-/* ==================== Small Phones ==================== */
-
-@media (max-width: 600px) {
-  .home-main {
-    width: min(100% - 16px, var(--app-max));
-    padding-block: 12px 22px;
-  }
-
-  .home-split {
-    gap: 14px;
-  }
-
-  .home-split .card {
-    border-radius: 18px;
-  }
-
-  .home-split .card-header {
-    min-height: 52px;
-    padding: 12px 14px;
-  }
-
-  .map-card .card-body {
-    padding: 10px;
-    min-height: 360px;
-  }
-
-  .map-card .leaflet-map,
-  .map-card #map {
-    min-height: 340px !important;
-    border-radius: 14px;
-  }
-
-  .list-card .province-list {
-    grid-template-columns: 1fr;
-    max-height: 440px;
-    padding: 10px;
-  }
-
-  .list-card .province-list a {
-    min-height: 54px;
-  }
-
-  .list-card .hint,
-  .map-card .card-footer {
-    font-size: 0.9rem;
-  }
-}
-
-/* ==================== Header Mobile Safety ==================== */
-
-@media (max-width: 700px) {
-  .topbar {
-    grid-template-columns: auto 1fr auto;
-    gap: 8px;
-  }
-
-  .searchbox {
-    justify-self: end;
-  }
-
-  .searchbox.searchbox--open {
-    position: absolute;
-    inset-inline: 12px;
-    inset-block-start: calc(100% + 8px);
-    z-index: calc(var(--header-z, 1003) + 1);
-    width: auto;
-    height: 46px;
-  }
-}
-
-/* ==================== Browser Fallback For :has() ==================== */
-
-/*
-  If you add class="grid home-split" in HTML, this works everywhere modern
-  without depending only on :has().
-*/
-.grid.home-split {
-  display: grid;
-}
-
-
-/* ==========================================================================
-   NAVBAR DIRECTION FIX
-   Persian/RTL: nav items on right
-   English/LTR: nav items on left
-   Put this at the VERY END of your CSS
-   ========================================================================== */
-
-/* Base nav container */
-.main-nav {
-  width: 100%;
-}
-
-/* The actual nav row */
-.nav-inner {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: min(var(--container, 1440px), 100% - var(--page-pad, 32px));
-  margin-inline: auto;
-  padding-block: 0;
-}
-
-/* Persian / RTL: items on the right */
-html[dir="rtl"] .main-nav,
-html[dir="rtl"] .nav-inner {
-  direction: rtl;
-}
-
-html[dir="rtl"] .nav-inner {
-  justify-content: flex-start;
-}
-
-/* English / LTR: items on the left */
-html[dir="ltr"] .main-nav,
-html[dir="ltr"] .nav-inner {
-  direction: ltr;
-}
-
-html[dir="ltr"] .nav-inner {
-  justify-content: flex-start;
-}
-
-/* Keep icon + text order natural per language */
-html[dir="rtl"] .main-nav .nav-link {
-  flex-direction: row;
-}
-
-html[dir="ltr"] .main-nav .nav-link {
-  flex-direction: row;
-}
-
-/* Make sure nav links do not stretch on desktop */
-@media (min-width: 901px) {
-  .main-nav .nav-link {
-    width: auto;
-    inline-size: auto;
-  }
-}
-
-/* Mobile drawer/list mode can still be full width */
-@media (max-width: 900px) {
-  .nav-inner {
-    width: min(var(--container, 1440px), 100% - 20px);
-  }
-
-  .main-nav .nav-link {
-    inline-size: auto;
-  }
-}
-
-/* Province list empty/loading state */
-.province-empty {
-  grid-column: 1 / -1;
-  display: grid;
-  place-items: center;
-  min-height: 120px;
-  padding: 1rem;
-  border: 1px dashed var(--border-soft, var(--border));
-  border-radius: 16px;
-  color: var(--muted);
-  text-align: center;
-  background: color-mix(in oklab, var(--bg-soft) 70%, transparent);
-}
-
-.province-loading {
-  position: relative;
-}
-
-.province-loading::after {
-  content: "";
-  inline-size: 22px;
-  block-size: 22px;
-  margin-block-start: 10px;
-  border: 3px solid color-mix(in oklab, var(--primary) 25%, transparent);
-  border-block-start-color: var(--primary);
-  border-radius: 999px;
-  animation: provinceSpin 700ms linear infinite;
-}
-
-@keyframes provinceSpin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.province-name {
-  display: inline-block;
 }
