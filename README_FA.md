@@ -151,11 +151,16 @@ chore(css): بهبود استایل واکنش‌گرا
 ## 📜 مجوز
 
 این پروژه تحت مجوز **MIT License** منتشر شده است.
-اطلاعات بیشتر در فایل [LICENSE](LICENSE).
+اطلاعات بیشتر در فایل [LICENSE](LICENSE)
+.
+## 📬 ارتباط با من
 
-## 🙌 سازنده
+**Matin Shahabadi (متین شاه‌آبادی / متین شاه آبادی)**
 
-طراحی و توسعه توسط **[power0matin](https://github.com/power0matin)**
-📬 [ارتباط از طریق تلگرام](https://t.me/powermatin)
+ وب‌سایت: [matinshahabadi.ir](https://matinshahabadi.ir)
+* ایمیل: [me@matinshahabadi.ir](mailto:me@matinshahabadi.ir)
+* گیت‌هاب: [power0matin](https://github.com/power0matin)
+* لینکدین: [matin-shahabadi](https://www.linkedin.com/in/matin-shahabadi)
+
 
 © 2024 تمامی حقوق محفوظ است.
