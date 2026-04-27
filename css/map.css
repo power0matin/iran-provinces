@@ -1,109 +1,177 @@
-/* =============== Leaflet Map (senior-tuned) =============== */
+/* ==========================================================================
+   map.css
+   Leaflet map styling, controls, tooltip, touch and accessibility
+   ========================================================================== */
+
 :root {
-  /* Map sizing */
   --map-min-h: 320px;
   --map-ideal-h: 58vh;
   --map-max-h: 760px;
 
-  /* Tooltip design tokens */
   --tip-radius: 12px;
   --tip-pad-y: 8px;
   --tip-pad-x: 12px;
   --tip-font: 13px;
   --tip-gap: 10px;
-  /* distance above cursor */
 
-  /* Fallback-friendly tokens (computed below with @supports) */
-  --tip-bg: rgba(255, 255, 255, 0.65);
-  --tip-border: rgba(0, 0, 0, 0.12);
+  --tip-bg: rgb(255 255 255 / 0.72);
+  --tip-border: rgb(0 0 0 / 0.12);
   --tip-shadow:
-    0 8px 24px rgba(0, 0, 0, .16),
-    0 1px 0 rgba(255, 255, 255, .25) inset;
+    0 8px 24px rgb(0 0 0 / 0.16),
+    0 1px 0 rgb(255 255 255 / 0.25) inset;
 }
 
-/* Prefer logical sizing & isolation for GPU-friendly panning */
+@supports (color: color-mix(in oklab, white, black)) {
+  :root {
+    --tip-bg: color-mix(in oklab, var(--card) 68%, transparent);
+    --tip-border: color-mix(in oklab, var(--border) 70%, transparent);
+    --tip-shadow:
+      0 8px 24px rgb(0 0 0 / 0.16),
+      0 1px 0 color-mix(in oklab, #fff 30%, transparent) inset;
+  }
+}
+
+/* ==================== Map Container ==================== */
+
 .leaflet-map {
   inline-size: 100%;
   block-size: clamp(var(--map-min-h), var(--map-ideal-h), var(--map-max-h));
-  border-radius: 14px;
+  min-block-size: var(--map-min-h);
   border: 1px solid var(--border);
+  border-radius: 14px;
   overflow: clip;
   isolation: isolate;
   touch-action: manipulation;
+  background: var(--bg-soft);
 }
 
-/* Polygons */
+@supports not (overflow: clip) {
+  .leaflet-map {
+    overflow: hidden;
+  }
+}
+
+.leaflet-container {
+  font-family: var(--font);
+  background: var(--bg-soft);
+}
+
+.leaflet-container a {
+  color: var(--primary);
+}
+
+/* ==================== Polygons / Interactive Shapes ==================== */
+
 .leaflet-container .leaflet-interactive {
   cursor: pointer;
-  transition: fill .15s ease, stroke .15s ease, filter .15s ease;
   outline: none;
+  transition:
+    fill 0.15s ease,
+    stroke 0.15s ease,
+    filter 0.15s ease,
+    opacity 0.15s ease;
 }
 
 .leaflet-container .leaflet-interactive:hover {
   filter: drop-shadow(0 0 4px color-mix(in oklab, var(--primary) 25%, transparent));
 }
 
-/* Keyboard focus */
 .leaflet-container path[tabindex="0"]:focus-visible {
   filter: drop-shadow(0 0 6px color-mix(in oklab, var(--primary) 35%, transparent));
 }
 
-/* Zoom controls */
+/* ==================== Zoom Controls ==================== */
+
+.leaflet-control-zoom {
+  border: 0 !important;
+  box-shadow: var(--shadow-soft);
+}
+
 .leaflet-control-zoom a {
+  display: grid;
+  place-items: center;
+  inline-size: 34px;
+  block-size: 34px;
+  border: 1px solid var(--border) !important;
   background: var(--bg-soft);
-  border: 1px solid var(--border);
   color: var(--text);
+  line-height: 1;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.leaflet-control-zoom a:first-child {
+  border-start-start-radius: 10px !important;
+  border-start-end-radius: 10px !important;
+}
+
+.leaflet-control-zoom a:last-child {
+  border-end-start-radius: 10px !important;
+  border-end-end-radius: 10px !important;
 }
 
 .leaflet-control-zoom a:hover {
   background: color-mix(in oklab, var(--primary) 12%, var(--bg-soft));
-  border-color: color-mix(in oklab, var(--primary) 30%, var(--border));
+  border-color: color-mix(in oklab, var(--primary) 30%, var(--border)) !important;
 }
 
 .leaflet-control-zoom a:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 30%, transparent);
+  box-shadow: 0 0 0 3px var(--ring);
 }
 
-/* Attribution chip */
+.leaflet-disabled {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+/* ==================== Attribution ==================== */
+
 .leaflet-control-attribution {
-  background: color-mix(in oklab, var(--card) 75%, transparent);
+  margin: 0 6px 6px 0 !important;
+  padding: 3px 8px !important;
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding-inline: 8px;
+  background: color-mix(in oklab, var(--card) 76%, transparent) !important;
+  color: var(--muted) !important;
+  font-size: 11px;
+  line-height: 1.4;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
-/* =================== Floating Glass Tooltip =================== */
-/* Progressive enhancement for color-mix/backdrop-filter */
-@supports (color: color-mix(in oklab, white, black)) {
-  :root {
-    --tip-bg: color-mix(in oklab, var(--card) 60%, transparent);
-    --tip-border: color-mix(in oklab, var(--border) 70%, transparent);
-    --tip-shadow:
-      0 8px 24px color-mix(in oklab, var(--shadow) 60%, transparent),
-      0 1px 0 color-mix(in oklab, #fff 30%, transparent) inset;
-  }
+.leaflet-control-attribution a {
+  color: var(--primary) !important;
 }
+
+/* ==================== Floating Glass Tooltip ==================== */
 
 .map-tooltip {
   position: fixed;
   z-index: 9999;
-  pointer-events: none;
-
-  /* Layout */
   display: inline-block;
+  max-inline-size: min(260px, calc(100vw - 32px));
   padding: var(--tip-pad-y) var(--tip-pad-x);
+  border: 1px solid var(--tip-border);
   border-radius: var(--tip-radius);
+  background: var(--tip-bg);
+  box-shadow: var(--tip-shadow);
+  color: var(--text);
+  font-size: var(--tip-font);
+  font-weight: 800;
+  line-height: 1.3;
   text-align: center;
   white-space: nowrap;
-  font-weight: 700;
-  font-size: var(--tip-font);
-  color: var(--text);
-
-  /* Glass look + fallback */
-  background: var(--tip-bg);
-  border: 1px solid var(--tip-border);
-  box-shadow: var(--tip-shadow);
+  pointer-events: none;
+  opacity: 0;
+  transform:
+    translate(-50%, calc(-100% - var(--tip-gap))) translate3d(0, 0, 0);
+  will-change: transform, opacity;
+  transition:
+    opacity 0.12s ease,
+    transform 0.12s ease;
 }
 
 @supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
@@ -113,57 +181,128 @@
   }
 }
 
-/* Anchor exactly ABOVE the pointer (center-bottom origin) */
-.map-tooltip {
-  transform: translate(-50%, calc(-100% - var(--tip-gap))) translate3d(0, 0, 0);
-  opacity: 0;
-  will-change: transform, opacity;
-  transition: opacity .12s ease, transform .12s ease;
-}
-
 .map-tooltip[aria-hidden="false"] {
   opacity: 1;
 }
 
-/* RTL without extra classes: rely on document direction */
 [dir="rtl"] .map-tooltip {
   direction: rtl;
 }
 
-/* Optional tiny arrow */
 .map-tooltip::after {
   content: "";
   position: absolute;
   inset-inline-start: 50%;
   inset-block-end: -6px;
-  transform: translateX(-50%);
   border: 6px solid transparent;
   border-block-start-color: var(--tip-bg);
-  /* subtle outline for contrast on busy maps */
   filter: drop-shadow(0 1px 0 var(--tip-border));
+  transform: translateX(-50%);
 }
 
-/* Reduce motion when requested */
-@media (prefers-reduced-motion: reduce) {
-
-  .leaflet-container .leaflet-interactive,
-  .map-tooltip {
-    transition: none;
-  }
-}
-
-/* Touch ergonomics: a bit more gap so the chip doesn’t overlap the finger */
-@media (pointer: coarse) {
-  :root {
-    --tip-gap: 14px;
-  }
-}
-
-/* Old helper classes kept for backward compatibility (no-op now) */
+/* Backward-compatible old helper classes */
 .prov-tip {
   direction: ltr;
 }
 
 [dir="rtl"] .prov-tip {
   direction: rtl;
+}
+
+/* ==================== Responsive / Touch ==================== */
+
+@media (pointer: coarse) {
+  :root {
+    --tip-gap: 14px;
+  }
+
+  .leaflet-control-zoom a {
+    inline-size: 38px;
+    block-size: 38px;
+  }
+}
+
+@media (max-width: 900px) {
+  .leaflet-map {
+    block-size: clamp(300px, 52vh, 620px);
+  }
+}
+
+@media (max-width: 600px) {
+  .leaflet-map {
+    block-size: clamp(280px, 48vh, 520px);
+    border-radius: 12px;
+  }
+
+  .map-tooltip {
+    --tip-font: 12px;
+    max-inline-size: min(220px, calc(100vw - 24px));
+  }
+}
+
+/* ==================== Accessibility ==================== */
+
+
+@media (forced-colors: active) {
+
+  .leaflet-map,
+  .leaflet-control-zoom a,
+  .leaflet-control-attribution,
+  .map-tooltip {
+    background: Canvas !important;
+    color: CanvasText !important;
+    border-color: CanvasText !important;
+  }
+
+  .leaflet-control-zoom a:focus-visible {
+    box-shadow: 0 0 0 2px Highlight;
+  }
+}
+
+/* AAA support styles for province.js + map.js */
+
+.acc-head {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+}
+
+.acc-head i {
+  transition: transform 160ms ease;
+}
+
+.acc-item.open .acc-head i {
+  transform: rotate(180deg);
+}
+
+.province-empty {
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  min-height: 120px;
+  padding: 1rem;
+  border: 1px dashed var(--border-soft, var(--border));
+  border-radius: 16px;
+  color: var(--muted);
+  text-align: center;
+  background: color-mix(in oklab, var(--bg-soft) 70%, transparent);
+}
+
+#mapStatus[data-status="loading"] {
+  color: var(--muted);
+}
+
+#mapStatus[data-status="ready"] {
+  color: var(--success);
+  border-color: color-mix(in oklab, var(--success) 45%, var(--border));
+  background: color-mix(in oklab, var(--success) 12%, var(--bg-soft));
+}
+
+#mapStatus[data-status="error"] {
+  color: var(--danger);
+  border-color: color-mix(in oklab, var(--danger) 45%, var(--border));
+  background: color-mix(in oklab, var(--danger) 12%, var(--bg-soft));
 }

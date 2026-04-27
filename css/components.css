@@ -1,23 +1,39 @@
+/* ==========================================================================
+   components.css
+   Reusable UI components: pills, tabs, forms, buttons, sidebars, FAQ, toasts
+   ========================================================================== */
+
 /* ==================== Pills & Tabs ==================== */
+
 .pill {
-  --pill-py: .35rem;
-  --pill-px: .7rem;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  padding: var(--pill-py) var(--pill-px);
+  min-block-size: 34px;
+  padding: 0.35rem 0.7rem;
   border: 1px solid var(--border);
   border-radius: 999px;
-  color: var(--muted);
   background: var(--bg-soft);
-  font-size: .85rem;
-  font-weight: 600;
-  min-block-size: 34px;
-  transition: background .15s ease, border-color .15s ease, color .15s ease;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.06s ease;
 }
 
 .pill:hover {
   background: color-mix(in oklab, var(--bg-soft) 78%, transparent);
+  color: var(--text);
+}
+
+.pill:active {
+  transform: translateY(1px);
 }
 
 .tabbar {
@@ -27,18 +43,24 @@
 }
 
 .tab {
-  --tab-py: .45rem;
-  --tab-px: .9rem;
-  padding: var(--tab-py) var(--tab-px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 36px;
+  padding: 0.45rem 0.9rem;
   border: 1px solid var(--border);
   border-radius: 999px;
-  color: var(--muted);
   background: transparent;
+  color: var(--muted);
   cursor: pointer;
-  min-block-size: 36px;
   user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  transition: background .15s ease, border-color .15s ease, color .15s ease, transform .06s ease;
+  scroll-snap-align: start;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.06s ease,
+    box-shadow 0.15s ease;
 }
 
 .tab:hover {
@@ -51,30 +73,35 @@
 }
 
 .tab:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 24%, transparent);
   border-color: color-mix(in oklab, var(--primary) 55%, var(--border));
+  box-shadow: 0 0 0 3px var(--ring);
 }
 
-/* فعال: هم کلاس، هم ARIA */
 .tab.is-active,
 .tab[aria-selected="true"] {
   color: #fff;
   background: var(--primary);
   border-color: var(--primary);
+  box-shadow: 0 8px 18px color-mix(in oklab, var(--primary) 22%, transparent);
 }
 
 /* ==================== Forms ==================== */
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(10px, 2vw, 16px);
 }
 
+.form-grid>* {
+  min-width: 0;
+}
+
 .field {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  min-width: 0;
 }
 
 .field-full {
@@ -83,23 +110,27 @@
 
 .label,
 .field>label {
-  font-weight: 600;
   color: var(--text);
+  font-weight: 700;
 }
 
 .input,
 .textarea,
 .dropzone,
 select.input {
+  inline-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
   background: var(--bg-soft);
   color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 12px;
-  min-block-size: 44px;
-  /* هدف لمسی مناسب */
   outline: none;
-  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
 }
 
 .input::placeholder,
@@ -112,13 +143,13 @@ select.input {
 select.input:focus,
 .dropzone:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 18%, transparent);
+  box-shadow: 0 0 0 4px var(--ring);
 }
 
 .input:disabled,
 .textarea:disabled,
 select.input:disabled {
-  opacity: .6;
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
@@ -137,6 +168,7 @@ select.input.invalid {
 .help,
 .counter {
   color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .counter {
@@ -144,18 +176,19 @@ select.input.invalid {
 }
 
 .textarea {
+  min-block-size: 140px;
   resize: vertical;
-  min-height: 140px;
 }
 
-/* ---- drag & drop ---- */
+/* ==================== Drag & Drop ==================== */
+
 .dropzone {
   display: grid;
   place-items: center;
   gap: 6px;
+  min-block-size: 84px;
   text-align: center;
   cursor: pointer;
-  min-height: 84px;
 }
 
 .dropzone:hover {
@@ -163,9 +196,8 @@ select.input.invalid {
 }
 
 .dropzone:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 22%, transparent);
   border-color: color-mix(in oklab, var(--primary) 55%, var(--border));
+  box-shadow: 0 0 0 3px var(--ring);
 }
 
 .dropzone.drag {
@@ -173,9 +205,10 @@ select.input.invalid {
   border-color: var(--primary);
 }
 
-/* ---- file list ---- */
 .file-list {
   list-style: none;
+  display: grid;
+  gap: 8px;
   margin: 8px 0 0;
   padding: 0;
 }
@@ -187,27 +220,33 @@ select.input.invalid {
   gap: 8px;
   padding: 8px 10px;
   border: 1px dashed var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   color: var(--muted);
   word-break: break-word;
 }
 
 /* ==================== Buttons ==================== */
+
 .btn {
-  --btn-py: 10px;
-  --btn-px: 14px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: var(--btn-py) var(--btn-px);
+  min-block-size: 42px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--bg-soft);
   color: var(--text);
-  border: 1px solid var(--border);
+  text-decoration: none;
   cursor: pointer;
   user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform .06s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+  transition:
+    transform 0.06s ease,
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
 }
 
 .btn:hover {
@@ -215,23 +254,23 @@ select.input.invalid {
 }
 
 .btn:active {
-  transform: translateY(1px) scale(.995);
+  transform: translateY(1px) scale(0.995);
 }
 
 .btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 22%, transparent);
   border-color: color-mix(in oklab, var(--primary) 55%, var(--border));
+  box-shadow: 0 0 0 3px var(--ring);
 }
 
 .btn.primary {
   background: var(--primary);
   border-color: var(--primary);
   color: #fff;
+  box-shadow: 0 10px 22px color-mix(in oklab, var(--primary) 22%, transparent);
 }
 
 .btn.primary:hover {
-  filter: brightness(.98);
+  filter: brightness(0.98);
 }
 
 .btn.ghost {
@@ -242,9 +281,11 @@ select.input.invalid {
   background: var(--bg-soft);
 }
 
-.btn[disabled] {
-  opacity: .6;
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  opacity: 0.6;
   cursor: not-allowed;
+  pointer-events: none;
 }
 
 .icon-btn.xs {
@@ -253,47 +294,26 @@ select.input.invalid {
   border-radius: 10px;
 }
 
-/* ==================== Layout helpers ==================== */
-.row {
-  display: flex;
-  align-items: center;
-}
-
-.row-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.gap-8 {
-  gap: 8px;
-}
-
-.mt-12 {
-  margin-top: 12px;
-}
-
-/* ==================== Sidebar ==================== */
-.contact-aside .aside-card+.aside-card {
-  margin-top: 12px;
-}
+/* ==================== Contact / Sidebar ==================== */
 
 .contact-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
   gap: 16px;
 }
 
-@media (max-width: 980px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
+.contact-grid>* {
+  min-width: 0;
+}
+
+.contact-aside .aside-card+.aside-card {
+  margin-block-start: 12px;
 }
 
 .aside-card {
-  border: 1px solid var(--border);
-  border-radius: 12px;
   padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
   background: var(--bg-soft);
 }
 
@@ -305,20 +325,15 @@ select.input.invalid {
 }
 
 .aside-card .faq+.faq {
-  margin-top: 10px;
+  margin-block-start: 10px;
 }
 
 .link-list {
   list-style: none;
-  padding: 0;
-  margin: 0;
   display: grid;
   gap: 8px;
-}
-
-.link-list .link {
-  text-decoration: none;
-  color: var(--text);
+  margin: 0;
+  padding: 0;
 }
 
 .link-list li {
@@ -328,187 +343,77 @@ select.input.invalid {
   gap: 8px;
 }
 
+.link-list .link {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.link-list .link:hover {
+  color: var(--primary);
+}
+
 /* ==================== FAQ ==================== */
+
 .faq {
-  border: 1px solid var(--border);
-  border-radius: 8px;
   padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
   background: var(--bg-soft);
 }
 
-
-
 .faq summary {
-  cursor: pointer;
-  font-weight: 600;
   color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .faq summary:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 24%, transparent);
   border-radius: 6px;
+  box-shadow: 0 0 0 3px var(--ring);
 }
 
 .faq p {
-  color: var(--muted);
   margin: 8px 0 0;
+  color: var(--muted);
 }
 
 /* ==================== Toasts ==================== */
-.toast-host {
-  position: fixed;
-  inset: auto 16px 16px auto;
-  display: grid;
-  gap: 8px;
-  z-index: 2000;
-}
 
 .toast {
   display: flex;
   align-items: center;
   gap: 10px;
+  max-inline-size: min(420px, calc(100vw - 32px));
   padding: 10px 12px;
-  border-radius: 12px;
   border: 1px solid var(--border);
-  box-shadow: var(--shadow);
+  border-radius: 14px;
   background: var(--card);
   color: var(--text);
-  animation: toastIn .22s ease both;
+  box-shadow: var(--shadow);
 }
 
 .toast.success {
-  border-color: #16a34a;
+  border-color: color-mix(in oklab, var(--success) 70%, var(--border));
 }
 
 .toast.error {
-  border-color: #ef4444;
+  border-color: color-mix(in oklab, var(--danger) 75%, var(--border));
 }
 
 .toast .close {
   margin-inline-start: 6px;
+  opacity: 0.85;
   cursor: pointer;
-  opacity: .85;
 }
 
-@keyframes toastIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-}
-
-/* ==================== Honeypot ==================== */
-.hp {
-  position: absolute !important;
-  left: -10000px !important;
-  opacity: 0 !important;
-}
-
-/* ==================== Smooth Theme Transition (unified) ==================== */
-:root {
-  --theme-xdur: 240ms;
-}
-
-/* تک‌تعریف (تکرار حذف شد) */
-
-/* دامنه‌ی ترنزیشن به عناصر کلیدی محدود شد تا سبک‌تر باشد */
-html,
-body,
-.site-header,
-.main-nav,
-.card,
-.searchbox,
-.province-list a,
-.pill,
-.tab,
-.badge,
-.icon-btn,
-.btn,
-.capsule,
-.brand-icon,
-.switch .slider,
-.switch .slider::before {
-  transition:
-    background-color var(--theme-xdur) ease,
-    color var(--theme-xdur) ease,
-    border-color var(--theme-xdur) ease,
-    box-shadow var(--theme-xdur) ease,
-    outline-color var(--theme-xdur) ease,
-    fill var(--theme-xdur) ease,
-    stroke var(--theme-xdur) ease;
-}
-
-/* ==================== Switch / Wave (بدون تغییر API) ==================== */
-.switch .slider {
-  --wave-dur: 320ms;
-  --wave-x: var(--x, 50%);
-  /* JS ست می‌کند؛ کیبورد → وسط */
-  position: relative;
-  overflow: hidden;
-  will-change: background, box-shadow;
-}
-
-.switch .slider::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  pointer-events: none;
-  background: radial-gradient(circle at var(--wave-x) 50%,
-      rgba(124, 92, 255, 0.25) 0%,
-      rgba(124, 92, 255, 0.18) 22%,
-      transparent 48%);
-  opacity: 0;
-  transition: opacity var(--wave-dur) ease;
-}
-
-@supports (color: color-mix(in oklab, white, black)) {
-  .switch .slider::after {
-    background: radial-gradient(circle at var(--wave-x) 50%,
-        color-mix(in oklab, var(--primary) 30%, transparent) 0%,
-        color-mix(in oklab, var(--primary) 18%, transparent) 22%,
-        transparent 48%);
-  }
-}
-
-.switch .slider.wave::after,
-.switch.input-wave .slider::after {
+.toast .close:hover {
   opacity: 1;
 }
 
-.switch .slider.wave,
-.switch.input-wave .slider {
-  animation: slider-pulse var(--wave-dur) ease-out;
-}
+/* ==================== Prose Helpers ==================== */
 
-@keyframes slider-pulse {
-  0% {
-    box-shadow: inset 0 0 0 0 rgba(124, 92, 255, 0);
-  }
-
-  40% {
-    box-shadow: inset 0 0 0 4px rgba(124, 92, 255, 0.22);
-  }
-
-  100% {
-    box-shadow: inset 0 0 0 0 rgba(124, 92, 255, 0);
-  }
-}
-
-/* ==================== Prose helpers ==================== */
 .prose p {
   line-height: 1.9;
-}
-
-.kbd {
-  border: 1px solid var(--border);
-  border-bottom-width: 2px;
-  padding: 0 .4rem;
-  border-radius: .4rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: .85em;
-  background: color-mix(in oklab, var(--bg-soft) 85%, transparent);
 }
 
 .list-check {
@@ -517,65 +422,82 @@ body,
 }
 
 .list-check li {
-  margin: .35rem 0;
+  margin: 0.35rem 0;
 }
 
 .list-check li i {
-  margin-inline-start: .25rem;
+  margin-inline-start: 0.25rem;
   color: var(--primary);
 }
 
-.muted {
-  opacity: .8;
-}
-
 .callout {
-  border-inline-start: 4px solid var(--primary);
-  background: color-mix(in oklab, var(--primary) 6%, transparent);
   padding: 1rem;
-  border-radius: .6rem;
-}
-
-.grid {
-  display: grid;
-  gap: 1rem;
-}
-
-@media (min-width:768px) {
-  .grid.cols-2 {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.badge {
-  display: inline-block;
-  padding: .25rem .5rem;
-  border-radius: 999px;
-  font-size: .75rem;
-  background: color-mix(in oklab, var(--primary) 12%, transparent);
+  border-inline-start: 4px solid var(--primary);
+  border-radius: 0.7rem;
+  background: color-mix(in oklab, var(--primary) 6%, transparent);
 }
 
 .code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.35rem;
   background: #0001;
-  padding: .15rem .35rem;
-  border-radius: .35rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-/* ==================== Reduced motion & High Contrast ==================== */
-@media (prefers-reduced-motion: reduce) {
+/* ==================== Honeypot ==================== */
 
-  .tab,
-  .btn,
-  .pill,
-  .toast,
-  .switch .slider,
-  .switch .slider::before,
-  .switch .slider::after {
-    transition: none !important;
-    animation: none !important;
+.hp {
+  position: absolute !important;
+  inset-inline-start: -10000px !important;
+  opacity: 0 !important;
+}
+
+/* ==================== Responsive Local Rules ==================== */
+
+@media (max-width: 980px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 700px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tabbar {
+    overflow: auto hidden;
+    flex-wrap: nowrap;
+    padding-block-end: 2px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .tabbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .card .card-header,
+  .card .card-body,
+  .card .card-footer {
+    padding-inline: 10px;
+  }
+
+  .tab {
+    min-block-size: 34px;
+    padding-inline: 0.7rem;
+  }
+
+  .pill {
+    min-block-size: 32px;
+  }
+}
+
+/* ==================== Accessibility ==================== */
+
 
 @media (forced-colors: active) {
 
@@ -589,9 +511,9 @@ body,
   .faq,
   .toast {
     forced-color-adjust: auto;
-    border-color: CanvasText;
     background: Canvas;
     color: CanvasText;
+    border-color: CanvasText;
   }
 
   .tab:focus-visible,
@@ -601,17 +523,415 @@ body,
   }
 }
 
-@media (max-width: 600px) {
+/* ==========================================================================
+   province-page-fix.css
+   Fix province detail page: tabs, chips, accordion, tiles, RTL/LTR layout
+   Load this AFTER style.css, components.css, responsive.css
+   ========================================================================== */
 
-  /* کارت لیست، پدینگ کمتر */
-  .card .card-header,
-  .card .card-body,
-  .card .card-footer {
-    padding-inline: 10px;
+/* ==================== Province Page Shell ==================== */
+
+main.container:has(#countiesAccordion),
+main.container:has(#citiesList),
+main.container:has(#attractionsList) {
+  padding-block: clamp(18px, 2.5vw, 32px);
+}
+
+main.container:has(#countiesAccordion)>.card {
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+/* ==================== Header: Chips + Tabs ==================== */
+
+main.container:has(#countiesAccordion) .card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(12px, 2vw, 20px);
+  min-height: 72px;
+  padding: 16px 20px;
+}
+
+/* Persian: chips right, tabs left */
+html[dir="rtl"] main.container:has(#countiesAccordion) .card-header {
+  flex-direction: row;
+}
+
+/* English: chips left, tabs right */
+html[dir="ltr"] main.container:has(#countiesAccordion) .card-header {
+  flex-direction: row;
+}
+
+.chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+
+.chip {
+  min-height: 34px;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--border-soft, var(--border));
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, color-mix(in oklab, white 5%, transparent), transparent),
+    color-mix(in oklab, var(--primary) 9%, var(--bg-soft));
+  color: var(--text-soft, var(--muted));
+  font-size: 0.86rem;
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+
+.tab {
+  min-height: 42px;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--border-soft, var(--border));
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--card) 70%, transparent);
+  color: var(--text-soft, var(--muted));
+  font-weight: 850;
+}
+
+.tab:hover {
+  color: var(--text);
+  border-color: color-mix(in oklab, var(--primary) 32%, var(--border));
+  background: color-mix(in oklab, var(--primary) 8%, var(--card));
+}
+
+.tab.is-active,
+.tab.active,
+.tab[aria-selected="true"] {
+  color: #fff;
+  border-color: var(--primary);
+  background:
+    radial-gradient(circle at 30% 0%, color-mix(in oklab, white 22%, transparent), transparent 38%),
+    linear-gradient(135deg, var(--primary), var(--primary-700));
+  box-shadow:
+    0 12px 28px color-mix(in oklab, var(--primary) 24%, transparent),
+    inset 0 1px 0 color-mix(in oklab, white 22%, transparent);
+}
+
+/* ==================== Card Body ==================== */
+
+main.container:has(#countiesAccordion) .card-body {
+  padding: clamp(18px, 2.4vw, 26px);
+}
+
+.tab-panel {
+  min-width: 0;
+}
+
+.tab-panel[aria-hidden="true"]:not(.active) {
+  display: none;
+}
+
+.tab-panel.active,
+.tab-panel[aria-hidden="false"] {
+  display: block;
+}
+
+/* ==================== Accordion Fix ==================== */
+
+.accordion {
+  display: grid;
+  gap: 12px;
+}
+
+/* The accordion item should be the visible row/card */
+.acc-item {
+  overflow: hidden;
+  border: 1px solid var(--border-soft, var(--border));
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, color-mix(in oklab, white 4%, transparent), transparent),
+    color-mix(in oklab, var(--card) 96%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white 10%, transparent),
+    var(--shadow-soft);
+}
+
+/*
+  Critical fix:
+  .acc-head is now a <button>, so reset browser button styles.
+*/
+.acc-head {
+  appearance: none;
+  -webkit-appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  inline-size: 100%;
+  min-block-size: 58px;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 850;
+  line-height: 1.35;
+  text-align: start;
+  cursor: pointer;
+}
+
+/* RTL: name right, icon left */
+html[dir="rtl"] .acc-head {
+  direction: rtl;
+}
+
+/* LTR: name left, icon right */
+html[dir="ltr"] .acc-head {
+  direction: ltr;
+}
+
+.acc-head strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.acc-head i {
+  flex: 0 0 auto;
+  color: var(--text-soft, var(--muted));
+  font-size: 0.95rem;
+  transition:
+    transform 180ms ease,
+    color 180ms ease;
+}
+
+.acc-head:hover {
+  background: color-mix(in oklab, var(--primary) 7%, transparent);
+}
+
+.acc-head:hover i {
+  color: var(--primary);
+}
+
+.acc-head:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 3px var(--ring);
+}
+
+.acc-item.open .acc-head {
+  background: color-mix(in oklab, var(--primary) 9%, transparent);
+}
+
+.acc-item.open .acc-head i {
+  color: var(--primary);
+  transform: rotate(180deg);
+}
+
+.acc-body {
+  display: block;
+  padding: 0 18px 16px;
+  border-top: 1px dashed color-mix(in oklab, var(--border) 70%, transparent);
+  color: var(--text-soft, var(--muted));
+}
+
+.acc-body[hidden] {
+  display: none !important;
+}
+
+.acc-body .muted {
+  margin-block-start: 12px;
+  line-height: 1.9;
+}
+
+/* Remove the broken empty-looking row effect */
+.acc-item:not(.open) .acc-body {
+  display: none;
+}
+
+/* ==================== Tiles Fix ==================== */
+
+.tiles {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.tiles li {
+  display: grid;
+  place-items: center;
+  min-height: 58px;
+  padding: 14px 16px;
+  border: 1px solid var(--border-soft, var(--border));
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, color-mix(in oklab, white 4%, transparent), transparent),
+    color-mix(in oklab, var(--card) 96%, transparent);
+  color: var(--text);
+  text-align: center;
+  font-weight: 800;
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white 10%, transparent),
+    var(--shadow-soft);
+}
+
+.tiles li:hover {
+  border-color: color-mix(in oklab, var(--primary) 42%, var(--border));
+  background: color-mix(in oklab, var(--primary) 8%, var(--card));
+  transform: translateY(-2px);
+}
+
+.tile-text {
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+/* ==================== Intro Panel ==================== */
+
+#introTitle {
+  margin-block: 0 10px;
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+}
+
+#introText {
+  max-width: 75ch;
+  margin-block: 0 18px;
+  line-height: 2;
+}
+
+.hero-wrap {
+  margin: 0;
+}
+
+.hero {
+  display: block;
+  inline-size: 100%;
+  max-block-size: 440px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* ==================== Empty State ==================== */
+
+.province-empty {
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  min-height: 120px;
+  padding: 1rem;
+  border: 1px dashed var(--border-soft, var(--border));
+  border-radius: 16px;
+  color: var(--muted);
+  text-align: center;
+  background: color-mix(in oklab, var(--bg-soft) 70%, transparent);
+}
+
+/* ==================== Footer Count ==================== */
+
+main.container:has(#countiesAccordion) .card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 54px;
+  padding: 12px 20px;
+}
+
+html[dir="rtl"] main.container:has(#countiesAccordion) .card-footer {
+  justify-content: flex-start;
+}
+
+#resultCount {
+  font-weight: 800;
+}
+
+/* ==================== Responsive ==================== */
+
+@media (max-width: 900px) {
+  main.container:has(#countiesAccordion) .card-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .chips {
+    order: 1;
+  }
+
+  .tabs {
+    order: 2;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-block-end: 4px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  main.container:has(#countiesAccordion) .card-body {
+    padding: 14px;
+  }
+
+  .chip {
+    font-size: 0.8rem;
+  }
+
+  .acc-head {
+    min-block-size: 54px;
+    padding: 12px 14px;
+  }
+
+  .acc-body {
+    padding: 0 14px 14px;
   }
 
   .tiles {
-    gap: 8px;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: 1fr;
+  }
+}
+
+.province-main>.card {
+  max-width: 1440px;
+  margin-inline: auto;
+}
+
+/* ==================== Accessibility ==================== */
+
+@media (forced-colors: active) {
+
+  .acc-item,
+  .acc-head,
+  .tab,
+  .chip,
+  .tiles li,
+  .province-empty {
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+  }
+
+  .tab[aria-selected="true"],
+  .tab.is-active,
+  .tab.active {
+    background: Highlight;
+    color: HighlightText;
+    border-color: Highlight;
   }
 }
