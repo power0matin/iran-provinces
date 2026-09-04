@@ -935,3 +935,257 @@ html[dir="rtl"] main.container:has(#countiesAccordion) .card-footer {
     border-color: Highlight;
   }
 }
+
+/* ========================================================================== 
+   2026 province page refinement
+   Modern hierarchy, restrained surfaces, and clearer touch targets.
+   ========================================================================== */
+
+main.container:has(#countiesAccordion),
+main.container:has(#citiesList),
+main.container:has(#attractionsList) {
+  padding-block: clamp(20px, 3vw, 40px);
+}
+
+main.container:has(#countiesAccordion) > .card {
+  border-radius: 22px;
+  border-color: color-mix(in oklab, var(--border) 78%, transparent);
+  background: var(--card);
+}
+
+main.container:has(#countiesAccordion) .card-header {
+  min-block-size: 76px;
+  padding: clamp(16px, 2.5vw, 24px);
+  border-bottom-color: color-mix(in oklab, var(--border) 68%, transparent);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--primary) 4%, var(--card)), var(--card));
+}
+
+.chips {
+  gap: 7px;
+}
+
+.chip {
+  min-block-size: 32px;
+  padding: 0.4rem 0.7rem;
+  border-color: color-mix(in oklab, var(--primary) 16%, var(--border));
+  background: color-mix(in oklab, var(--primary) 7%, var(--card));
+  color: var(--text-soft);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.chip::before {
+  content: "";
+  inline-size: 6px;
+  block-size: 6px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--primary);
+  opacity: 0.72;
+}
+
+.tabs {
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid color-mix(in oklab, var(--border) 72%, transparent);
+  border-radius: 15px;
+  background: color-mix(in oklab, var(--bg-soft) 70%, var(--card));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.15);
+}
+
+.tab {
+  min-block-size: 40px;
+  padding: 0.55rem 0.9rem;
+  border-color: transparent;
+  border-radius: 11px;
+  background: transparent;
+  color: var(--text-soft);
+  font-size: 0.88rem;
+  transition:
+    transform 180ms var(--ease-out),
+    background-color 180ms var(--ease-out),
+    border-color 180ms var(--ease-out),
+    color 180ms var(--ease-out),
+    box-shadow 180ms var(--ease-out);
+}
+
+.tab:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in oklab, var(--primary) 18%, transparent);
+  background: color-mix(in oklab, var(--primary) 7%, transparent);
+}
+
+.tab.is-active,
+.tab.active,
+.tab[aria-selected="true"] {
+  border-color: color-mix(in oklab, var(--primary) 75%, transparent);
+  background: linear-gradient(135deg, var(--primary), var(--primary-700));
+  box-shadow: 0 8px 18px color-mix(in oklab, var(--primary) 20%, transparent);
+}
+
+main.container:has(#countiesAccordion) .card-body {
+  padding: clamp(18px, 3vw, 30px);
+}
+
+#introTitle {
+  margin-block: 0 12px;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  letter-spacing: -0.025em;
+}
+
+#introText {
+  max-inline-size: 70ch;
+  margin-block: 0;
+  color: var(--text-soft);
+  font-size: 0.98rem;
+  line-height: 2.05;
+}
+
+.hero-wrap {
+  position: relative;
+  overflow: hidden;
+  margin-block-start: clamp(20px, 3vw, 30px);
+  border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  border-radius: 18px;
+  background: var(--bg-soft);
+  box-shadow: var(--shadow-soft);
+}
+
+.hero-wrap::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  block-size: 34%;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgb(10 14 26 / 0.2));
+}
+
+.hero {
+  inline-size: 100%;
+  max-block-size: none;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.accordion {
+  gap: 10px;
+}
+
+.acc-item {
+  border-color: color-mix(in oklab, var(--border) 78%, transparent);
+  border-radius: 15px;
+  background: color-mix(in oklab, var(--card) 96%, var(--bg-soft));
+  box-shadow: 0 7px 22px rgb(17 24 39 / 0.055);
+  transition:
+    border-color 180ms var(--ease-out),
+    box-shadow 180ms var(--ease-out),
+    transform 180ms var(--ease-out);
+}
+
+.acc-item:hover {
+  border-color: color-mix(in oklab, var(--primary) 30%, var(--border));
+  box-shadow: 0 12px 28px color-mix(in oklab, var(--primary) 8%, rgb(17 24 39 / 0.12));
+}
+
+.acc-head {
+  min-block-size: 60px;
+  padding: 14px 16px;
+}
+
+.acc-head i {
+  display: grid;
+  place-items: center;
+  inline-size: 28px;
+  block-size: 28px;
+  border-radius: 9px;
+  background: color-mix(in oklab, var(--primary) 9%, var(--bg-soft));
+  transition:
+    transform 180ms var(--ease-out),
+    color 180ms var(--ease-out),
+    background-color 180ms var(--ease-out);
+}
+
+.acc-item.open .acc-head {
+  background: color-mix(in oklab, var(--primary) 6%, transparent);
+}
+
+.acc-item.open .acc-head i {
+  background: var(--primary);
+  color: #fff;
+}
+
+.acc-body {
+  padding: 0 16px 18px;
+  border-top-color: color-mix(in oklab, var(--border) 62%, transparent);
+  line-height: 1.9;
+}
+
+.tiles {
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 10px;
+  padding-block-start: 0;
+}
+
+.tiles li {
+  min-block-size: 56px;
+  padding: 12px 14px;
+  border-color: color-mix(in oklab, var(--border) 78%, transparent);
+  border-radius: 14px;
+  background: color-mix(in oklab, var(--card) 96%, var(--bg-soft));
+  box-shadow: 0 7px 20px rgb(17 24 39 / 0.05);
+  transition:
+    transform 180ms var(--ease-out),
+    border-color 180ms var(--ease-out),
+    background-color 180ms var(--ease-out),
+    box-shadow 180ms var(--ease-out);
+}
+
+.tiles li:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in oklab, var(--primary) 40%, var(--border));
+  background: color-mix(in oklab, var(--primary) 7%, var(--card));
+  box-shadow: 0 14px 30px color-mix(in oklab, var(--primary) 10%, rgb(17 24 39 / 0.12));
+}
+
+main.container:has(#countiesAccordion) .card-footer {
+  min-block-size: 54px;
+  padding: 12px clamp(16px, 2.5vw, 24px);
+  border-top-color: color-mix(in oklab, var(--border) 66%, transparent);
+  background: color-mix(in oklab, var(--bg-soft) 38%, var(--card));
+}
+
+#resultCount {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 28px;
+  padding-inline: 0.7rem;
+  border: 1px solid color-mix(in oklab, var(--border) 72%, transparent);
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--primary) 5%, var(--card));
+  font-size: 0.8rem;
+}
+
+@media (forced-colors: active) {
+  main.container:has(#countiesAccordion) > .card,
+  .tabs,
+  .acc-item,
+  .tiles li,
+  #resultCount {
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+  }
+
+  .tab.is-active,
+  .tab.active,
+  .tab[aria-selected="true"] {
+    background: Highlight;
+    color: HighlightText;
+    border-color: Highlight;
+  }
+
+  .chip::before {
+    background: CanvasText;
+  }
+}

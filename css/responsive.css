@@ -469,3 +469,123 @@ html[lang="en"] .province-list {
     break-inside: avoid;
   }
 }
+
+/* ========================================================================== 
+   2026 province responsive refinement
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  main.container:has(#countiesAccordion) .card-header {
+    gap: 14px;
+    padding: 16px;
+  }
+
+  main.container:has(#countiesAccordion) .tabs {
+    inline-size: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-block-end: 4px;
+  }
+
+  main.container:has(#countiesAccordion) .tab {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --page-pad: 16px;
+  }
+
+  main.container:has(#countiesAccordion) {
+    inline-size: min(100% - 16px, var(--container));
+    padding-block: 14px 26px;
+  }
+
+  main.container:has(#countiesAccordion) > .card {
+    border-radius: 18px;
+  }
+
+  main.container:has(#countiesAccordion) .card-header {
+    min-block-size: 0;
+    padding: 14px;
+  }
+
+  main.container:has(#countiesAccordion) .card-body {
+    padding: 18px 14px;
+  }
+
+  .chips {
+    gap: 6px;
+  }
+
+  .chip {
+    min-block-size: 30px;
+    font-size: 0.76rem;
+  }
+
+  .tabs {
+    border-radius: 13px;
+  }
+
+  .tab {
+    min-block-size: 40px;
+    padding-inline: 0.78rem;
+    font-size: 0.82rem;
+  }
+
+  #introTitle {
+    font-size: 1.42rem;
+  }
+
+  #introText {
+    font-size: 0.93rem;
+    line-height: 1.95;
+  }
+
+  .hero-wrap {
+    margin-block-start: 18px;
+    border-radius: 15px;
+  }
+
+  .hero {
+    aspect-ratio: 16 / 9;
+  }
+
+  .tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .tiles li {
+    min-block-size: 52px;
+    padding: 11px 9px;
+    border-radius: 12px;
+    font-size: 0.88rem;
+  }
+
+  .acc-head {
+    min-block-size: 54px;
+    padding: 12px 13px;
+  }
+
+  .acc-body {
+    padding: 0 13px 14px;
+  }
+
+  main.container:has(#countiesAccordion) .card-footer {
+    padding-inline: 14px;
+  }
+}
+
+@media (max-width: 420px) {
+  .tiles {
+    grid-template-columns: 1fr;
+  }
+
+  .chip {
+    max-inline-size: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
