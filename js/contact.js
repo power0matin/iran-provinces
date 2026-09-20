@@ -263,31 +263,6 @@
     TOAST.show(I18N.t("contact.mailOpened") || "Your mail app opened.", "success");
   });
 
-  /* ---------- Header basic (drawer) ---------- */
-  (function header() {
-    const nav = $("#mainNav");
-    const toggle = $("#navToggle");
-    const backdrop = $("#navBackdrop");
-    const open = () => {
-      nav.classList.add("open");
-      backdrop.classList.add("show");
-      document.body.classList.add("nav-locked"); // با CSS قبلی تو سازگاره
-    };
-    const close = () => {
-      nav.classList.remove("open");
-      backdrop.classList.remove("show");
-      document.body.classList.remove("nav-locked");
-    };
-
-    toggle?.addEventListener("click", () =>
-      nav.classList.contains("open") ? close() : open()
-    );
-    backdrop?.addEventListener("click", close);
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") close();
-    });
-  })();
-
   /* ---------- i18n sync ---------- */
   function applyDynamicI18n() {
     // placeholderهای پویا

@@ -122,88 +122,33 @@
     window.location.href = `province.html?id=${encodeURIComponent(props.id)}`;
   }
 
+  const tipEl = document.createElement("div");
+  tipEl.className = "map-tooltip";
+  tipEl.setAttribute("aria-hidden", "true");
+  document.body.appendChild(tipEl);
+
+  function positionTip(e) {
+    const p = map.latLngToContainerPoint(e.latlng);
+    const rect = el.getBoundingClientRect();
+    tipEl.style.left = rect.left + p.x + "px";
+    tipEl.style.top = rect.top + p.y + "px";
+  }
+  function showTip(text, e) {
+    tipEl.textContent = text;
+    tipEl.dir = document.dir || "ltr";
+    tipEl.classList.toggle("rtl", (document.dir || "ltr") === "rtl");
+    positionTip(e);
+    tipEl.setAttribute("aria-hidden", "false");
+  }
+  function moveTip(e) {
+    if (tipEl.getAttribute("aria-hidden") === "false") positionTip(e);
+  }
+  function hideTip() {
+    tipEl.setAttribute("aria-hidden", "true");
+  }
+
   function wireInteractions(layer, feature) {
     const props = feature.properties || {};
-
-    function _ringCentroidArea(coords) {
-      let twiceArea = 0,
-        cx = 0,
-        cy = 0;
-      const closed =
-        coords.length > 1 &&
-        coords[0][0] === coords[coords.length - 1][0] &&
-        coords[0][1] === coords[coords.length - 1][1];
-      const n = coords.length - (closed ? 1 : 0);
-
-      for (let i = 0; i < n; i++) {
-        const [x1, y1] = coords[i];
-        const [x2, y2] = coords[(i + 1) % n];
-        const cross = x1 * y2 - x2 * y1;
-        twiceArea += cross;
-        cx += (x1 + x2) * cross;
-        cy += (y1 + y2) * cross;
-      }
-      const A = twiceArea / 2;
-      if (A === 0) return { x: coords[0][0], y: coords[0][1], area: 0 };
-      return {
-        x: cx / (3 * twiceArea),
-        y: cy / (3 * twiceArea),
-        area: Math.abs(A),
-      };
-    }
-    function featureCenterLatLng(feature) {
-      const geom = feature && feature.geometry;
-      if (!geom) return null;
-
-      if (geom.type === "Polygon") {
-        const { x, y } = _ringCentroidArea(geom.coordinates[0]);
-        return L.latLng(y, x);
-      }
-      if (geom.type === "MultiPolygon") {
-        let best = null;
-        for (const poly of geom.coordinates) {
-          const c = _ringCentroidArea(poly[0]);
-          if (!best || c.area > best.area) best = c;
-        }
-        if (best) return L.latLng(best.y, best.x);
-      }
-      return null;
-    }
-    // === tooltip singleton (global) ===
-    const tipEl = document.createElement("div");
-    tipEl.className = "map-tooltip";
-    tipEl.setAttribute("aria-hidden", "true");
-    document.body.appendChild(tipEl);
-
-    function positionTip(e) {
-      const p = map.latLngToContainerPoint(e.latlng);
-      const rect = el.getBoundingClientRect();
-      tipEl.style.left = rect.left + p.x + "px";
-      tipEl.style.top = rect.top + p.y + "px";
-    }
-    function showTip(text, e) {
-      tipEl.textContent = text;
-      tipEl.dir = document.dir || "ltr";
-      tipEl.classList.toggle("rtl", (document.dir || "ltr") === "rtl");
-      positionTip(e);
-      tipEl.setAttribute("aria-hidden", "false");
-    }
-    function moveTip(e) {
-      if (tipEl.getAttribute("aria-hidden") === "false") positionTip(e);
-    }
-    function hideTip() {
-      tipEl.setAttribute("aria-hidden", "true");
-    }
-
-    function centerOf(layer, feature) {
-      if (layer && typeof layer.getCenter === "function") {
-        try {
-          return layer.getCenter();
-        } catch (e) {}
-      }
-      const c = featureCenterLatLng(feature);
-      return c || layer.getBounds().getCenter();
-    }
 
     const label = nameFor(props);
 

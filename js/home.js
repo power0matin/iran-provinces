@@ -202,8 +202,8 @@
         province.slug,
         province.names?.fa,
         province.names?.en,
-        province.capital?.fa,
-        province.capital?.en,
+        province.capital?.fa ?? province.capital,
+        province.capital?.en ?? province.capitalEn,
       ]
         .filter(Boolean)
         .join(" "),
