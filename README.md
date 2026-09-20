@@ -62,10 +62,10 @@ A modern, responsive, bilingual (FA/EN) web app to **explore Iran’s provinces*
 ## 📸 Screenshots
 
 **Home**
-![Homepage](images/new_version_preview_light.png)
+![Homepage](images/new_version_preview_light_en.png)
 
 **Dark mode**
-![Dark Mode](images/new_version_preview_dark.png)
+![Dark Mode](images/new_version_preview_dark_en.png)
 
 ## 🗂 Project Structure
 
