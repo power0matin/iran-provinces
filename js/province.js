@@ -23,6 +23,7 @@
     chipArea: "#chipArea",
 
     provinceTitle: "#provinceTitle",
+    provinceLd: "#provinceLd",
     introTitle: "#introTitle",
     introText: "#introText",
     heroImage: "#heroImage",
@@ -188,6 +189,10 @@
     );
   }
 
+  function localizedField(province, key) {
+    const en = lang() === "en" ? province[`${key}En`] : "";
+    return en || localizedValue(province[key]);
+  }
   function localizedValue(value, fallback = "") {
     if (value == null) return fallback;
 
@@ -382,7 +387,7 @@
 
   function renderChips(province) {
     const capital =
-      localizedValue(province.capital) ||
+      localizedField(province, "capital") ||
       localizedValue(province.center) ||
       localizedValue(province.capitalCity) ||
       "—";
@@ -399,7 +404,7 @@
     setText(SELECTORS.introTitle, t("province.aboutTitle"));
 
     const intro =
-      localizedValue(province.intro) ||
+      localizedField(province, "intro") ||
       localizedValue(province.about) ||
       localizedValue(province.description) ||
       "";
@@ -415,6 +420,7 @@
       if (figure) figure.hidden = hidden;
     };
     image.onerror = () => setHeroHidden(true);
+    image.onload = () => setSeoImage(new URL(image.getAttribute("src"), SITE_URL).href);
 
     const src =
       localizedValue(province.hero) ||
@@ -429,6 +435,7 @@
       image.loading = "lazy";
       image.decoding = "async";
       setHeroHidden(false);
+      if (image.complete && image.naturalWidth) image.onload();
     } else {
       image.removeAttribute("src");
       image.alt = "";
@@ -553,6 +560,7 @@
 
   function renderNotFound() {
     document.title = t("province.noData");
+    setAttr('meta[name="robots"]', "content", "noindex,follow");
     setText(SELECTORS.provinceTitle, "");
 
     setText(SELECTORS.introTitle, t("province.aboutTitle"));
@@ -572,6 +580,75 @@
     }
   }
 
+  const SITE_URL = "https://power0matin.github.io/iran-provinces/";
+  const DEFAULT_OG_IMAGE = `${SITE_URL}assets/iran-map.png`;
+  let seoState = null;
+
+  function setAttr(selector, attribute, value) {
+    $(selector)?.setAttribute(attribute, value);
+  }
+
+  function summarize(text, max = 155) {
+    const clean = String(text || "").replace(/\s+/g, " ").trim();
+    if (clean.length <= max) return clean;
+    const cut = clean.slice(0, max);
+    return `${cut.slice(0, Math.max(cut.lastIndexOf(" "), max - 20)).trim()}…`;
+  }
+
+  function writeStructuredData() {
+    const script = $(SELECTORS.provinceLd);
+    if (!script || !seoState) return;
+
+    const { province, url, description, image } = seoState;
+    script.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "AdministrativeArea",
+      name: provinceName(province),
+      alternateName: provinceName(province, lang() === "en" ? "fa" : "en"),
+      description,
+      url,
+      image,
+      inLanguage: lang(),
+      containedInPlace: { "@type": "Country", name: "Iran" },
+    });
+  }
+
+  function setSeoImage(image) {
+    if (!seoState) return;
+    seoState.image = image;
+    setAttr("#ogImage", "content", image);
+    setAttr("#twImage", "content", image);
+    writeStructuredData();
+  }
+
+  function updateSeo(province) {
+    const name = provinceName(province);
+    const title = `${name} | ${t("brand.title")}`;
+    const description =
+      summarize(localizedField(province, "intro")) ||
+      $("#metaDescription")?.getAttribute("content") ||
+      "";
+    const url = `${SITE_URL}province.html?id=${encodeURIComponent(province.id || province.slug)}`;
+
+    document.title = title;
+    setAttr("#metaDescription", "content", description);
+    setAttr("#canonicalLink", "href", url);
+    setAttr("#ogTitle", "content", title);
+    setAttr("#ogDescription", "content", description);
+    setAttr("#ogUrl", "content", url);
+    setAttr("#ogImageAlt", "content", name);
+    setAttr("#twTitle", "content", title);
+    setAttr("#twDesc", "content", description);
+    setAttr(
+      'meta[property="og:locale"]',
+      "content",
+      lang() === "en" ? "en_US" : "fa_IR",
+    );
+
+    seoState = { province, url, description, image: DEFAULT_OG_IMAGE };
+    setSeoImage(DEFAULT_OG_IMAGE);
+  }
+
   function renderProvince(province) {
     if (!province) {
       renderNotFound();
@@ -582,7 +659,7 @@
     applyDocumentDirection();
 
     const name = provinceName(province);
-    document.title = name;
+    updateSeo(province);
     setText(SELECTORS.provinceTitle, name);
 
     renderChips(province);

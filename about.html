@@ -86,7 +86,7 @@
 
         <input id="searchInput" type="search" name="q" inputmode="search" autocomplete="off" enterkeyhint="search"
           spellcheck="false" dir="auto" data-i18n-placeholder="search.placeholder" placeholder="جستجوی استان…"
-          aria-controls="results" />
+          aria-controls="sb-suggest" />
 
         <button type="button" class="sb-clear" id="searchClear" hidden aria-label="Clear search">
           <i class="fa-solid fa-xmark" aria-hidden="true"></i>
@@ -145,7 +145,7 @@
         <h2 data-i18n="about.hero.title">
           این وب‌سایت برای معرفی جامع استان‌های ایران ساخته شده است.
         </h2>
-        <p class="muted" data-i18n="about.hero.lead">
+        <p class="muted" data-i18n-html="about.hero.lead">
           داده‌ها به‌صورت پویا قابل به‌روزرسانی‌اند و رابط کاربری از
           <strong>حالت تیره/روشن</strong>، <strong>جستجو</strong> و
           <strong>چندزبانه</strong> پشتیبانی می‌کند. تمرکز اصلی ما ارائه
@@ -153,9 +153,9 @@
           و علاقه‌مندان است.
         </p>
         <div class="callout" role="note">
-          <p data-i18n="about.hero.tip">
+          <p data-i18n-html="about.hero.tip">
             میانبرها: برای فوکوس روی جستجو کلید <span class="kbd">/</span> و
-            برای بستن منو <span class="kbd">Esc</span> را بزنید.
+            برای پاک‌سازی جستجو <span class="kbd">Esc</span> را بزنید.
           </p>
         </div>
       </div>
@@ -218,8 +218,7 @@
               نتایج</span>
           </li>
           <li>
-            <i class="fa-solid fa-check"></i><span data-i18n="about.features.f2">نقشه تعاملی (Image Map) با پشتیبانی از
-              تغییر اندازه</span>
+            <i class="fa-solid fa-check"></i><span data-i18n="about.features.f2">نقشه تعاملی با کلیک روی هر استان (Leaflet)</span>
           </li>
           <li>
             <i class="fa-solid fa-check"></i><span data-i18n="about.features.f3">حالت تیره/روشن با ذخیره ترجیح
@@ -234,7 +233,7 @@
               مناسب</span>
           </li>
           <li>
-            <i class="fa-solid fa-check"></i><span data-i18n="about.features.f6">ساختار ماژولار فایل‌ها: <span
+            <i class="fa-solid fa-check"></i><span data-i18n-html="about.features.f6">ساختار ماژولار فایل‌ها: <span
                 class="code">style.css</span>،
               <span class="code">components.css</span>،
               <span class="code">responsive.css</span></span>
@@ -280,14 +279,14 @@
       </div>
       <div class="card-body prose">
         <ol>
-          <li data-i18n="about.howto.s1">
+          <li data-i18n-html="about.howto.s1">
             از کادر جستجو نام استان را وارد کنید (میانبر:
             <span class="kbd">/</span>).
           </li>
           <li data-i18n="about.howto.s2">
             در صفحه استان، نمای کلی، آمار، تقسیمات و جاذبه‌ها را ببینید.
           </li>
-          <li data-i18n="about.howto.s3">
+          <li data-i18n-html="about.howto.s3">
             برای تغییر زبان روی دکمه <em>زبان</em> بزنید.
           </li>
           <li data-i18n="about.howto.s4">
@@ -325,10 +324,7 @@
           <summary data-i18n="about.faq.q3">
             آیا حالت تیره خودکار است؟
           </summary>
-          <p data-i18n="about.faq.a3">
-            اگر گزینه <span class="code">theme-auto</span> فعال باشد، بر اساس
-            ترجیح سیستم شما اعمال می‌شود و می‌توانید دستی هم تغییر دهید.
-          </p>
+          <p data-i18n="about.faq.a3">در حالت خودکار (کلیک راست روی سوئیچ تم)، تم بر اساس ترجیح سیستم شما اعمال می‌شود و می‌توانید دستی هم تغییر دهید.</p>
         </details>
       </div>
     </section>
@@ -415,15 +411,9 @@
     </div>
   </footer>
 
-  <!-- Dependencies -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/image-map-resizer/1.0.10/js/imageMapResizer.min.js"
-    integrity="sha512-i2jX8d8H58KSBhYq4E1y8z9iZlC1v1SsWq7bqQXc2YQy3uM2u3Ggs2w8J7q7K8VZfW8hGQq1m2F+8rXK7e0fRQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
   <!-- App Scripts -->
   <script src="js/i18n.js" defer></script>
   <script src="js/site.js" defer></script>
-  <script src="js/nav.js" defer></script>
   <script>
     (function () {
       // سال و میانبرها و منو … (همان کد فعلی خودت)
