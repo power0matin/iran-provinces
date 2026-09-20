@@ -2,7 +2,6 @@
 (function () {
   const LS_KEY = "theme"; // 'light' | 'dark' | 'auto'
   const root = document.documentElement;
-  const body = document.body;
 
   function saved() {
     return localStorage.getItem(LS_KEY);
@@ -19,11 +18,13 @@
   }
 
   function apply(theme) {
-    // data-theme=light|dark, and keep "theme-auto" class for auto mode (optional)
-    const isAuto = theme === "auto";
+      const isAuto = theme === "auto";
     const isDark = theme === "dark" || (isAuto && systemPrefersDark());
     root.setAttribute("data-theme", isDark ? "dark" : "light");
-    body.classList.toggle("theme-auto", isAuto);
+    document.body?.classList.toggle("theme-auto", isAuto);
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", isDark ? "#091413" : "#f4f1ea");
     window.dispatchEvent(
       new CustomEvent("themechange", {
         detail: { theme, resolved: isDark ? "dark" : "light" },
@@ -101,8 +102,17 @@
     }
   }
 
-  // init
+  window.addEventListener("storage", (e) => {
+    if (e.key !== LS_KEY || !e.newValue) return;
+    apply(e.newValue);
+    const toggle = document.getElementById("darkModeToggle");
+    if (toggle) toggle.checked = root.dataset.theme === "dark";
+  });
+
   const theme = saved() || "auto";
   apply(theme);
-  document.addEventListener("DOMContentLoaded", () => initUI(theme));
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.classList.toggle("theme-auto", theme === "auto");
+    initUI(theme);
+  });
 })();

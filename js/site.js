@@ -59,27 +59,6 @@
     }
   });
 
-  // ---------- THEME FALLBACK (only if DarkMode system not present) ----------
-  document.addEventListener("DOMContentLoaded", () => {
-    const themeToggle = $("#darkModeToggle");
-    if (!themeToggle || window.DarkMode) return;
-
-    const root = document.body;
-    const KEY = "theme";
-    const prefersDark =
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const saved = localStorage.getItem(KEY);
-    const initial = saved || (prefersDark ? "dark" : "light");
-    root.classList.toggle("theme-dark", initial === "dark");
-    themeToggle.checked = initial === "dark";
-    themeToggle.addEventListener("change", () => {
-      const isDark = themeToggle.checked;
-      root.classList.toggle("theme-dark", isDark);
-      localStorage.setItem(KEY, isDark ? "dark" : "light");
-    });
-  });
-
   // ---------- optional: image map resizer hook ----------
   document.addEventListener("DOMContentLoaded", () => {
     window.imageMapResize?.();
