@@ -34,13 +34,6 @@
   document.addEventListener("click", (e) => {
     const t = e.target instanceof Element ? e.target : null;
 
-    // lang toggle
-    if (t && t.closest("#langToggle")) {
-      // تنها نقطهٔ فراخوانی تغییر زبان
-      if (window.I18N?.toggle) I18N.toggle();
-      return;
-    }
-
     // nav open/close
     if (t && t.closest("#navToggle")) {
       toggleNav();
@@ -64,27 +57,6 @@
     if (e.key === "Escape" && state.navOpen) {
       toggleNav(false);
     }
-  });
-
-  // ---------- THEME FALLBACK (only if DarkMode system not present) ----------
-  document.addEventListener("DOMContentLoaded", () => {
-    const themeToggle = $("#darkModeToggle");
-    if (!themeToggle || window.DarkMode) return;
-
-    const root = document.body;
-    const KEY = "theme";
-    const prefersDark =
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const saved = localStorage.getItem(KEY);
-    const initial = saved || (prefersDark ? "dark" : "light");
-    root.classList.toggle("theme-dark", initial === "dark");
-    themeToggle.checked = initial === "dark";
-    themeToggle.addEventListener("change", () => {
-      const isDark = themeToggle.checked;
-      root.classList.toggle("theme-dark", isDark);
-      localStorage.setItem(KEY, isDark ? "dark" : "light");
-    });
   });
 
   // ---------- optional: image map resizer hook ----------

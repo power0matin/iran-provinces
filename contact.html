@@ -28,7 +28,7 @@
   <meta name="twitter:image" content="https://power0matin.github.io/iran-provinces/assets/iran-map.png" />
 
   <!-- PWA / Theme -->
-  <meta name="theme-color" content="#0ea5e9" />
+  <meta name="theme-color" content="#f4f1ea" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icons/favicon.ico" sizes="any" />
   <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
@@ -47,6 +47,7 @@
   <link rel="stylesheet" href="css/responsive.css" />
   <link rel="stylesheet" href="css/map.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <script src="js/darkMode.js"></script>
 </head>
 
 
@@ -125,7 +126,7 @@
       <div class="card-body">
         <div class="contact-grid">
           <!-- Form -->
-          <form id="contactForm" novalidate>
+          <form id="contactForm" data-to="me@matinshahabadi.ir" novalidate>
             <!-- honeypot ضد‌بات -->
             <input type="text" name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />
 
@@ -144,7 +145,7 @@
                 <small class="help" id="emailHelp" data-i18n="contact.emailHelp">برای پاسخ لازم است</small>
               </div>
 
-              <div class="field">
+              <div class="field field-full">
                 <label for="subject" data-i18n="contact.subject">موضوع</label>
                 <select id="subject" name="subject" class="input">
                   <option value="general" data-i18n="contact.subject.general">
@@ -160,16 +161,6 @@
                     پشتیبانی
                   </option>
                 </select>
-              </div>
-
-              <div class="field">
-                <label for="attachments" data-i18n="contact.attach">پیوست (اختیاری)</label>
-                <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Drag & drop">
-                  <i class="fa-regular fa-folder-open" aria-hidden="true"></i>
-                  <span data-i18n="contact.drop">فایل را بکشید و رها کنید یا کلیک کنید</span>
-                  <input id="attachments" name="files" type="file" multiple hidden />
-                </div>
-                <ul id="fileList" class="file-list"></ul>
               </div>
 
               <div class="field field-full">
@@ -207,10 +198,10 @@
               </h3>
               <ul class="link-list">
                 <li>
-                  <a href="mailto:you@example.com" class="link">
-                    <i class="fa-regular fa-envelope"></i> you@example.com
+                  <a href="mailto:me@matinshahabadi.ir" class="link">
+                    <i class="fa-regular fa-envelope"></i> me@matinshahabadi.ir
                   </a>
-                  <button class="icon-btn xs" data-copy="you@example.com" title="Copy" aria-label="Copy email">
+                  <button class="icon-btn xs" data-copy="me@matinshahabadi.ir" title="Copy" aria-label="Copy email">
                     <i class="fa-regular fa-copy"></i>
                   </button>
                 </li>
@@ -267,12 +258,9 @@
 
   <script src="js/i18n.js" defer></script>
   <script src="js/site.js" defer></script>
-  <script src="js/app.js" defer></script>
-  <script src="js/darkMode.js" defer></script>
   <script src="js/nav.js" defer></script>
   <script src="js/contact.js" defer></script>
   <script src="js/search-global.js" defer></script>
-  <script src="js/theme-sync.js" defer></script>
   <script>
     (function () {
       const mq = window.matchMedia('(max-width: 700px)');

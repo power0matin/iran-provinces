@@ -79,7 +79,7 @@
 
 .tab.is-active,
 .tab[aria-selected="true"] {
-  color: #fff;
+  color: var(--on-primary);
   background: var(--primary);
   border-color: var(--primary);
   box-shadow: 0 8px 18px color-mix(in oklab, var(--primary) 22%, transparent);
@@ -265,7 +265,7 @@ select.input.invalid {
 .btn.primary {
   background: var(--primary);
   border-color: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
   box-shadow: 0 10px 22px color-mix(in oklab, var(--primary) 22%, transparent);
 }
 
@@ -613,7 +613,7 @@ html[dir="ltr"] main.container:has(#countiesAccordion) .card-header {
 .tab.is-active,
 .tab.active,
 .tab[aria-selected="true"] {
-  color: #fff;
+  color: var(--on-primary);
   border-color: var(--primary);
   background:
     radial-gradient(circle at 30% 0%, color-mix(in oklab, white 22%, transparent), transparent 38%),
@@ -984,6 +984,28 @@ main.container:has(#countiesAccordion) .card-header {
   opacity: 0.72;
 }
 
+.province-title {
+  margin: 0 0 clamp(14px, 2vw, 20px);
+  color: var(--text-strong);
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.3rem);
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.province-title::after {
+  content: "";
+  display: block;
+  inline-size: 44px;
+  block-size: 4px;
+  margin-block-start: 10px;
+  border-radius: 999px;
+  background: var(--saffron);
+}
+
+.province-title:empty {
+  display: none;
+}
+
 .tabs {
   gap: 4px;
   padding: 4px;
@@ -1112,7 +1134,7 @@ main.container:has(#countiesAccordion) .card-body {
 
 .acc-item.open .acc-head i {
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
 }
 
 .acc-body {

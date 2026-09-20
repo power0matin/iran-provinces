@@ -42,8 +42,8 @@
   async function loadMaps(){
     if (IdMap.ready) return;
     async function load(p){ try{ const r=await fetch(p,{cache:"no-store"}); return r.ok? r.json():null; }catch{return null;} }
-    const slug = await (load("data/slug-map.json")) || [];
-    const idx  = await (load("data/index.json")) || { provinces:[] };
+    const slug = await (load("data/provinces/slug-map.json")) || [];
+    const idx  = await (load("data/provinces/index.json")) || { provinces:[] };
 
     slug.forEach(it => {
       if (it.nameEn) IdMap.en.set(normEn(it.nameEn), it.id);
@@ -55,14 +55,6 @@
       if (p.nameFa) IdMap.fa.set(normFa(p.nameFa), p.id);
       IdMap.list.push({ id:p.id, fa:p.nameFa || "", en:p.nameEn || "" });
     });
-
-    // common aliases
-    IdMap.en.set("east azerbaijan","azarbaijan-east");
-    IdMap.en.set("west azerbaijan","azarbaijan-west");
-    IdMap.en.set("razavi khorasan","khorasan-razavi");
-    IdMap.en.set("south khorasan","khorasan-south");
-    IdMap.en.set("north khorasan","khorasan-north");
-    IdMap.en.set("kohgiluyeh and boyer ahmad","kohgiluyeh-boyerahmad");
 
     IdMap.ready = true;
   }

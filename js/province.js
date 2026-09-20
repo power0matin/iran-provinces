@@ -22,6 +22,7 @@
     chipPopulation: "#chipPopulation",
     chipArea: "#chipArea",
 
+    provinceTitle: "#provinceTitle",
     introTitle: "#introTitle",
     introText: "#introText",
     heroImage: "#heroImage",
@@ -389,9 +390,9 @@
     const population = numberFormat(province.population);
     const area = numberFormat(province.areaKm2 ?? province.area);
 
-    setText(SELECTORS.chipCapital, `${t("chip.capital")}: ${capital}`);
-    setText(SELECTORS.chipPopulation, `${t("chip.population")}: ${population}`);
-    setText(SELECTORS.chipArea, `${t("chip.area")}: ${area} km²`);
+    setText(SELECTORS.chipCapital, t("chip.capital", { v: capital }));
+    setText(SELECTORS.chipPopulation, t("chip.population", { v: population }));
+    setText(SELECTORS.chipArea, t("chip.area", { v: area }));
   }
 
   function renderIntro(province) {
@@ -408,6 +409,13 @@
     const image = $(SELECTORS.heroImage);
     if (!image) return;
 
+    const figure = image.closest(".hero-wrap");
+    const setHeroHidden = (hidden) => {
+      image.hidden = hidden;
+      if (figure) figure.hidden = hidden;
+    };
+    image.onerror = () => setHeroHidden(true);
+
     const src =
       localizedValue(province.hero) ||
       localizedValue(province.image) ||
@@ -420,11 +428,11 @@
       image.alt = name;
       image.loading = "lazy";
       image.decoding = "async";
-      image.hidden = false;
+      setHeroHidden(false);
     } else {
       image.removeAttribute("src");
       image.alt = "";
-      image.hidden = true;
+      setHeroHidden(true);
     }
   }
 
@@ -545,6 +553,7 @@
 
   function renderNotFound() {
     document.title = t("province.noData");
+    setText(SELECTORS.provinceTitle, "");
 
     setText(SELECTORS.introTitle, t("province.aboutTitle"));
     setText(SELECTORS.introText, t("msg.noData"));
@@ -557,6 +566,7 @@
     const image = $(SELECTORS.heroImage);
     if (image) {
       image.hidden = true;
+      image.closest(".hero-wrap")?.setAttribute("hidden", "");
       image.removeAttribute("src");
       image.alt = "";
     }
@@ -573,6 +583,7 @@
 
     const name = provinceName(province);
     document.title = name;
+    setText(SELECTORS.provinceTitle, name);
 
     renderChips(province);
     renderIntro(province);

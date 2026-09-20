@@ -78,16 +78,21 @@
   // ==============================
   const status = $("#mapStatus");
 
-  const fill =
-    getComputedStyle(document.documentElement).getPropertyValue("--primary") ||
-    "#6d28d9";
+  const primaryColor = () =>
+    getComputedStyle(document.documentElement)
+      .getPropertyValue("--primary")
+      .trim() || "#0b7a75";
   const normalStyle = {
     color: "rgba(0,0,0,.25)",
     weight: 1,
-    fillColor: fill.trim(),
+    fillColor: primaryColor(),
     fillOpacity: 0.08,
   };
   const hoverStyle = { weight: 2, fillOpacity: 0.18 };
+  window.addEventListener("themechange", () => {
+    normalStyle.fillColor = primaryColor();
+    geojson?.setStyle(() => normalStyle);
+  });
 
   function _neatEN(s) {
     if (!s) return "";
@@ -109,120 +114,12 @@
     );
   }
 
-  // ---  GeoJSON  ---
-  const ID = {
-    ready: false,
-    map: new Map(), // normalizedName -> id
-  };
-
-  function normalizeEn(s = "") {
-    return String(s)
-      .toLowerCase()
-      .normalize("NFKD")
-      .replace(/[\u0300-\u036f]/g, "") // حذف اکسنت
-      .replace(/[_-]+/g, " ")
-      .replace(/[^a-z\s]/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
-  }
-
-  function normalizeFaRaw(s = "") {
-    return String(s).replace(/\s+/g, " ").trim();
-  }
-  function normalizeFaStrong(s = "") {
-    return String(s)
-      .replace(/\u200c/g, " ") // ZWNJ -> space
-      .replace(/^\s*استان[\s\u200c]+/g, "") // drop leading "استان "
-      .replace(/ي/g, "ی") // Arabic Yeh -> Persian Yeh
-      .replace(/ك/g, "ک") // Arabic Kaf  -> Persian Kaf
-      .replace(/\s+/g, " ")
-      .trim();
-  }
-
-  async function buildIdResolver() {
-    if (ID.ready) return;
-    try {
-      const slugRes = await fetch("data/provinces/slug-map.json", {
-        cache: "no-store",
-      });
-      const slugList = await slugRes.json();
-
-      const idxRes = await fetch("data/provinces/index.json", {
-        cache: "no-store",
-      });
-      const idx = await idxRes.json();
-
-      const addKeys = (fa, en, id) => {
-        if (en) ID.map.set(normalizeEn(en), id); // EN normalized
-
-        if (fa) {
-          const faRaw = normalizeFaRaw(fa);
-          const faNorm = normalizeFaStrong(fa);
-          ID.map.set(faRaw, id);
-          ID.map.set(faNorm, id);
-          const withOstan = "استان " + faNorm;
-          ID.map.set(withOstan, id);
-        }
-      };
-
-      slugList.forEach((it) =>
-        addKeys(it.nameFa, it.nameEn || it.matchEn, it.id)
-      );
-      (idx.provinces || []).forEach((p) => addKeys(p.nameFa, p.nameEn, p.id));
-
-      ID.map.set("east azerbaijan", "azarbaijan-east");
-      ID.map.set("west azerbaijan", "azarbaijan-west");
-      ID.map.set("razavi khorasan", "khorasan-razavi");
-      ID.map.set("south khorasan", "khorasan-south");
-      ID.map.set("north khorasan", "khorasan-north");
-      ID.map.set("kohgiluyeh and boyer ahmad", "kohgiluyeh-boyerahmad");
-
-      ID.ready = true;
-    } catch (e) {
-      console.error("ID resolver build failed:", e);
-    }
-  }
-
-  function resolveIdFromProps(props = {}) {
-    if (props.id) return props.id;
-
-    // EN candidates (normalized)
-    const enCandidates = [
-      props.nameEn,
-      props.name_en,
-      props.NAME_1,
-      props.NAME,
-      props.Prov_EN,
-      props.en_name,
-      props.EngName,
-    ].filter(Boolean);
-
-    for (const c of enCandidates) {
-      const k = normalizeEn(c);
-      if (ID.map.has(k)) return ID.map.get(k);
-    }
-
-    const fa = props.nameFa || props.name_fa || props.NAME_FA || props.Prov_FA;
-    if (fa) {
-      const faRaw = normalizeFaRaw(fa);
-      const faNorm = normalizeFaStrong(fa);
-      const faWith = "استان " + faNorm;
-
-      if (ID.map.has(faRaw)) return ID.map.get(faRaw);
-      if (ID.map.has(faNorm)) return ID.map.get(faNorm);
-      if (ID.map.has(faWith)) return ID.map.get(faWith);
-    }
-
-    return null;
-  }
-
   function navigateToByProps(props) {
-    const id = resolveIdFromProps(props);
-    if (!id) {
+    if (!props.id) {
       console.warn("No province id matched for feature:", props);
       return;
     }
-    window.location.href = `province.html?id=${encodeURIComponent(id)}`;
+    window.location.href = `province.html?id=${encodeURIComponent(props.id)}`;
   }
 
   function wireInteractions(layer, feature) {
@@ -254,75 +151,6 @@
         area: Math.abs(A),
       };
     }
-    // --- helpers---
-    function normEn(s = "") {
-      return String(s)
-        .toLowerCase()
-        .normalize("NFKD")
-        .replace(/[\u0300-\u036f]/g, "") // remove accents
-        .replace(/[_-]+/g, " ")
-        .replace(/[^a-z\s]/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
-    }
-    function normFa(s = "") {
-      return String(s).replace(/\s+/g, " ").trim();
-    }
-    const IdResolver = {
-      ready: false,
-      en: new Map(), // key: normalized english -> id
-      fa: new Map(), // key: normalized persian -> id
-    };
-
-    async function loadIdMaps() {
-      if (IdResolver.ready) return;
-      async function loadJsonTry(paths) {
-        for (const p of paths) {
-          try {
-            const res = await fetch(p, { cache: "no-store" });
-            if (res.ok) return res.json();
-          } catch {}
-        }
-        return null;
-      }
-
-      const slugMap =
-        (await loadJsonTry([
-          "slug-map.json",
-          "data/provinces/slug-map.json",
-        ])) || [];
-      const index = (await loadJsonTry([
-        "index.json",
-        "data/provinces/index.json",
-      ])) || {
-        provinces: [],
-      };
-
-      for (const it of slugMap) {
-        if (it.nameEn) IdResolver.en.set(normEn(it.nameEn), it.id);
-        if (it.matchEn) IdResolver.en.set(normEn(it.matchEn), it.id);
-        if (it.nameFa) IdResolver.fa.set(normFa(it.nameFa), it.id);
-      }
-      for (const p of index.provinces) {
-        if (p.nameEn) IdResolver.en.set(normEn(p.nameEn), p.id);
-        if (p.nameFa) IdResolver.fa.set(normFa(p.nameFa), p.id);
-      }
-
-      IdResolver.en.set("east azerbaijan", "azarbaijan-east");
-      IdResolver.en.set("west azerbaijan", "azarbaijan-west");
-      IdResolver.en.set("razavi khorasan", "khorasan-razavi");
-      IdResolver.en.set("south khorasan", "khorasan-south");
-      IdResolver.en.set("north khorasan", "khorasan-north");
-      IdResolver.en.set("kohgiluyeh and boyer ahmad", "kohgiluyeh-boyerahmad");
-
-      IdResolver.ready = true;
-    }
-
-    function goProvince(id) {
-      if (!id) return;
-      window.location.href = `province.html?id=${encodeURIComponent(id)}`;
-    }
-
     function featureCenterLatLng(feature) {
       const geom = feature && feature.geometry;
       if (!geom) return null;
@@ -415,7 +243,6 @@
   async function loadGeo() {
     try {
       status && (status.textContent = "Loading…");
-      await buildIdResolver();
       const res = await fetch("data/geo/iran-provinces.geojson", {
         cache: "no-store",
       });

@@ -8,13 +8,8 @@
   const emailEl = $("#email");
   const subjectEl = $("#subject");
   const messageEl = $("#message");
-  const submitBtn = $("#submitBtn");
   const resetBtn = $("#resetBtn");
   const msgCount = $("#msgCount");
-
-  const dropzone = $("#dropzone");
-  const fileInput = $("#attachments");
-  const fileList = $("#fileList");
 
   const TOAST = {
     host: $("#toastHost"),
@@ -215,106 +210,6 @@
     return { ok, firstBad };
   }
 
-  /* ---------- Dropzone ---------- */
-  const MAX_FILES = 5;
-  const MAX_SIZE = 5 * 1024 * 1024; // 5MB
-  const ACCEPT = []; // مثلا ['image/png','image/jpeg'] اگر محدودیت داری
-
-  function validFile(f) {
-    if (ACCEPT.length && !ACCEPT.includes(f.type)) return false;
-    if (f.size > MAX_SIZE) return false;
-    return true;
-  }
-
-  function renderFiles(files) {
-    fileList.innerHTML = "";
-    const frag = document.createDocumentFragment();
-    Array.from(files)
-      .slice(0, MAX_FILES)
-      .forEach((f, idx) => {
-        const li = document.createElement("li");
-        const name = document.createElement("span");
-        name.textContent = `${f.name} • ${Math.ceil(f.size / 1024)}KB`;
-
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "btn ghost btn-remove";
-        btn.innerHTML = `<i class="fa-regular fa-trash-can" aria-hidden="true"></i>`;
-        btn.setAttribute("aria-label", "remove file");
-
-        btn.addEventListener("click", () => {
-          const dt = new DataTransfer();
-          Array.from(fileInput.files).forEach((x, i) => {
-            if (i !== idx) dt.items.add(x);
-          });
-          fileInput.files = dt.files;
-          renderFiles(fileInput.files);
-        });
-
-        li.append(name, btn);
-        frag.appendChild(li);
-      });
-    fileList.appendChild(frag);
-  }
-
-  function openFilePicker() {
-    fileInput.click();
-  }
-
-  dropzone?.addEventListener("click", openFilePicker);
-  dropzone?.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      openFilePicker();
-    }
-  });
-  let dragDepth = 0;
-  dropzone?.addEventListener("dragover", (e) => {
-    e.preventDefault(); // لازم برای drop
-  });
-  dropzone?.addEventListener("dragenter", (e) => {
-    e.preventDefault();
-    dragDepth++;
-    dropzone.classList.add("drag");
-  });
-  dropzone?.addEventListener("dragleave", () => {
-    dragDepth = Math.max(0, dragDepth - 1);
-    if (dragDepth === 0) dropzone.classList.remove("drag");
-  });
-  dropzone?.addEventListener("drop", (e) => {
-    e.preventDefault();
-    dragDepth = 0;
-    dropzone.classList.remove("drag");
-
-    const incoming = Array.from(e.dataTransfer.files).filter(validFile);
-    const merged = Array.from(fileInput.files)
-      .concat(incoming)
-      .slice(0, MAX_FILES);
-
-    const dt = new DataTransfer();
-    merged.forEach((f) => dt.items.add(f));
-    fileInput.files = dt.files;
-    renderFiles(fileInput.files);
-
-    if (incoming.length === 0) {
-      TOAST.show(
-        I18N.t("contact.badFile") || "File type/size not allowed.",
-        "error"
-      );
-    }
-  });
-  fileInput?.addEventListener("change", () => {
-    const filtered = Array.from(fileInput.files)
-      .filter(validFile)
-      .slice(0, MAX_FILES);
-    const dt = new DataTransfer();
-    filtered.forEach((f) => dt.items.add(f));
-    fileInput.files = dt.files;
-    renderFiles(fileInput.files);
-  });
-
-  fileInput?.addEventListener("change", () => renderFiles(fileInput.files));
-
   /* ---------- Copy buttons (email) ---------- */
   $$("[data-copy]").forEach((btn) => {
     btn.addEventListener("click", async () => {
@@ -342,7 +237,6 @@
 
   resetBtn?.addEventListener("click", () => {
     form.reset();
-    renderFiles([]);
     clearDraft();
     updateCounter();
     $$("input,textarea,select", form).forEach((el) =>
@@ -350,7 +244,7 @@
     );
   });
 
-  form?.addEventListener("submit", async (e) => {
+  form?.addEventListener("submit", (e) => {
     e.preventDefault();
     const { ok, firstBad } = validate();
     if (!ok) {
@@ -362,26 +256,11 @@
       return;
     }
 
-    submitBtn.disabled = true;
-    submitBtn.classList.add("loading");
-    submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>${
-      I18N.t("contact.sending") || "در حال ارسال..."
-    }</span>`;
+    const subject = `[${I18N.t("brand.title")}] ${subjectEl.selectedOptions[0].textContent.trim()}`;
+    const body = `${messageEl.value.trim()}\n\n— ${nameEl.value.trim()} <${emailEl.value.trim()}>`;
 
-    // شبیه‌سازی ارسال
-    await new Promise((r) => setTimeout(r, 1200));
-
-    submitBtn.disabled = false;
-    submitBtn.classList.remove("loading");
-    submitBtn.innerHTML = `<i class="fa-regular fa-paper-plane"></i><span>${
-      I18N.t("contact.send") || "ارسال"
-    }</span>`;
-
-    TOAST.show(I18N.t("contact.sent") || "Sent successfully!", "success");
-    form.reset();
-    renderFiles([]);
-    clearDraft();
-    updateCounter();
+    window.location.href = `mailto:${form.dataset.to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    TOAST.show(I18N.t("contact.mailOpened") || "Your mail app opened.", "success");
   });
 
   /* ---------- Header basic (drawer) ---------- */
