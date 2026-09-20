@@ -34,13 +34,6 @@
   document.addEventListener("click", (e) => {
     const t = e.target instanceof Element ? e.target : null;
 
-    // lang toggle
-    if (t && t.closest("#langToggle")) {
-      // تنها نقطهٔ فراخوانی تغییر زبان
-      if (window.I18N?.toggle) I18N.toggle();
-      return;
-    }
-
     // nav open/close
     if (t && t.closest("#navToggle")) {
       toggleNav();

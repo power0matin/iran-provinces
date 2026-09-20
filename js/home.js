@@ -17,16 +17,16 @@
     { slug: "alborz", names: { fa: "البرز", en: "Alborz" } },
     { slug: "ardabil", names: { fa: "اردبیل", en: "Ardabil" } },
     {
-      slug: "azarbaijan-east",
+      slug: "east-azerbaijan",
       names: { fa: "آذربایجان شرقی", en: "East Azerbaijan" },
     },
     {
-      slug: "azarbaijan-west",
+      slug: "west-azarbaijan",
       names: { fa: "آذربایجان غربی", en: "West Azerbaijan" },
     },
     { slug: "bushehr", names: { fa: "بوشهر", en: "Bushehr" } },
     {
-      slug: "chaharmahal-bakhtiari",
+      slug: "chaharmahal-and-bakhtiari",
       names: { fa: "چهارمحال و بختیاری", en: "Chaharmahal and Bakhtiari" },
     },
     { slug: "fars", names: { fa: "فارس", en: "Fars" } },
@@ -40,10 +40,10 @@
     { slug: "kermanshah", names: { fa: "کرمانشاه", en: "Kermanshah" } },
     { slug: "khuzestan", names: { fa: "خوزستان", en: "Khuzestan" } },
     {
-      slug: "kohgiluyeh-boyerahmad",
+      slug: "Kohgiluyeh-and-Boyer-Ahmad",
       names: { fa: "کهگیلویه و بویراحمد", en: "Kohgiluyeh and Boyer-Ahmad" },
     },
-    { slug: "kordestan", names: { fa: "کردستان", en: "Kurdistan" } },
+    { slug: "kurdistan", names: { fa: "کردستان", en: "Kurdistan" } },
     {
       slug: "khorasan-north",
       names: { fa: "خراسان شمالی", en: "North Khorasan" },
@@ -168,7 +168,11 @@
   }
 
   function normalizeProvinceList(data) {
-    const source = Array.isArray(data) ? data : FALLBACK_PROVINCES;
+    const source = Array.isArray(data)
+      ? data
+      : Array.isArray(data?.provinces)
+        ? data.provinces
+        : FALLBACK_PROVINCES;
 
     const seen = new Set();
 

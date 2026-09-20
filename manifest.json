@@ -1,0 +1,17 @@
+{
+  "name": "استان‌های ایران",
+  "short_name": "استان‌ها",
+  "description": "نقشه تعاملی و معرفی استان‌های ایران",
+  "lang": "fa",
+  "dir": "rtl",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0A1514",
+  "theme_color": "#0ea5e9",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
