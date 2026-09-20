@@ -42,7 +42,7 @@
   </script>
 
   <!-- PWA / Theme -->
-  <meta name="theme-color" content="#f4f1ea" />
+  <meta name="theme-color" content="#0ea5e9" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icons/favicon.ico" sizes="any" />
   <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
@@ -59,7 +59,6 @@
   <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/responsive.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-  <script src="js/darkMode.js"></script>
 </head>
 
 
@@ -127,7 +126,6 @@
 
   <!-- Main -->
   <main class="container province-main">
-    <h1 id="provinceTitle" class="province-title"></h1>
     <section class="card fade-in-up">
       <div class="card-header">
         <div class="chips">
@@ -201,6 +199,7 @@
 
   <!-- Scripts: i18n & theme must load BEFORE province.js -->
   <script src="js/i18n.js" defer></script>
+  <script src="js/darkMode.js" defer></script>
   <script src="js/province.js" defer></script>
 
   <script src="js/site.js" defer></script>
@@ -211,6 +210,7 @@
   <script src="js/map.js" defer></script>
   <script src="js/nav.js" defer></script>
   <script src="js/search-global.js" defer></script>
+  <script src="js/theme-sync.js" defer></script>
   <script>
     (function () {
       const mq = window.matchMedia('(max-width: 700px)');

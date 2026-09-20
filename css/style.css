@@ -10,22 +10,34 @@
 :root {
   color-scheme: light dark;
 
-  --primary: #3cc8b4;
-  --primary-700: #1fa091;
-  --primary-200: #8fe3d6;
-  --on-primary: #062321;
-  --saffron: #e0a526;
+  --brand-h: 300;
+  --brand-c: 0.2;
+  --brand-l: 0.62;
+
+  --gray-1: oklch(0.99 0.01 250);
+  --gray-2: oklch(0.97 0.01 250);
+  --gray-3: oklch(0.93 0.01 250);
+  --gray-4: oklch(0.86 0.01 250);
+  --gray-5: oklch(0.72 0.01 250);
+  --gray-6: oklch(0.58 0.01 250);
+  --gray-7: oklch(0.42 0.01 250);
+  --gray-8: oklch(0.28 0.01 250);
+  --gray-9: oklch(0.2 0.01 250);
+
+  --primary: oklch(var(--brand-l) var(--brand-c) var(--brand-h));
+  --primary-700: oklch(calc(var(--brand-l) - 0.07) var(--brand-c) var(--brand-h));
+  --primary-200: oklch(calc(var(--brand-l) + 0.14) calc(var(--brand-c) - 0.05) var(--brand-h));
 
   --success: oklch(0.7 0.14 150);
   --warning: oklch(0.85 0.12 95);
   --danger: oklch(0.65 0.16 28);
 
-  --bg: #091413;
-  --bg-soft: #0e1b1a;
-  --card: #132625;
-  --border: #26433f;
-  --text: #eaf4f2;
-  --muted: #9db3af;
+  --bg: oklch(0.13 0.024 280);
+  --bg-soft: oklch(0.17 0.024 280);
+  --card: oklch(0.215 0.025 280);
+  --border: oklch(0.36 0.025 280);
+  --text: oklch(0.985 0.008 280);
+  --muted: oklch(0.78 0.025 280);
 
   --ring: color-mix(in oklab, var(--primary) 28%, transparent);
 
@@ -91,26 +103,36 @@
 [data-theme="light"] {
   color-scheme: light;
 
-  --bg: #f4f1ea;
-  --bg-soft: #fbfaf6;
+  --bg: #f5f0fb;
+  --bg-soft: #fffaff;
   --card: #ffffff;
-  --text: #14201f;
-  --muted: #55625f;
-  --primary: #0b7a75;
-  --primary-700: #075e5b;
-  --primary-200: #9fddd5;
-  --on-primary: #ffffff;
-  --border: #ddd8cb;
+  --text: #171c2b;
+  --muted: #657089;
+  --primary: #6f48ff;
+  --primary-700: #5c38ff;
+  --primary-200: #c8bcff;
+  --border: #ded5ec;
 
-  --shadow: 0 20px 60px rgb(20 32 31 / 0.1);
-  --shadow-soft: 0 12px 32px rgb(20 32 31 / 0.08);
-  --shadow-card: 0 18px 46px rgb(20 32 31 / 0.1);
-  --shadow-card-hover: 0 26px 76px rgb(20 32 31 / 0.16);
-  --shadow-control: 0 8px 18px rgb(20 32 31 / 0.08);
+  --shadow: 0 20px 60px rgb(40 28 70 / 0.1);
+  --shadow-soft: 0 12px 32px rgb(40 28 70 / 0.08);
+  --shadow-card: 0 18px 46px rgb(38 28 66 / 0.1);
+  --shadow-card-hover: 0 26px 76px rgb(38 28 66 / 0.16);
+  --shadow-control: 0 8px 18px rgb(38 28 66 / 0.08);
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
+
+  --bg: oklch(0.13 0.024 280);
+  --bg-soft: oklch(0.17 0.024 280);
+  --card: oklch(0.215 0.025 280);
+  --border: oklch(0.36 0.025 280);
+  --text: oklch(0.985 0.008 280);
+  --muted: oklch(0.78 0.025 280);
+
+  --primary: oklch(0.67 0.2 var(--brand-h));
+  --primary-700: oklch(0.58 0.2 var(--brand-h));
+  --primary-200: oklch(0.78 0.1 var(--brand-h));
 }
 
 /* ==================== Reset / Base ==================== */
@@ -154,8 +176,8 @@ body {
   font-feature-settings: "kern", "liga";
   line-height: 1.6;
   background:
-    radial-gradient(circle at 18% -8%, color-mix(in oklab, var(--primary) 11%, transparent), transparent 28rem),
-    radial-gradient(circle at 88% 6%, color-mix(in oklab, var(--primary-200) 7%, transparent), transparent 24rem),
+    radial-gradient(circle at 18% -8%, color-mix(in oklab, var(--primary) 18%, transparent), transparent 28rem),
+    radial-gradient(circle at 88% 6%, color-mix(in oklab, var(--primary-200) 10%, transparent), transparent 24rem),
     linear-gradient(180deg, color-mix(in oklab, var(--bg-soft) 34%, transparent), transparent 18rem),
     var(--bg);
   color: var(--text);
@@ -489,7 +511,7 @@ select {
   background:
     radial-gradient(circle at 30% 20%, color-mix(in oklab, white 28%, transparent), transparent 36%),
     linear-gradient(135deg, var(--primary), var(--primary-700));
-  color: var(--on-primary);
+  color: #fff;
   box-shadow:
     0 10px 24px color-mix(in oklab, var(--primary) 26%, transparent),
     inset 0 0 0 1px color-mix(in oklab, white 24%, transparent);
@@ -850,15 +872,15 @@ select {
 
 @keyframes slider-pulse {
   0% {
-    box-shadow: inset 0 0 0 0 color-mix(in oklab, var(--primary) 0%, transparent);
+    box-shadow: inset 0 0 0 0 rgb(124 92 255 / 0);
   }
 
   40% {
-    box-shadow: inset 0 0 0 4px color-mix(in oklab, var(--primary) 22%, transparent);
+    box-shadow: inset 0 0 0 4px rgb(124 92 255 / 0.22);
   }
 
   100% {
-    box-shadow: inset 0 0 0 0 color-mix(in oklab, var(--primary) 0%, transparent);
+    box-shadow: inset 0 0 0 0 rgb(124 92 255 / 0);
   }
 }
 
@@ -1003,7 +1025,7 @@ html[dir="ltr"] .nav-inner {
 
 .main-nav .nav-link.is-active,
 .main-nav .nav-link[aria-current="page"] {
-  color: var(--on-primary);
+  color: #fff;
   border-color: color-mix(in oklab, var(--primary) 88%, white);
   background:
     radial-gradient(circle at 28% 0%, color-mix(in oklab, white 25%, transparent), transparent 34%),

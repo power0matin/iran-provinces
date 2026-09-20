@@ -44,7 +44,7 @@
   </script>
 
   <!-- PWA / Theme -->
-  <meta name="theme-color" content="#f4f1ea" />
+  <meta name="theme-color" content="#0ea5e9" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icons/favicon.ico" sizes="any" />
   <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
@@ -64,7 +64,6 @@
   <link rel="stylesheet" href="css/map.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-  <script src="js/darkMode.js"></script>
 </head>
 
 <body class="theme-auto">
@@ -191,6 +190,7 @@
   <!-- Scripts (order matters) -->
   <script src="js/i18n.js" defer></script>
   <script src="js/site.js" defer></script>
+  <script src="js/darkMode.js" defer></script>
   <script src="js/home.js" defer></script>
 
   <!-- Leaflet -->
@@ -199,6 +199,7 @@
   <script src="js/map.js" defer></script>
   <script src="js/nav.js" defer></script>
   <script src="js/search-global.js" defer></script>
+  <script src="js/theme-sync.js" defer></script>
   <script>
     (function () {
       const mq = window.matchMedia('(max-width: 700px)');

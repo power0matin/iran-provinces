@@ -22,7 +22,6 @@
     chipPopulation: "#chipPopulation",
     chipArea: "#chipArea",
 
-    provinceTitle: "#provinceTitle",
     introTitle: "#introTitle",
     introText: "#introText",
     heroImage: "#heroImage",
@@ -553,7 +552,6 @@
 
   function renderNotFound() {
     document.title = t("province.noData");
-    setText(SELECTORS.provinceTitle, "");
 
     setText(SELECTORS.introTitle, t("province.aboutTitle"));
     setText(SELECTORS.introText, t("msg.noData"));
@@ -583,7 +581,6 @@
 
     const name = provinceName(province);
     document.title = name;
-    setText(SELECTORS.provinceTitle, name);
 
     renderChips(province);
     renderIntro(province);

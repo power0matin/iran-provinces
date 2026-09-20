@@ -78,21 +78,16 @@
   // ==============================
   const status = $("#mapStatus");
 
-  const primaryColor = () =>
-    getComputedStyle(document.documentElement)
-      .getPropertyValue("--primary")
-      .trim() || "#0b7a75";
+  const fill =
+    getComputedStyle(document.documentElement).getPropertyValue("--primary") ||
+    "#6d28d9";
   const normalStyle = {
     color: "rgba(0,0,0,.25)",
     weight: 1,
-    fillColor: primaryColor(),
+    fillColor: fill.trim(),
     fillOpacity: 0.08,
   };
   const hoverStyle = { weight: 2, fillOpacity: 0.18 };
-  window.addEventListener("themechange", () => {
-    normalStyle.fillColor = primaryColor();
-    geojson?.setStyle(() => normalStyle);
-  });
 
   function _neatEN(s) {
     if (!s) return "";
