@@ -62,10 +62,10 @@ A modern, responsive, bilingual (FA/EN) web app to **explore Iran’s provinces*
 ## 📸 Screenshots
 
 **Home**
-![Homepage](images/screenshot.png)
+![Homepage](images/new_version_preview_light.png)
 
 **Dark mode**
-![Dark Mode](images/screenshot_darkmode.png)
+![Dark Mode](images/new_version_preview_dark.png)
 
 ## 🗂 Project Structure
 
@@ -112,7 +112,6 @@ iran-provinces/
 
 - **Home** fetches `data/provinces/index.json` and renders the **31 provinces** list. The map draws `data/geo/iran-provinces.geojson`; every feature carries the province `id` and links to `province.html?id=<id>`.
 - **Province detail** reads `id` from the query string, finds the object in `index.json`, then fills:
-
   - Chips: **capital**, **population**, **area**
   - **Intro** & **hero** image
   - **Counties** accordion (each with **cities**)
@@ -144,7 +143,6 @@ python3 -m http.server
 
 - Use the **Language** toggle in the header to switch **Persian ⇄ English**.
 - `i18n.js`:
-
   - Updates all `[data-i18n]` texts on the fly
   - Sets `html[lang="fa"|"en"]` and `dir="rtl"|"ltr"`
   - Persists choice in `localStorage`
@@ -260,10 +258,10 @@ See [LICENSE](LICENSE) for details.
 
 **Matin Shahabadi (متین شاه‌آبادی / متین شاه آبادی)**
 
-* Website: [matinshahabadi.ir](https://matinshahabadi.ir)
-* Email: [me@matinshahabadi.ir](mailto:me@matinshahabadi.ir)
-* GitHub: [power0matin](https://github.com/power0matin)
-* LinkedIn: [matin-shahabadi](https://www.linkedin.com/in/matin-shahabadi)
+- Website: [matinshahabadi.ir](https://matinshahabadi.ir)
+- Email: [me@matinshahabadi.ir](mailto:me@matinshahabadi.ir)
+- GitHub: [power0matin](https://github.com/power0matin)
+- LinkedIn: [matin-shahabadi](https://www.linkedin.com/in/matin-shahabadi)
 
 ## 🙌 Credits
 

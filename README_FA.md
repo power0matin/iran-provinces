@@ -19,11 +19,11 @@
 
 ### ☀️ صفحه اصلی
 
-![Homepage](images/screenshot.png)
+![Homepage](images/new_version_preview_light.png)
 
 ### 🌙 حالت تاریک
 
-![Dark Mode](images/screenshot_darkmode.png)
+![Dark Mode](images/new_version_preview_dark.png)
 
 ## 🧱 ساختار پروژه
 
@@ -174,14 +174,15 @@ chore(css): بهبود استایل واکنش‌گرا
 این پروژه تحت مجوز **MIT License** منتشر شده است.
 اطلاعات بیشتر در فایل [LICENSE](LICENSE)
 .
+
 ## 📬 ارتباط با من
 
 **Matin Shahabadi (متین شاه‌آبادی / متین شاه آبادی)**
 
- وب‌سایت: [matinshahabadi.ir](https://matinshahabadi.ir)
-* ایمیل: [me@matinshahabadi.ir](mailto:me@matinshahabadi.ir)
-* گیت‌هاب: [power0matin](https://github.com/power0matin)
-* لینکدین: [matin-shahabadi](https://www.linkedin.com/in/matin-shahabadi)
+وب‌سایت: [matinshahabadi.ir](https://matinshahabadi.ir)
 
+- ایمیل: [me@matinshahabadi.ir](mailto:me@matinshahabadi.ir)
+- گیت‌هاب: [power0matin](https://github.com/power0matin)
+- لینکدین: [matin-shahabadi](https://www.linkedin.com/in/matin-shahabadi)
 
 © 2024 تمامی حقوق محفوظ است.
