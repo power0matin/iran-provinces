@@ -1,4 +1,4 @@
-# 🌍 Iran Provinces — Interactive Map & Directory
+<h1 align="center">🌍 Iran Provinces — Interactive Map &amp; Directory</h1>
 
 <!-- repo-badges:start -->
 <p align="center">
@@ -267,3 +267,24 @@ See [LICENSE](LICENSE) for details.
 
 Designed & developed by **[@power0matin](https://github.com/power0matin)**.
 Map image & province boundaries: public educational resources—open an issue if attribution needs adjustment.
+
+<p align="center">
+  <b>If this helped you, consider giving it a star!</b><br>
+  <sub>Your support keeps the project alive and helps others find it.</sub>
+</p>
+
+<!-- Copy-paste in your Readme.md file -->
+<p align="center">
+  <a href="https://next.ossinsight.io/widgets/official/analyze-repo-stars-history?repo_id=895417436" target="_blank" style="display: block" align="center">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://next.ossinsight.io/widgets/official/analyze-repo-stars-history/thumbnail.png?repo_id=895417436&amp;image_size=auto&amp;color_scheme=dark" width="721" height="auto">
+      <img alt="Star History of power0matin/iran-provinces" src="https://next.ossinsight.io/widgets/official/analyze-repo-stars-history/thumbnail.png?repo_id=895417436&amp;image_size=auto&amp;color_scheme=light" width="721" height="auto">
+    </picture>
+  </a>
+</p>
+
+<!-- Made with [OSS Insight](https://ossinsight.io/) -->
+
+<p align="center">
+  Created by <a href="https://github.com/power0matin">power0matin</a>
+</p>
