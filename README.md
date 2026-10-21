@@ -10,16 +10,21 @@
 </p>
 <!-- repo-badges:end -->
 
+<p align="center">
+  <a href="https://power0matin.github.io/iran-provinces/"><img src="https://img.shields.io/badge/pages-live-0b7a75?logo=github&amp;logoColor=white" alt="GitHub Pages"/></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-success.svg" alt="License: MIT"/></a>
+  <img src="https://img.shields.io/github/repo-size/power0matin/iran-provinces?label=size" alt="Repository Size"/>
+  <img src="https://img.shields.io/github/last-commit/power0matin/iran-provinces" alt="Last Commit"/>
+  <img src="https://img.shields.io/github/issues/power0matin/iran-provinces" alt="Open Issues"/>
+  <img src="https://img.shields.io/github/stars/power0matin/iran-provinces?style=social" alt="GitHub Stars"/>
+</p>
+<!-- repo-badges:end -->
+
 > **Official project page:** [matinshahabadi.ir/projects/iran-provinces/](https://matinshahabadi.ir/projects/iran-provinces/)
 
 [فارسی | Persian](README_FA.md)
 
-[![GitHub Pages](https://img.shields.io/badge/pages-live-0b7a75?logo=github&logoColor=white)](https://power0matin.github.io/iran-provinces/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-success.svg)](LICENSE)
-![Repo size](https://img.shields.io/github/repo-size/power0matin/iran-provinces?label=size)
-![Last commit](https://img.shields.io/github/last-commit/power0matin/iran-provinces)
-![Open issues](https://img.shields.io/github/issues/power0matin/iran-provinces)
-![Stars](https://img.shields.io/github/stars/power0matin/iran-provinces?style=social)
+
 
 A modern, responsive, bilingual (FA/EN) web app to **explore Iran’s provinces** with a **clickable map**, **search**, **animated dark mode**, and **rich province pages** (intro, counties, cities, attractions). Built with vanilla HTML/CSS/JS and **no build step** (Leaflet, Font Awesome and Vazirmatn load from CDNs)—perfect for GitHub Pages.
 
